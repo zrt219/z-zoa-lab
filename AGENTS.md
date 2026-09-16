@@ -112,3 +112,19 @@ Z-zoa-lab/
      python reproducibility/REPRODUCE_ALL.py
      python -m pytest
      ```
+
+---
+
+## 3. Astronomical Realism & Observational Provenance Invariant
+
+1. **Physical Scale Sanity**:
+   - Reconstructed overdensity fields $\delta(\mathbf{x}) \equiv (\rho - \bar{\rho})/\bar{\rho}$ must obey linear and mildly non-linear cosmological bounds on $10\,h^{-1}\text{ Mpc}$ smoothing scales ($\delta \in [-3.0, +5.0]$, spatial mean $\langle \delta \rangle \equiv 0.00 \pm 0.01$).
+   - Peculiar velocities $v_{\text{pec}}$ must never exceed physical cosmic infall limits ($v_{\text{rms}} \in [300, 600]\text{ km s}^{-1}$, $v_{\max} \le 2,500\text{ km s}^{-1}$). Any calculation yielding $v > 0.01c$ must fail loudly with `UnphysicalCosmologyError`.
+
+2. **Survey Scope & Holdout Identity**:
+   - Never conflate foreground survey objects with background target superclusters. The 39 quarantined Parkes HIZOA galaxies ($cz \le 11,790\text{ km s}^{-1}$) must be explicitly documented as foreground decontamination, not the deep MeerKAT Vela Supercluster ($cz \sim 18,000\text{--}23,000\text{ km s}^{-1}$, $N=843$).
+   - Holdout null distributions must be aperture- and redshift-matched to the evaluated sample envelope.
+
+3. **Zero Mock Fallback Policy in Production**:
+   - API routes, White Calculation Room inspectors, and publication tables must report live array values directly from verified run artifacts without hardcoded overrides or mock formula fallbacks.
+
