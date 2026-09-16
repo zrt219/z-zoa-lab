@@ -451,7 +451,7 @@ export function App() {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
           <span style={{ fontWeight: 600, color: "#0F172A" }}>
-            Z-ZOA &bull; Zone of Avoidance Research &bull; Made with care by Zhane
+            Z-ZOA &bull; Zone of Avoidance Research &bull; Made by Zhane
           </span>
           <span style={{ color: "#94A3B8" }}>&bull;</span>
           <span style={{ fontStyle: "italic", fontFamily: "'Newsreader', serif", color: "#475569" }}>
@@ -499,8 +499,8 @@ export function App() {
               gap: "4px",
             }}
           >
-            <span>LinkedIn</span>
-            <span style={{ color: "#0369A1" }}>zhane-umattr ↗</span>
+            <span>Zhane Grey</span>
+            <span style={{ color: "#0369A1" }}>LinkedIn ↗</span>
           </a>
           <a
             href="https://umattr.ca"
