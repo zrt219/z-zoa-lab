@@ -40,9 +40,122 @@ export const Phase1BigPicture: React.FC<PhaseViewProps> = ({ onNavigatePhase }) 
         <h2 style={{ fontSize: "28px", fontWeight: 800, margin: "6px 0 8px 0", color: "#0F172A", letterSpacing: "-0.02em" }}>
           Z-ZOA Research + 3D Lab Plan
         </h2>
-        <p style={{ fontSize: "15px", color: "#64748B", margin: 0, fontStyle: "italic" }}>
-          &ldquo;Same questions. Deeper universe. Galaxies behind the dust. Ideas without limits.&rdquo;
+        <p style={{ fontSize: "15px", color: "#64748B", margin: 0, fontStyle: "italic", fontFamily: "'Newsreader', serif" }}>
+          &ldquo;Same sky. More galaxies. A clearer tomorrow.&rdquo;
         </p>
+      </div>
+
+      {/* 3D Lab Companion Hero Showcase Card */}
+      <div
+        style={{
+          backgroundColor: "#FFFFFF",
+          border: "1px solid #CBD5E1",
+          borderRadius: "10px",
+          overflow: "hidden",
+          boxShadow: "0 4px 20px -2px rgba(15, 23, 42, 0.05)",
+          display: "grid",
+          gridTemplateColumns: "1.2fr 1fr",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span
+              style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "10px",
+                fontWeight: 700,
+                color: "#2563EB",
+                backgroundColor: "#EFF6FF",
+                padding: "2px 8px",
+                borderRadius: "4px",
+                border: "1px solid #BFDBFE",
+              }}
+            >
+              PHASE 4 // 3D LAB
+            </span>
+            <span style={{ fontSize: "12px", color: "#64748B" }}>Interactive Cosmic Volume</span>
+          </div>
+
+          <h3
+            style={{
+              fontFamily: "'Newsreader', serif",
+              fontSize: "22px",
+              fontWeight: 700,
+              margin: 0,
+              color: "#0F172A",
+              lineHeight: "1.25",
+            }}
+          >
+            Cosmic Web &amp; Obscured ZoA Reconstruction Companion
+          </h3>
+
+          <p style={{ fontSize: "13px", color: "#475569", margin: 0, lineHeight: "1.5" }}>
+            Explore large-scale structure across the southern Zone of Avoidance in diagrammatic 3D. Inspect the Great Attractor (Norma cluster), Vela Supercluster, and the obscured Galactic plane (|b| &lt; 10°) alongside peculiar velocity vectors and out-of-sample holdout validation.
+          </p>
+
+          <div style={{ display: "flex", gap: "10px", marginTop: "4px" }}>
+            <button
+              onClick={() => onNavigatePhase(4)}
+              style={{
+                padding: "8px 18px",
+                fontSize: "12px",
+                fontWeight: 600,
+                backgroundColor: "#2563EB",
+                color: "#FFFFFF",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+                boxShadow: "0 2px 6px rgba(37, 99, 235, 0.25)",
+              }}
+            >
+              Enter 3D Lab Companion ➔
+            </button>
+            <button
+              onClick={() => onNavigatePhase(3)}
+              style={{
+                padding: "8px 14px",
+                fontSize: "12px",
+                fontWeight: 500,
+                backgroundColor: "#FAF8F5",
+                color: "#0F172A",
+                border: "1px solid #CBD5E1",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+            >
+              White Calculation Room
+            </button>
+          </div>
+        </div>
+
+        <div
+          onClick={() => onNavigatePhase(4)}
+          style={{
+            cursor: "pointer",
+            backgroundColor: "#FAF8F5",
+            height: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            overflow: "hidden",
+            borderLeft: "1px solid #E2E8F0",
+          }}
+        >
+          <img
+            src="/z_zoa_3d_lab_hero.png"
+            alt="Z-ZOA 3D Cosmic Lab Hero"
+            style={{
+              width: "100%",
+              height: "auto",
+              objectFit: "cover",
+              display: "block",
+              transition: "transform 0.3s ease",
+            }}
+            onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.02)")}
+            onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1.0)")}
+          />
+        </div>
       </div>
 
       {/* 10-Step Interactive Flowchart Grid */}
@@ -84,8 +197,8 @@ export const Phase1BigPicture: React.FC<PhaseViewProps> = ({ onNavigatePhase }) 
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "12px",
                     fontWeight: 700,
+                    fontSize: "12px",
                   }}
                 >
                   {s.num}
@@ -104,6 +217,98 @@ export const Phase1BigPicture: React.FC<PhaseViewProps> = ({ onNavigatePhase }) 
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Author & Research Connect Banner */}
+      <div
+        style={{
+          backgroundColor: "#FAF8F5",
+          border: "1px solid #E2E8F0",
+          borderRadius: "8px",
+          padding: "16px 20px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: "12px",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
+          <span style={{ fontWeight: 700, fontSize: "13px", color: "#0F172A" }}>
+            Zhane Grey &bull; Z-ZOA Research
+          </span>
+          <span style={{ fontStyle: "italic", fontSize: "12px", color: "#64748B", fontFamily: "'Newsreader', serif" }}>
+            &ldquo;Same sky. More galaxies. A clearer tomorrow.&rdquo;
+          </span>
+        </div>
+
+        <div style={{ display: "flex", gap: "8px" }}>
+          <a
+            href="https://github.com/zrt219"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "5px 12px",
+              fontSize: "11px",
+              fontWeight: 600,
+              backgroundColor: "#FFFFFF",
+              color: "#0F172A",
+              border: "1px solid #CBD5E1",
+              borderRadius: "4px",
+              textDecoration: "none",
+            }}
+          >
+            <span>GitHub</span>
+            <span style={{ color: "#64748B" }}>@zrt219 ↗</span>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/zhane-umattr"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "5px 12px",
+              fontSize: "11px",
+              fontWeight: 600,
+              backgroundColor: "#FFFFFF",
+              color: "#0284C7",
+              border: "1px solid #BAE6FD",
+              borderRadius: "4px",
+              textDecoration: "none",
+            }}
+          >
+            <span>LinkedIn</span>
+            <span style={{ color: "#0284C7" }}>zhane-umattr ↗</span>
+          </a>
+
+          <a
+            href="https://umattr.ca"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "5px 12px",
+              fontSize: "11px",
+              fontWeight: 600,
+              backgroundColor: "#0F172A",
+              color: "#FFFFFF",
+              border: "1px solid #0F172A",
+              borderRadius: "4px",
+              textDecoration: "none",
+            }}
+          >
+            <span>UMATTR</span>
+            <span style={{ color: "#94A3B8" }}>umattr.ca ↗</span>
+          </a>
+        </div>
       </div>
     </div>
   );

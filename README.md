@@ -8,6 +8,12 @@
 
 > A rigorous cosmology research environment, calculation workbench, and interactive 3D laboratory for reconstructing and validating large-scale cosmic structure hidden behind the Milky Way's Zone of Avoidance ($|b| < 10^\circ$).
 
+<p align="center">
+  <img src="paper/figures/z_zoa_3d_lab_hero.png" alt="Z-ZOA 3D Cosmic Lab Companion" width="100%" />
+  <br />
+  <em>Z-ZOA 3D Cosmic Lab Companion: Out-of-sample cosmic web reconstruction across the southern Zone of Avoidance (|b| &lt; 10°), highlighting the Great Attractor (Norma core), Vela Supercluster, and peculiar velocity vector fields.</em>
+</p>
+
 ---
 
 ## 🌌 Overview
@@ -225,9 +231,31 @@ Z-ZOA is an **independent research project**. It is not an official project of, 
 
 ## 📄 License & Authorship
 
-- **Author**: Zhane Grey & Research Collaborators (2026)
+- **Author**: **Zhane Grey** (Lead Cosmological Architect & Researcher)
 - Software in this repository is released under the [MIT License](LICENSE).
 - Scientific observational datasets obtained from external astronomical archives remain subject to their original licences, acknowledgements, and citation requirements.
+
+---
+
+## 🔗 Connect & Author Links
+
+<p align="left">
+  <a href="https://github.com/zrt219" target="_blank">
+    <img src="https://img.shields.io/badge/GitHub-zrt219-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
+  </a>
+  &nbsp;
+  <a href="https://www.linkedin.com/in/zhane-umattr" target="_blank">
+    <img src="https://img.shields.io/badge/LinkedIn-zhane--umattr-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  &nbsp;
+  <a href="https://umattr.ca" target="_blank">
+    <img src="https://img.shields.io/badge/Platform-UMATTR.CA-0F172A?style=for-the-badge" alt="UMATTR" />
+  </a>
+</p>
+
+- **GitHub**: [@zrt219](https://github.com/zrt219)
+- **LinkedIn**: [zhane-umattr](https://www.linkedin.com/in/zhane-umattr)
+- **UMATTR**: [umattr.ca](https://umattr.ca)
 
 ---
 

@@ -443,15 +443,74 @@ export function App() {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
+          flexWrap: "wrap",
+          gap: "12px",
           fontSize: "11px",
-          color: "#94A3B8",
+          color: "#64748B",
         }}
       >
-        <div>
-          Z-ZOA &bull; Zone of Avoidance Research &bull; Made with care by Zhane &bull; &ldquo;Same sky. More galaxies. A clearer tomorrow.&rdquo;
+        <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+          <span style={{ fontWeight: 600, color: "#0F172A" }}>
+            Z-ZOA &bull; Zone of Avoidance Research &bull; Made with care by Zhane
+          </span>
+          <span style={{ color: "#94A3B8" }}>&bull;</span>
+          <span style={{ fontStyle: "italic", fontFamily: "'Newsreader', serif", color: "#475569" }}>
+            &ldquo;Same sky. More galaxies. A clearer tomorrow.&rdquo;
+          </span>
         </div>
-        <div>
-          CF4-Compatible &bull; Planck 2018 Cosmology &bull; XRPL Testnet Anchor v1.0
+
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <a
+            href="https://github.com/zrt219"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: "3px 8px",
+              borderRadius: "4px",
+              border: "1px solid #CBD5E1",
+              backgroundColor: "#FFFFFF",
+              color: "#0F172A",
+              textDecoration: "none",
+              fontSize: "11px",
+              fontWeight: 500,
+            }}
+          >
+            GitHub: @zrt219 ↗
+          </a>
+          <a
+            href="https://www.linkedin.com/in/zhane-umattr"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: "3px 8px",
+              borderRadius: "4px",
+              border: "1px solid #BAE6FD",
+              backgroundColor: "#F0F9FF",
+              color: "#0284C7",
+              textDecoration: "none",
+              fontSize: "11px",
+              fontWeight: 500,
+            }}
+          >
+            LinkedIn ↗
+          </a>
+          <a
+            href="https://umattr.ca"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: "3px 8px",
+              borderRadius: "4px",
+              border: "1px solid #0F172A",
+              backgroundColor: "#0F172A",
+              color: "#FFFFFF",
+              textDecoration: "none",
+              fontSize: "11px",
+              fontWeight: 600,
+            }}
+          >
+            UMATTR.CA ↗
+          </a>
         </div>
       </footer>
 
