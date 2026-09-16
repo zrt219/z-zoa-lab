@@ -459,22 +459,70 @@ export function App() {
           </span>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "14px", fontSize: "11px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <a
             href="https://github.com/zrt219/z-zoa-lab"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#64748B", textDecoration: "none" }}
+            style={{
+              padding: "4px 10px",
+              borderRadius: "4px",
+              border: "1px solid #CBD5E1",
+              backgroundColor: "#FFFFFF",
+              color: "#0F172A",
+              textDecoration: "none",
+              fontSize: "11px",
+              fontWeight: 500,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px",
+            }}
           >
-            GitHub ↗
+            <span>GitHub</span>
+            <span style={{ color: "#64748B" }}>@zrt219 ↗</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/zhane-umattr"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              padding: "4px 10px",
+              borderRadius: "4px",
+              border: "1px solid #BAE6FD",
+              backgroundColor: "#F0F9FF",
+              color: "#0284C7",
+              textDecoration: "none",
+              fontSize: "11px",
+              fontWeight: 500,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "4px",
+            }}
+          >
+            <span>LinkedIn</span>
+            <span style={{ color: "#0369A1" }}>zhane-umattr ↗</span>
           </a>
           <a
             href="https://umattr.ca"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#64748B", textDecoration: "none" }}
+            style={{
+              padding: "4px 10px",
+              borderRadius: "4px",
+              border: "1px solid #B88718",
+              backgroundColor: "#D4AF37",
+              color: "#181818",
+              textDecoration: "none",
+              fontSize: "11px",
+              fontWeight: 600,
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "5px",
+              boxShadow: "0 1px 2px rgba(184, 135, 24, 0.2)",
+            }}
           >
-            UMATTR ↗
+            <span>UMATTR</span>
+            <span style={{ opacity: 0.85, fontWeight: 500 }}>umattr.ca ↗</span>
           </a>
         </div>
       </footer>

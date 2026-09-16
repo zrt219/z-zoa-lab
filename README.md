@@ -231,7 +231,7 @@ Z-ZOA is an **independent research project**. It is not an official project of, 
 
 ## 📄 License & Authorship
 
-- **Author**: **Zhane Grey** ([@zrt219](https://github.com/zrt219)) &bull; [umattr.ca](https://umattr.ca)
+- **Author**: **Zhane Grey** ([@zrt219](https://github.com/zrt219)) &bull; [LinkedIn (zhane-umattr)](https://www.linkedin.com/in/zhane-umattr) &bull; [umattr.ca](https://umattr.ca)
 - Software in this repository is released under the [MIT License](LICENSE).
 - Scientific observational datasets obtained from external astronomical archives remain subject to their original licences, acknowledgements, and citation requirements.
 
