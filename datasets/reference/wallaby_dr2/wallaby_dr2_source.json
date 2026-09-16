@@ -1,0 +1,16 @@
+{
+  "bytes": 2142045,
+  "catalogue": "cirada.Wallaby_dr2_source_catalogue",
+  "citation": "Murugeshan et al. 2024, PASA, 41, e088 (arXiv:2409.13130)",
+  "dataset_id": "WALLABY_PILOT_DR2_30ARCSEC",
+  "doi": "10.25919/qw7w-tn96",
+  "downloaded_at": "2026-09-15T10:16:05.704259+00:00",
+  "filename": "datasets\\reference\\WALLABY_DR2\\wallaby_dr2_source_catalogue.csv",
+  "note": "Keep comparison-only until leakage/validation boundaries are explicitly defined.",
+  "original_service": "CADC/CANFAR YouCat TAP",
+  "release_url": "https://wallaby-survey.org/data/data-pilot-survey-dr2/",
+  "role": "COMPARISON_ONLY",
+  "rows": 3454,
+  "sha256": "7d8117c14ff2e3e5ea896f4894a9f04fa1a417af9e039a7127d89bb28b380318",
+  "source_url": "https://ws-uv.canfar.net/youcat"
+}

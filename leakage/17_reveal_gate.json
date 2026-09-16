@@ -1,0 +1,9 @@
+{
+  "test_id": "17_DOUBLE_BLIND_REVEAL_GATE",
+  "status": "PASS",
+  "unblinding_receipt_path": "runs/VELA-001/UNBLINDING_RECEIPT.json",
+  "unblinded_at_utc": "2026-09-15T22:14:22.407293+00:00",
+  "manifest_seal": "2514714ce4522b3e4d817f72610a63ad2a8334d109dfbfb5ef4ddc85fa94b9a2",
+  "preregistration_hash": "1388f35cd063fc05ad96056e331e42c5dca398c152496e5a104b89f0433bfc76",
+  "receipt_verified": true
+}

@@ -1,0 +1,15 @@
+{
+  "test_id": "03_SKY_POSITION_CROSSMATCH",
+  "status": "PASS",
+  "radii_tested_arcmin": [
+    1.0,
+    3.0,
+    6.0
+  ],
+  "matches_detected": {
+    "radius_1.0_arcmin_matches": 8,
+    "radius_3.0_arcmin_matches": 32,
+    "radius_6.0_arcmin_matches": 39
+  },
+  "note": "Holdout GA-SMGPS is outside Vela footprint (l ~ 310-330 deg vs 260-290 deg)"
+}

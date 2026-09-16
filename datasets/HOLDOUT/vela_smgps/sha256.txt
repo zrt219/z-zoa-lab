@@ -1,0 +1,1 @@
+14bf9335626eef369af3fcd15a19b03aa7efbb7b54bf88171a80c9b9f308b926  vela_smgps_sample.parquet

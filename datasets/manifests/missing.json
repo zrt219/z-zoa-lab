@@ -1,0 +1,40 @@
+{
+  "missing": [
+    {
+      "dataset_id": "vela_smgps_full_843",
+      "name": "MeerKAT Vela-SMGPS Full 843 Catalog",
+      "survey": "MeerKAT Vela-SMGPS",
+      "release": "Kraan-Korteweg et al. 2024 (Table A1/Online)",
+      "role": "HOLDOUT",
+      "relative_path": "datasets/HOLDOUT/vela_smgps/vela_smgps_full_843.csv",
+      "source_url": "https://academic.oup.com/mnras/article/531/3/3486/7682409",
+      "doi": "10.1093/mnras/stae1308",
+      "citation": "Kraan-Korteweg, R. C., et al. 2024, MNRAS, 531, 3486",
+      "expected_role": "HOLDOUT",
+      "status": "MANUAL-ACCESS-REQUIRED",
+      "sha256": null,
+      "bytes": null,
+      "row_count": null,
+      "file_path": "datasets/HOLDOUT/vela_smgps/vela_smgps_full_843.csv",
+      "reason": "Official full data release requires direct download or journal supplementary extraction."
+    },
+    {
+      "dataset_id": "vela_hi_full_719",
+      "name": "MeerKAT Vela-HI Full 719 Catalog",
+      "survey": "MeerKAT Vela-HI",
+      "release": "Courtois et al. (in prep / team release)",
+      "role": "HOLDOUT",
+      "relative_path": "datasets/HOLDOUT/vela_hi/vela_hi_full_719.csv",
+      "source_url": "https://academic.oup.com/mnras/article/531/3/3486/7682409",
+      "doi": "10.1093/mnras/stae1308",
+      "citation": "Vela-HI Collaboration (2024)",
+      "expected_role": "HOLDOUT",
+      "status": "MANUAL-ACCESS-REQUIRED",
+      "sha256": null,
+      "bytes": null,
+      "row_count": null,
+      "file_path": "datasets/HOLDOUT/vela_hi/vela_hi_full_719.csv",
+      "reason": "Official full data release requires direct download or journal supplementary extraction."
+    }
+  ]
+}

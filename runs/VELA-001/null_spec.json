@@ -1,0 +1,16 @@
+{
+  "spec_version": "1.0",
+  "survey_footprint": "VELA_SMGPS",
+  "bounds": {
+    "l_min_deg": 260.0,
+    "l_max_deg": 290.0,
+    "b_min_deg": -2.0,
+    "b_max_deg": 1.0,
+    "cz_min_kms": 0.0,
+    "cz_max_kms": 25000.0
+  },
+  "selection_weight_model": "linear_distance_falloff",
+  "null_realizations": 1000,
+  "seed": 20240915,
+  "condition": "Holdout coordinates and counts matched; drawn strictly from footprint under sensitivity weight."
+}

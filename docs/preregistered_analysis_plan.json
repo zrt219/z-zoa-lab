@@ -1,0 +1,43 @@
+{
+  "preregistration_version": "1.0",
+  "project_title": "Z-ZOA: Out-of-Sample Reconstruction and H I Validation of Large-Scale Structure Across the Galactic Zone of Avoidance",
+  "preregistered_at_utc": "2026-09-15T05:00:00Z",
+  "sealed_by": "Z-ZOA Calculation Room Independent Integrity Working Group",
+  "primary_hypothesis": "The unmasked cosmic matter field inferred from Cosmicflows-4, 2MRS, and decontaminated HIZOA-S data anticipates a statistically significant excess density at the withheld positions of the MeerKAT Vela-SMGPS galaxy distribution.",
+  "parameters": {
+    "smoothing_scale_mpc": 10.0,
+    "grid_size": 32,
+    "box_size_mpc": 400.0,
+    "h0_kms_mpc": 74.6,
+    "omega_m": 0.30,
+    "omega_lambda": 0.70,
+    "cz_max_cut_kms": 25000.0,
+    "random_seed_ensemble_base": 1000,
+    "n_constrained_realizations": 20
+  },
+  "null_hypothesis_model": {
+    "n_realizations": 1000,
+    "footprint": "VELA_SMGPS",
+    "bounds": {
+      "l_min_deg": 260.0,
+      "l_max_deg": 290.0,
+      "b_min_deg": -2.0,
+      "b_max_deg": 1.0,
+      "cz_min_kms": 0.0,
+      "cz_max_kms": 25000.0
+    },
+    "selection_weight_function": "linear_distance_falloff",
+    "null_seed": 20240915
+  },
+  "statistical_metrics": {
+    "confirmatory_primary": "mean_overdensity_at_holdout",
+    "confirmatory_secondary": [
+      "fraction_in_overdense_voxels_delta_gt_0",
+      "fraction_in_high_prob_voxels_p_gt_0_5",
+      "effect_size_cohens_d"
+    ],
+    "alpha_significance_threshold": 0.05
+  },
+  "exclusion_rule": "Strict quarantine of all 39 known HIZOA detections residing in the Vela footprint [260 <= l <= 290 deg, -2 <= b <= 1 deg].",
+  "exploratory_gating_clause": "Any analysis utilizing modified smoothing scales, alternative footprints, or adjusted selection cuts evaluated after unsealing must be designated EXPLORATORY and segregated from confirmatory claims."
+}

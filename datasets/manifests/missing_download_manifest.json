@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-09-15T10:16:05.713165+00:00",
+  "datasets": [
+    {
+      "bytes": 48004,
+      "catalogue": "J/MNRAS/529/L88/ga-smgps",
+      "citation": "Steyn et al. 2024, MNRAS Letters, 529, L88-L94",
+      "dataset_id": "GA_SMGPS_2024",
+      "doi": "10.1093/mnrasl/slad196",
+      "downloaded_at": "2026-09-15T10:15:52.171219+00:00",
+      "filename": "datasets\\HOLDOUT\\GA_SMGPS\\ga_smgps_477.csv",
+      "note": "Exported losslessly from the public VizieR table to CSV; treat as holdout/future-validation data.",
+      "original_service": "VizieR",
+      "role": "HOLDOUT",
+      "rows": 477,
+      "sha256": "2a9d2a9a471b59ac0e4e30ace48eae24b8f08387942277dc5aed34162a0604e4",
+      "source_url": "https://vizier.cds.unistra.fr/viz-bin/VizieR?-source=J/MNRAS/529/L88",
+      "training_access": false
+    },
+    {
+      "bytes": 2142045,
+      "catalogue": "cirada.Wallaby_dr2_source_catalogue",
+      "citation": "Murugeshan et al. 2024, PASA, 41, e088 (arXiv:2409.13130)",
+      "dataset_id": "WALLABY_PILOT_DR2_30ARCSEC",
+      "doi": "10.25919/qw7w-tn96",
+      "downloaded_at": "2026-09-15T10:16:05.704259+00:00",
+      "filename": "datasets\\reference\\WALLABY_DR2\\wallaby_dr2_source_catalogue.csv",
+      "note": "Keep comparison-only until leakage/validation boundaries are explicitly defined.",
+      "original_service": "CADC/CANFAR YouCat TAP",
+      "release_url": "https://wallaby-survey.org/data/data-pilot-survey-dr2/",
+      "role": "COMPARISON_ONLY",
+      "rows": 3454,
+      "sha256": "7d8117c14ff2e3e5ea896f4894a9f04fa1a417af9e039a7127d89bb28b380318",
+      "source_url": "https://ws-uv.canfar.net/youcat"
+    }
+  ],
+  "platform": "Windows-10-10.0.19045-SP0",
+  "python": "3.12.12 (main, Feb 12 2026, 00:40:26) [MSC v.1944 64 bit (AMD64)]",
+  "tool": "Z-ZOA missing-data acquisition bundle"
+}

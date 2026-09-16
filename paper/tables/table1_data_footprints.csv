@@ -1,0 +1,6 @@
+Survey,Footprint,Velocity Range,Tracer Type,Role,Count
+Cosmicflows-4 (CF4),All-sky (|b| > 0),"0 - 30,000 km/s",Distances / Peculiar Velocities,TRAIN,55877
+2MASS Redshift Survey (2MRS),All-sky (|b| > 5 deg),"0 - 40,000 km/s",Near-IR Galaxy Redshifts,TRAIN,44599
+Parkes HIZOA-S (Clean),Southern ZoA (|b| < 5 deg),"0 - 12,000 km/s",21cm H I Line Detections,TRAIN_CLEAN,844
+HIZOA-Vela Overlap,"Vela (260<=l<=290, -2<=b<=1)","0 - 12,000 km/s",21cm H I Line Detections,EXCLUDED,39
+Vela-SMGPS MeerKAT,"Vela (260<=l<=290, -2<=b<=1)","0 - 25,000 km/s",Deep Radio Interferometric H I,HOLDOUT_BENCHMARK,843

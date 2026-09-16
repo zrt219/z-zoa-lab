@@ -1,0 +1,7 @@
+The screenshot shows the core CF4 / 2MRS / HIZOA / Vela / CF4-grid inputs already present.
+The two obvious gaps from the previously defined download checklist are:
+
+1) GA-SMGPS (477 objects) -> datasets/HOLDOUT/GA_SMGPS
+2) WALLABY Pilot DR2 source catalogue -> datasets/reference/WALLABY_DR2
+
+Run download_missing.ps1 from the project root. Do not move GA-SMGPS out of HOLDOUT until the experiment design explicitly changes.

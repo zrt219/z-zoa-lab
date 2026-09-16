@@ -1,0 +1,223 @@
+{
+  "certificate_type": "Z-ZOA_LEAKAGE_AUDIT_CERTIFICATE",
+  "run_id": "VELA-001",
+  "final_status": "PASS",
+  "tests_executed": 12,
+  "tests_passed": 12,
+  "train_clean_combined_sha256": "57f13296510e2c1fc7a2262981dcab7a90b006e5cabfd8100272a4c965d2edf6",
+  "exclusions_applied": 39,
+  "known_hizoa_39_overlap_quarantined": true,
+  "holdout_code_access_denials": 2,
+  "suite_results": {
+    "01_integrity": {
+      "test_id": "01_FILE_HASH_AND_ROLE_INTEGRITY",
+      "status": "PASS",
+      "datasets_checked": 7,
+      "records": [
+        {
+          "dataset_id": "cf4_sample",
+          "role": "DatasetRole.TRAIN",
+          "file_path": "datasets/raw/cf4/cf4_sample.parquet",
+          "exists": true,
+          "sha256": "ad16175675a14f5726adfb7eb6c5fa78fdb6099f18441d7439ba1ddfaf39727f",
+          "hash_matches_registry": true,
+          "train_accessible": true
+        },
+        {
+          "dataset_id": "hizoa_s_sample",
+          "role": "DatasetRole.TRAIN_AFTER_DECONTAMINATION",
+          "file_path": "datasets/raw/hizoa/hizoa_sample.parquet",
+          "exists": true,
+          "sha256": "93c0aa820149450aa3e542842e34df539472603d8b9feaa5545a59bc100eef19",
+          "hash_matches_registry": true,
+          "train_accessible": true
+        },
+        {
+          "dataset_id": "vela_smgps_sample",
+          "role": "DatasetRole.HOLDOUT",
+          "file_path": "datasets/HOLDOUT/vela_smgps/vela_smgps_sample.parquet",
+          "exists": true,
+          "sha256": "14bf9335626eef369af3fcd15a19b03aa7efbb7b54bf88171a80c9b9f308b926",
+          "hash_matches_registry": true,
+          "train_accessible": false
+        },
+        {
+          "dataset_id": "ga_smgps_477",
+          "role": "DatasetRole.HOLDOUT",
+          "file_path": "datasets/HOLDOUT/ga_smgps/ga_smgps_477.csv",
+          "exists": true,
+          "sha256": "2a9d2a9a471b59ac0e4e30ace48eae24b8f08387942277dc5aed34162a0604e4",
+          "hash_matches_registry": true,
+          "train_accessible": false
+        },
+        {
+          "dataset_id": "wallaby_dr2",
+          "role": "DatasetRole.COMPARISON_ONLY",
+          "file_path": "datasets/reference/wallaby_dr2/wallaby_dr2_source_catalogue.csv",
+          "exists": true,
+          "sha256": "7d8117c14ff2e3e5ea896f4894a9f04fa1a417af9e039a7127d89bb28b380318",
+          "hash_matches_registry": true,
+          "train_accessible": false
+        },
+        {
+          "dataset_id": "2mrs_sample",
+          "role": "DatasetRole.TRAIN",
+          "file_path": "datasets/raw/2mrs/2mrs_sample.csv",
+          "exists": true,
+          "sha256": "2c7265613198f1c22b9de792e8df55c1e975450454c6a5aa7edc7e8c615b9916",
+          "hash_matches_registry": true,
+          "train_accessible": true
+        },
+        {
+          "dataset_id": "hizoa_s_full",
+          "role": "DatasetRole.TRAIN_AFTER_DECONTAMINATION",
+          "file_path": "datasets/raw/hizoa/hizoa_s_full.csv",
+          "exists": true,
+          "sha256": "68e2535c91073ef99c069047515277709709bad36a2a074d8a706e41a0962d76",
+          "hash_matches_registry": true,
+          "train_accessible": true
+        }
+      ]
+    },
+    "02_id_scan": {
+      "test_id": "02_EXACT_ID_DUPLICATE_SCAN",
+      "status": "PASS",
+      "train_unique_ids": 902,
+      "holdout_unique_ids": 481,
+      "collisions_found": 0,
+      "colliding_ids": []
+    },
+    "03_sky_crossmatch": {
+      "test_id": "03_SKY_POSITION_CROSSMATCH",
+      "status": "PASS",
+      "radii_tested_arcmin": [
+        1.0,
+        3.0,
+        6.0
+      ],
+      "matches_detected": {
+        "radius_1.0_arcmin_matches": 8,
+        "radius_3.0_arcmin_matches": 32,
+        "radius_6.0_arcmin_matches": 39
+      },
+      "note": "Holdout GA-SMGPS is outside Vela footprint (l ~ 310-330 deg vs 260-290 deg)"
+    },
+    "04_velocity_consistency": {
+      "test_id": "04_REDSHIFT_VELOCITY_CROSSMATCH",
+      "status": "PASS",
+      "clean_tracers_in_holdout_footprint": 0,
+      "residual_velocity_overlap_records": 0
+    },
+    "05_hizoa_39_overlap": {
+      "test_id": "05_HIZOA_VELA_39_KNOWN_OVERLAPS",
+      "published_literature_benchmark": 39,
+      "detected_hizoa_overlaps": 39,
+      "quarantined_to_exclusion_list": 39,
+      "status": "PASS",
+      "literature_citation": "Kraan-Korteweg et al. 2024, MNRAS 531, 3486"
+    },
+    "06_lineage": {
+      "test_id": "06_DERIVED_PRODUCT_LINEAGE_AUDIT",
+      "status": "PASS",
+      "derived_products_checked": 4,
+      "circular_meerkat_assimilation_detected": false,
+      "products": [
+        {
+          "product": "CF4_new_64-z008_delta.fits",
+          "role": "REFERENCE",
+          "contains_meerkat": false,
+          "train_accessible": false
+        },
+        {
+          "product": "CF4_new_64-z008_velocity.fits",
+          "role": "REFERENCE",
+          "contains_meerkat": false,
+          "train_accessible": false
+        },
+        {
+          "product": "CF4pp_mean_std_grids.npz",
+          "role": "COMPARISON_ONLY",
+          "contains_meerkat": false,
+          "train_accessible": false
+        },
+        {
+          "product": "wallaby_dr2_source_catalogue.csv",
+          "role": "COMPARISON_ONLY",
+          "contains_meerkat": false,
+          "train_accessible": false
+        }
+      ]
+    },
+    "07_access_denial": {
+      "test_id": "07_HOLDOUT_CODE_ACCESS_TEST",
+      "status": "PASS",
+      "denial_attempts_tested": 2,
+      "denial_exceptions_caught": 2,
+      "boundary_enforcement": "100% Machine-Enforced Exception Raising"
+    },
+    "08_tuning_audit": {
+      "test_id": "08_TUNING_LEAKAGE_TEST",
+      "status": "PASS",
+      "pre_reveal_frozen": true,
+      "holdout_tuned_parameters": 0,
+      "parameters": [
+        {
+          "param": "smoothing_scale_mpc",
+          "value": 10.0,
+          "chosen_basis": "Cosmic web correlation length from CF4 baseline",
+          "holdout_influence": false
+        },
+        {
+          "param": "grid_size",
+          "value": 32,
+          "chosen_basis": "Sufficient resolution (12.5 Mpc/voxel) for linear theory",
+          "holdout_influence": false
+        },
+        {
+          "param": "cz_max_cut_kms",
+          "value": 25000.0,
+          "chosen_basis": "Maximum depth of HIZOA/2MRS redshift completeness",
+          "holdout_influence": false
+        },
+        {
+          "param": "h0_kms_mpc",
+          "value": 74.6,
+          "chosen_basis": "Standard Cosmicflows-4 Hubble constant",
+          "holdout_influence": false
+        },
+        {
+          "param": "omega_m",
+          "value": 0.3,
+          "chosen_basis": "Standard Planck/CF4 flat LCDM prior",
+          "holdout_influence": false
+        }
+      ]
+    },
+    "09_cache_audit": {
+      "test_id": "09_CACHE_ARTIFACT_ENVIRONMENT_LEAKAGE",
+      "status": "PASS",
+      "cache_leaks_found": 0,
+      "leaked_artifacts": []
+    },
+    "10_freeze_canary": {
+      "test_id": "10_FREEZE_MANIFEST_AND_CANARY",
+      "status": "PASS",
+      "tamper_detection_functional": true,
+      "manifest_seal_verified": true
+    },
+    "11_negative_control": {
+      "test_id": "11_NEGATIVE_CONTROL_RUN",
+      "status": "PASS",
+      "holdout_independence_verified": true,
+      "train_clean_prediction_sha256": "1db50f1ea922a439b52d895e2b44cf36e150763f79b80c756753a0c264729995",
+      "conclusion": "TRAIN pipeline consumes zero bytes from datasets/HOLDOUT."
+    },
+    "12_certification": {
+      "test_id": "12_FINAL_LEAKAGE_REPORT",
+      "status": "PASS",
+      "certificate_generated": true,
+      "final_report_path": "leakage/FINAL_LEAKAGE_REPORT.md"
+    }
+  },
+  "certificate_sha256": "df6131fc21abf99145121a45fbb9aa77a42337eb776caf3c7fd0fe678625e45e"
+}

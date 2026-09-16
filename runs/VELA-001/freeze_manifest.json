@@ -1,0 +1,23 @@
+{
+  "manifest_type": "Z-ZOA_PREDICTION_FREEZE_MANIFEST",
+  "run_id": "VELA-001",
+  "frozen_at_utc": "2026-09-15T22:10:23.651283+00:00",
+  "git_commit": "df3536ec918a78c7a43c0b23876ea03d5a5224c7",
+  "python_version": "3.12.12 (main, Feb 12 2026, 00:40:26) [MSC v.1944 64 bit (AMD64)]",
+  "train_clean_catalog_path": "datasets/processed/TRAIN_CLEAN/train_clean_combined.parquet",
+  "train_clean_catalog_sha256": "57f13296510e2c1fc7a2262981dcab7a90b006e5cabfd8100272a4c965d2edf6",
+  "file_hashes": {
+    "prediction_mean.npy": "1db50f1ea922a439b52d895e2b44cf36e150763f79b80c756753a0c264729995",
+    "prediction_sigma.npy": "aa0606f91d61c1215835ad8ea9f316ebf778922920531baee43bf42a9d6e9313",
+    "prediction_probability.npy": "eb7bc84e59ca3a8be72eb4706e8fc9a661de3b5631de406937773369d5a12914",
+    "prediction_velocity_mean.npy": "91fa7dbad1ccec2cb5f15ec6feeb80a5304fca52f85aa5fff9756c7b2e77bc1b",
+    "prediction_velocity_sigma.npy": "2097ec6ed61fe45e955a10fd4b9c9b5e5cdfdeebdba2239b4c462b990cbbc38e",
+    "ensemble_meta.json": "677ffb4fa16631e9415b69f7cded6ea96a023f6b8355ec4e572ef65b961c3f13",
+    "metrics_spec.json": "fca6aee016b040c8ae7ab05510d05d6601e8b9fc39675e928bbb244cd3ea5719",
+    "null_spec.json": "e86c7a326c6ab87ffb903234341ea599b2f422ed8792d2e083896080e1799e61"
+  },
+  "metrics_spec_sha256": "fca6aee016b040c8ae7ab05510d05d6601e8b9fc39675e928bbb244cd3ea5719",
+  "null_spec_sha256": "e86c7a326c6ab87ffb903234341ea599b2f422ed8792d2e083896080e1799e61",
+  "status": "PREDICTION_FROZEN",
+  "manifest_seal_sha256": "2514714ce4522b3e4d817f72610a63ad2a8334d109dfbfb5ef4ddc85fa94b9a2"
+}

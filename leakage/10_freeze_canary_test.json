@@ -1,0 +1,6 @@
+{
+  "test_id": "10_FREEZE_MANIFEST_AND_CANARY",
+  "status": "PASS",
+  "tamper_detection_functional": true,
+  "manifest_seal_verified": true
+}

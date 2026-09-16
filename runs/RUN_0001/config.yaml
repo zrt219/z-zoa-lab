@@ -1,0 +1,15 @@
+run_id: RUN_0001
+experiment_name: Vela holdout baseline
+random_seed: 382019
+cosmology:
+  cosmology_name: CF4_Nominal
+  H0: 74.6
+  H0_unit: km / (s Mpc)
+  Om0: 0.3
+  Ode0: 0.7
+  reference: Tully et al. 2023 (ApJ 944, 94)
+datasets:
+- dataset_id: cf4_sample
+  role: TRAIN
+  sha256: ad16175675a14f5726adfb7eb6c5fa78fdb6099f18441d7439ba1ddfaf39727f
+  row_count: 8

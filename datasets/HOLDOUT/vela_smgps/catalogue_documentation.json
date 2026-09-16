@@ -1,0 +1,13 @@
+{
+  "survey": "MeerKAT Vela-SMGPS",
+  "telescope": "SARAO MeerKAT",
+  "paper_title": "HI Galaxy Signatures in the SARAO MeerKAT Galactic Plane Survey \u2013 III. Unveiling the obscured part of the Vela Supercluster",
+  "authors": "Kraan-Korteweg, R. C., et al.",
+  "publication": "MNRAS, 531(3), 3486\u20133501 (2024)",
+  "doi": "10.1093/mnras/stae1308",
+  "zenodo_doi": "10.5281/zenodo.11160742",
+  "coverage": "260 <= l <= 290 deg, -2 <= b <= 1 deg, cz up to ~25,000 km/s",
+  "detections": 843,
+  "known_hizoa_overlaps": 39,
+  "holdout_protection": "LOCKED - Training access forbidden"
+}

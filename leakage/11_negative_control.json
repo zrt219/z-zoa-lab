@@ -1,0 +1,7 @@
+{
+  "test_id": "11_NEGATIVE_CONTROL_RUN",
+  "status": "PASS",
+  "holdout_independence_verified": true,
+  "train_clean_prediction_sha256": "1db50f1ea922a439b52d895e2b44cf36e150763f79b80c756753a0c264729995",
+  "conclusion": "TRAIN pipeline consumes zero bytes from datasets/HOLDOUT."
+}

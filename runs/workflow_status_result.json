@@ -1,0 +1,48 @@
+{
+  "timestamp_utc": "2026-09-15T11:52:52Z",
+  "workspace": "D:\\programming\\Blockchain development\\1Z-VLISMLOCAL MISSION\\Z-zoa-lab",
+  "python_executable": "D:\\programming\\Blockchain development\\1Z-VLISMLOCAL MISSION\\Z-zoa-lab\\.venv\\Scripts\\python.exe",
+  "datasets": {
+    "cf4_sample": {
+      "path": "datasets\\raw\\cf4\\cf4_sample.parquet",
+      "exists": true,
+      "sha256": "ad16175675a14f5726adfb7eb6c5fa78fdb6099f18441d7439ba1ddfaf39727f"
+    },
+    "hizoa_sample": {
+      "path": "datasets\\raw\\hizoa\\hizoa_sample.parquet",
+      "exists": true,
+      "sha256": "93c0aa820149450aa3e542842e34df539472603d8b9feaa5545a59bc100eef19"
+    },
+    "vela_smgps_holdout": {
+      "path": "datasets\\HOLDOUT\\vela_smgps\\vela_smgps_sample.parquet",
+      "exists": true,
+      "sha256": "14bf9335626eef369af3fcd15a19b03aa7efbb7b54bf88171a80c9b9f308b926"
+    },
+    "ga_smgps_holdout": {
+      "path": "datasets\\HOLDOUT\\ga_smgps\\ga_smgps_477.csv",
+      "exists": true,
+      "sha256": "2a9d2a9a471b59ac0e4e30ace48eae24b8f08387942277dc5aed34162a0604e4"
+    }
+  },
+  "manifests": {
+    "freeze_manifest": {
+      "exists": true,
+      "sha256": "82940a22f25f637433ef4f66398b2a6e3dd6449212e38784157023de995e8396",
+      "summary": {
+        "manifest_type": "Z-ZOA_PREDICTION_FREEZE_MANIFEST",
+        "run_id": "VELA-001",
+        "status": "PREDICTION_FROZEN"
+      }
+    },
+    "leakage_certificate": {
+      "exists": true,
+      "sha256": "f7365d7bf80e09b6b4d7135a1783b96906f945846fe76c8c9aab4dfe6d62122a",
+      "summary": {
+        "certificate_type": "Z-ZOA_LEAKAGE_AUDIT_CERTIFICATE",
+        "run_id": "VELA-001",
+        "final_status": "PASS"
+      }
+    }
+  },
+  "leakage_status": "PASS"
+}

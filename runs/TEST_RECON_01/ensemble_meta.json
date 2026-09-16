@@ -1,0 +1,27 @@
+{
+  "run_id": "TEST_RECON_01",
+  "n_realizations": 5,
+  "base_seed": 42,
+  "seeds": [
+    42,
+    79,
+    116,
+    153,
+    190
+  ],
+  "threshold": 1.0,
+  "grid_size": 32,
+  "box_size_mpc": 400.0,
+  "pred_mean_stats": {
+    "min": -1.0839114301777533,
+    "max": 543.5569296321207,
+    "mean": -0.000353490739954887,
+    "std": 11.686420977715184
+  },
+  "pred_sigma_stats": {
+    "min": 0.0013141513693133498,
+    "max": 0.13359838556249978,
+    "mean": 0.037811336406658194
+  },
+  "pred_probability_fraction_positive": 0.031768798828125
+}

@@ -1,0 +1,13 @@
+{
+  "test_id": "14_TRANSITIVE_DEPENDENCY_TAINT_SCAN",
+  "status": "PASS",
+  "dag_nodes_inspected": 12,
+  "tainted_ancestors_found": 0,
+  "tainted_ancestor_list": [],
+  "lineage_roots": [
+    "datasets/raw/hizoa/hizoa_s_full.csv",
+    "datasets/raw/cf4/cf4_sample.csv",
+    "datasets/raw/2mrs/2mrs_sample.csv",
+    "vela_footprint_definition"
+  ]
+}

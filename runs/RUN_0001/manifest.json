@@ -1,0 +1,635 @@
+{
+  "run_id": "RUN_0001",
+  "experiment_name": "Vela holdout baseline",
+  "created_at": "2026-09-15T21:43:36.274761+00:00",
+  "git_commit": "df3536ec918a78c7a43c0b23876ea03d5a5224c7",
+  "random_seed": 382019,
+  "package_versions": {
+    "python": "3.12.12",
+    "astropy": "8.0.1",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "polars": "1.44.2",
+    "pydantic": "2.13.5"
+  },
+  "cosmology": {
+    "cosmology_name": "CF4_Nominal",
+    "H0": 74.6,
+    "H0_unit": "km / (s Mpc)",
+    "Om0": 0.3,
+    "Ode0": 0.7,
+    "reference": "Tully et al. 2023 (ApJ 944, 94)"
+  },
+  "datasets": [
+    {
+      "dataset_id": "cf4_sample",
+      "role": "TRAIN",
+      "sha256": "ad16175675a14f5726adfb7eb6c5fa78fdb6099f18441d7439ba1ddfaf39727f",
+      "row_count": 8
+    }
+  ],
+  "calculations": [
+    {
+      "record_id": "7bd73d3c-e218-48ee-bb43-4a21b984d968",
+      "timestamp": "2026-09-15T21:43:36.233128+00:00",
+      "action": "dataset_load",
+      "formula": null,
+      "inputs": {
+        "dataset_id": "cf4_sample",
+        "file_path": "datasets/raw/cf4/cf4_sample.parquet"
+      },
+      "outputs": {
+        "rows": 8,
+        "columns": [
+          "pgc",
+          "galaxy_name",
+          "ra",
+          "dec",
+          "cz_obs",
+          "cz_err",
+          "distance_mpc",
+          "dist_modulus_mu",
+          "mu_err"
+        ]
+      },
+      "uncertainty": null,
+      "source": "Cosmicflows-4",
+      "reference_frame": null,
+      "notes": "Role: TRAIN, SHA256: ad16175675a14f5726adfb7eb6c5fa78fdb6099f18441d7439ba1ddfaf39727f"
+    },
+    {
+      "record_id": "8c8c3aec-82be-492d-84f3-33190b2b3aca",
+      "timestamp": "2026-09-15T21:43:36.234128+00:00",
+      "action": "peculiar_velocity",
+      "formula": "v_pec = cz - H0 * d",
+      "inputs": {
+        "cz": {
+          "value": 1059.0,
+          "unit": "km / s"
+        },
+        "distance": {
+          "value": 15.1,
+          "unit": "Mpc"
+        },
+        "H0": {
+          "value": 74.6,
+          "unit": "km / (Mpc s)"
+        },
+        "cz_err": {
+          "value": 15.0,
+          "unit": "km / s"
+        },
+        "distance_err": null,
+        "mu_err": 0.18
+      },
+      "outputs": {
+        "v_pec": {
+          "value": -67.45999999999981,
+          "unit": "km / s"
+        }
+      },
+      "uncertainty": {
+        "value": 94.5728561027398,
+        "unit": "km / s"
+      },
+      "source": "cf4_sample (row 218)",
+      "reference_frame": "CMB",
+      "notes": null
+    },
+    {
+      "record_id": "711acbf7-736a-4978-9122-4a107414a55e",
+      "timestamp": "2026-09-15T21:43:36.234838+00:00",
+      "action": "peculiar_velocity",
+      "formula": "v_pec = cz - H0 * d",
+      "inputs": {
+        "cz": {
+          "value": 3934.0,
+          "unit": "km / s"
+        },
+        "distance": {
+          "value": 56.2,
+          "unit": "Mpc"
+        },
+        "H0": {
+          "value": 74.6,
+          "unit": "km / (Mpc s)"
+        },
+        "cz_err": {
+          "value": 20.0,
+          "unit": "km / s"
+        },
+        "distance_err": null,
+        "mu_err": 0.22
+      },
+      "outputs": {
+        "v_pec": {
+          "value": -258.5199999999995,
+          "unit": "km / s"
+        }
+      },
+      "uncertainty": {
+        "value": 425.2304919350888,
+        "unit": "km / s"
+      },
+      "source": "cf4_sample (row 17223)",
+      "reference_frame": "CMB",
+      "notes": null
+    },
+    {
+      "record_id": "3f1b8db3-0e83-43a3-8fe8-dfe2e052f320",
+      "timestamp": "2026-09-15T21:43:36.235381+00:00",
+      "action": "peculiar_velocity",
+      "formula": "v_pec = cz - H0 * d",
+      "inputs": {
+        "cz": {
+          "value": 1642.0,
+          "unit": "km / s"
+        },
+        "distance": {
+          "value": 21.8,
+          "unit": "Mpc"
+        },
+        "H0": {
+          "value": 74.6,
+          "unit": "km / (Mpc s)"
+        },
+        "cz_err": {
+          "value": 18.0,
+          "unit": "km / s"
+        },
+        "distance_err": null,
+        "mu_err": 0.15
+      },
+      "outputs": {
+        "v_pec": {
+          "value": 15.720000000000027,
+          "unit": "km / s"
+        }
+      },
+      "uncertainty": {
+        "value": 113.77236198952858,
+        "unit": "km / s"
+      },
+      "source": "cf4_sample (row 38068)",
+      "reference_frame": "CMB",
+      "notes": null
+    },
+    {
+      "record_id": "ad2af56c-c83c-4167-ba99-585e979c3b68",
+      "timestamp": "2026-09-15T21:43:36.235381+00:00",
+      "action": "peculiar_velocity",
+      "formula": "v_pec = cz - H0 * d",
+      "inputs": {
+        "cz": {
+          "value": 6495.0,
+          "unit": "km / s"
+        },
+        "distance": {
+          "value": 97.3,
+          "unit": "Mpc"
+        },
+        "H0": {
+          "value": 74.6,
+          "unit": "km / (Mpc s)"
+        },
+        "cz_err": {
+          "value": 25.0,
+          "unit": "km / s"
+        },
+        "distance_err": null,
+        "mu_err": 0.14
+      },
+      "outputs": {
+        "v_pec": {
+          "value": -763.579999999999,
+          "unit": "km / s"
+        }
+      },
+      "uncertainty": {
+        "value": 468.64523768406787,
+        "unit": "km / s"
+      },
+      "source": "cf4_sample (row 44182)",
+      "reference_frame": "CMB",
+      "notes": null
+    },
+    {
+      "record_id": "3cabab8b-9788-42cb-89a3-9e3006c05719",
+      "timestamp": "2026-09-15T21:43:36.236353+00:00",
+      "action": "peculiar_velocity",
+      "formula": "v_pec = cz - H0 * d",
+      "inputs": {
+        "cz": {
+          "value": 1284.0,
+          "unit": "km / s"
+        },
+        "distance": {
+          "value": 16.5,
+          "unit": "Mpc"
+        },
+        "H0": {
+          "value": 74.6,
+          "unit": "km / (Mpc s)"
+        },
+        "cz_err": {
+          "value": 12.0,
+          "unit": "km / s"
+        },
+        "distance_err": null,
+        "mu_err": 0.08
+      },
+      "outputs": {
+        "v_pec": {
+          "value": 53.100000000000136,
+          "unit": "km / s"
+        }
+      },
+      "uncertainty": {
+        "value": 46.90889034249255,
+        "unit": "km / s"
+      },
+      "source": "cf4_sample (row 47404)",
+      "reference_frame": "CMB",
+      "notes": null
+    },
+    {
+      "record_id": "480ccc87-d21d-443d-90c1-b232d175ae25",
+      "timestamp": "2026-09-15T21:43:36.236353+00:00",
+      "action": "peculiar_velocity",
+      "formula": "v_pec = cz - H0 * d",
+      "inputs": {
+        "cz": {
+          "value": 547.0,
+          "unit": "km / s"
+        },
+        "distance": {
+          "value": 3.8,
+          "unit": "Mpc"
+        },
+        "H0": {
+          "value": 74.6,
+          "unit": "km / (Mpc s)"
+        },
+        "cz_err": {
+          "value": 10.0,
+          "unit": "km / s"
+        },
+        "distance_err": null,
+        "mu_err": 0.1
+      },
+      "outputs": {
+        "v_pec": {
+          "value": 263.52000000000004,
+          "unit": "km / s"
+        }
+      },
+      "uncertainty": {
+        "value": 16.444638749526653,
+        "unit": "km / s"
+      },
+      "source": "cf4_sample (row 49919)",
+      "reference_frame": "CMB",
+      "notes": null
+    },
+    {
+      "record_id": "3900ac5a-58be-4965-8b63-bc35e3bc2fcc",
+      "timestamp": "2026-09-15T21:43:36.237353+00:00",
+      "action": "peculiar_velocity",
+      "formula": "v_pec = cz - H0 * d",
+      "inputs": {
+        "cz": {
+          "value": 2835.0,
+          "unit": "km / s"
+        },
+        "distance": {
+          "value": 38.4,
+          "unit": "Mpc"
+        },
+        "H0": {
+          "value": 74.6,
+          "unit": "km / (Mpc s)"
+        },
+        "cz_err": {
+          "value": 19.0,
+          "unit": "km / s"
+        },
+        "distance_err": null,
+        "mu_err": 0.2
+      },
+      "outputs": {
+        "v_pec": {
+          "value": -29.639999999999873,
+          "unit": "km / s"
+        }
+      },
+      "uncertainty": {
+        "value": 264.5263285182335,
+        "unit": "km / s"
+      },
+      "source": "cf4_sample (row 6830)",
+      "reference_frame": "CMB",
+      "notes": null
+    },
+    {
+      "record_id": "30fe8969-15fe-4486-9382-59e3581f838d",
+      "timestamp": "2026-09-15T21:43:36.237353+00:00",
+      "action": "peculiar_velocity",
+      "formula": "v_pec = cz - H0 * d",
+      "inputs": {
+        "cz": {
+          "value": 701.0,
+          "unit": "km / s"
+        },
+        "distance": {
+          "value": 9.0,
+          "unit": "Mpc"
+        },
+        "H0": {
+          "value": 74.6,
+          "unit": "km / (Mpc s)"
+        },
+        "cz_err": {
+          "value": 14.0,
+          "unit": "km / s"
+        },
+        "distance_err": null,
+        "mu_err": 0.12
+      },
+      "outputs": {
+        "v_pec": {
+          "value": 29.600000000000023,
+          "unit": "km / s"
+        }
+      },
+      "uncertainty": {
+        "value": 39.65637145625808,
+        "unit": "km / s"
+      },
+      "source": "cf4_sample (row 71807)",
+      "reference_frame": "CMB",
+      "notes": null
+    }
+  ],
+  "warnings": [],
+  "outputs": {
+    "velocities": [
+      {
+        "v_pec": {
+          "value": -67.45999999999981,
+          "unit": "km / s"
+        },
+        "uncertainty": {
+          "value": 94.5728561027398,
+          "unit": "km / s"
+        },
+        "estimator": "Linear (v_pec = cz - H0*d)",
+        "formula": "v_pec = cz - H0 * d",
+        "inputs": {
+          "cz": {
+            "value": 1059.0,
+            "unit": "km / s"
+          },
+          "distance": {
+            "value": 15.1,
+            "unit": "Mpc"
+          },
+          "H0": {
+            "value": 74.6,
+            "unit": "km / (Mpc s)"
+          },
+          "cz_err": {
+            "value": 15.0,
+            "unit": "km / s"
+          },
+          "distance_err": null,
+          "mu_err": 0.18
+        }
+      },
+      {
+        "v_pec": {
+          "value": -258.5199999999995,
+          "unit": "km / s"
+        },
+        "uncertainty": {
+          "value": 425.2304919350888,
+          "unit": "km / s"
+        },
+        "estimator": "Linear (v_pec = cz - H0*d)",
+        "formula": "v_pec = cz - H0 * d",
+        "inputs": {
+          "cz": {
+            "value": 3934.0,
+            "unit": "km / s"
+          },
+          "distance": {
+            "value": 56.2,
+            "unit": "Mpc"
+          },
+          "H0": {
+            "value": 74.6,
+            "unit": "km / (Mpc s)"
+          },
+          "cz_err": {
+            "value": 20.0,
+            "unit": "km / s"
+          },
+          "distance_err": null,
+          "mu_err": 0.22
+        }
+      },
+      {
+        "v_pec": {
+          "value": 15.720000000000027,
+          "unit": "km / s"
+        },
+        "uncertainty": {
+          "value": 113.77236198952858,
+          "unit": "km / s"
+        },
+        "estimator": "Linear (v_pec = cz - H0*d)",
+        "formula": "v_pec = cz - H0 * d",
+        "inputs": {
+          "cz": {
+            "value": 1642.0,
+            "unit": "km / s"
+          },
+          "distance": {
+            "value": 21.8,
+            "unit": "Mpc"
+          },
+          "H0": {
+            "value": 74.6,
+            "unit": "km / (Mpc s)"
+          },
+          "cz_err": {
+            "value": 18.0,
+            "unit": "km / s"
+          },
+          "distance_err": null,
+          "mu_err": 0.15
+        }
+      },
+      {
+        "v_pec": {
+          "value": -763.579999999999,
+          "unit": "km / s"
+        },
+        "uncertainty": {
+          "value": 468.64523768406787,
+          "unit": "km / s"
+        },
+        "estimator": "Linear (v_pec = cz - H0*d)",
+        "formula": "v_pec = cz - H0 * d",
+        "inputs": {
+          "cz": {
+            "value": 6495.0,
+            "unit": "km / s"
+          },
+          "distance": {
+            "value": 97.3,
+            "unit": "Mpc"
+          },
+          "H0": {
+            "value": 74.6,
+            "unit": "km / (Mpc s)"
+          },
+          "cz_err": {
+            "value": 25.0,
+            "unit": "km / s"
+          },
+          "distance_err": null,
+          "mu_err": 0.14
+        }
+      },
+      {
+        "v_pec": {
+          "value": 53.100000000000136,
+          "unit": "km / s"
+        },
+        "uncertainty": {
+          "value": 46.90889034249255,
+          "unit": "km / s"
+        },
+        "estimator": "Linear (v_pec = cz - H0*d)",
+        "formula": "v_pec = cz - H0 * d",
+        "inputs": {
+          "cz": {
+            "value": 1284.0,
+            "unit": "km / s"
+          },
+          "distance": {
+            "value": 16.5,
+            "unit": "Mpc"
+          },
+          "H0": {
+            "value": 74.6,
+            "unit": "km / (Mpc s)"
+          },
+          "cz_err": {
+            "value": 12.0,
+            "unit": "km / s"
+          },
+          "distance_err": null,
+          "mu_err": 0.08
+        }
+      },
+      {
+        "v_pec": {
+          "value": 263.52000000000004,
+          "unit": "km / s"
+        },
+        "uncertainty": {
+          "value": 16.444638749526653,
+          "unit": "km / s"
+        },
+        "estimator": "Linear (v_pec = cz - H0*d)",
+        "formula": "v_pec = cz - H0 * d",
+        "inputs": {
+          "cz": {
+            "value": 547.0,
+            "unit": "km / s"
+          },
+          "distance": {
+            "value": 3.8,
+            "unit": "Mpc"
+          },
+          "H0": {
+            "value": 74.6,
+            "unit": "km / (Mpc s)"
+          },
+          "cz_err": {
+            "value": 10.0,
+            "unit": "km / s"
+          },
+          "distance_err": null,
+          "mu_err": 0.1
+        }
+      },
+      {
+        "v_pec": {
+          "value": -29.639999999999873,
+          "unit": "km / s"
+        },
+        "uncertainty": {
+          "value": 264.5263285182335,
+          "unit": "km / s"
+        },
+        "estimator": "Linear (v_pec = cz - H0*d)",
+        "formula": "v_pec = cz - H0 * d",
+        "inputs": {
+          "cz": {
+            "value": 2835.0,
+            "unit": "km / s"
+          },
+          "distance": {
+            "value": 38.4,
+            "unit": "Mpc"
+          },
+          "H0": {
+            "value": 74.6,
+            "unit": "km / (Mpc s)"
+          },
+          "cz_err": {
+            "value": 19.0,
+            "unit": "km / s"
+          },
+          "distance_err": null,
+          "mu_err": 0.2
+        }
+      },
+      {
+        "v_pec": {
+          "value": 29.600000000000023,
+          "unit": "km / s"
+        },
+        "uncertainty": {
+          "value": 39.65637145625808,
+          "unit": "km / s"
+        },
+        "estimator": "Linear (v_pec = cz - H0*d)",
+        "formula": "v_pec = cz - H0 * d",
+        "inputs": {
+          "cz": {
+            "value": 701.0,
+            "unit": "km / s"
+          },
+          "distance": {
+            "value": 9.0,
+            "unit": "Mpc"
+          },
+          "H0": {
+            "value": 74.6,
+            "unit": "km / (Mpc s)"
+          },
+          "cz_err": {
+            "value": 14.0,
+            "unit": "km / s"
+          },
+          "distance_err": null,
+          "mu_err": 0.12
+        }
+      }
+    ]
+  },
+  "manifest_sha256": "274409783493b769b9df7e30a08ecf08bc9c0bf0e49a60725f3943646c885887"
+}

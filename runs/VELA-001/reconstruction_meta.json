@@ -1,0 +1,21 @@
+{
+  "tracers_ingested": 896,
+  "input_catalog_sha256": "57f13296510e2c1fc7a2262981dcab7a90b006e5cabfd8100272a4c965d2edf6",
+  "config_hash": "31063222129b46f1c15be8fb4ceab0e6d61199972cbebfd171753eefeae161d9",
+  "config": {
+    "grid_size": 32,
+    "box_size_mpc": 400.0,
+    "h0_kms_mpc": 74.6,
+    "omega_m": 0.3,
+    "omega_lambda": 0.7,
+    "smoothing_scale_mpc": 10.0,
+    "cz_max_cut_kms": 25000.0,
+    "random_seed": 42
+  },
+  "voxel_size_mpc": 12.5,
+  "delta_min": -1.0000000000000007,
+  "delta_max": 543.5726025711542,
+  "delta_mean": -3.657009115087817e-05,
+  "delta_std": 11.686452263813383,
+  "velocity_max_kms": 95162.70223670756
+}

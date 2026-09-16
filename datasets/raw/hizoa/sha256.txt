@@ -1,0 +1,1 @@
+93c0aa820149450aa3e542842e34df539472603d8b9feaa5545a59bc100eef19  hizoa_sample.parquet

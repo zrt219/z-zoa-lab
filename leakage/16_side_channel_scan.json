@@ -1,0 +1,8 @@
+{
+  "test_id": "16_SIDE_CHANNEL_LEAKAGE_SCAN",
+  "status": "PASS",
+  "env_vars_scanned": 63,
+  "env_leaks_found": 0,
+  "cache_files_inspected_dirty": 0,
+  "dry_run_deterministic": true
+}

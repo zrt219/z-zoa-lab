@@ -1,0 +1,11 @@
+{
+  "test_id": "15_PREREGISTERED_ANALYSIS_HASH_LOCK",
+  "status": "PASS",
+  "preregistration_file": "docs/preregistered_analysis_plan.json",
+  "preregistration_sha256": "1388f35cd063fc05ad96056e331e42c5dca398c152496e5a104b89f0433bfc76",
+  "contract_verified": true,
+  "hypothesis_locked": true,
+  "smoothing_scale_mpc": 10.0,
+  "grid_size": 32,
+  "gating_rule_enforced": true
+}

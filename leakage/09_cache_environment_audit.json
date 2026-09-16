@@ -1,0 +1,6 @@
+{
+  "test_id": "09_CACHE_ARTIFACT_ENVIRONMENT_LEAKAGE",
+  "status": "PASS",
+  "cache_leaks_found": 0,
+  "leaked_artifacts": []
+}

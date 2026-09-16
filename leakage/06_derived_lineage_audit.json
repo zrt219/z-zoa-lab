@@ -1,0 +1,32 @@
+{
+  "test_id": "06_DERIVED_PRODUCT_LINEAGE_AUDIT",
+  "status": "PASS",
+  "derived_products_checked": 4,
+  "circular_meerkat_assimilation_detected": false,
+  "products": [
+    {
+      "product": "CF4_new_64-z008_delta.fits",
+      "role": "REFERENCE",
+      "contains_meerkat": false,
+      "train_accessible": false
+    },
+    {
+      "product": "CF4_new_64-z008_velocity.fits",
+      "role": "REFERENCE",
+      "contains_meerkat": false,
+      "train_accessible": false
+    },
+    {
+      "product": "CF4pp_mean_std_grids.npz",
+      "role": "COMPARISON_ONLY",
+      "contains_meerkat": false,
+      "train_accessible": false
+    },
+    {
+      "product": "wallaby_dr2_source_catalogue.csv",
+      "role": "COMPARISON_ONLY",
+      "contains_meerkat": false,
+      "train_accessible": false
+    }
+  ]
+}

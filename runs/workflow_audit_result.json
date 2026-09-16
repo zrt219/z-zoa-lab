@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "freeze_manifest_verified": true,
+  "leakage_certificate_verified": true,
+  "checks": [
+    {
+      "name": "freeze_manifest",
+      "status": "PASS",
+      "run_id": "VELA-001",
+      "seal": "7a17e35b1c4520c9140acfc5316e7f93b6a7225dcd3f1f0685371a50d45625ad"
+    },
+    {
+      "name": "leakage_certificate",
+      "status": "PASS",
+      "tests_passed": "12/12",
+      "certificate_sha256": "df6131fc21abf99145121a45fbb9aa77a42337eb776caf3c7fd0fe678625e45e"
+    }
+  ]
+}

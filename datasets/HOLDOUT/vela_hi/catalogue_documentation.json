@@ -1,0 +1,13 @@
+{
+  "survey": "MeerKAT Vela-HI",
+  "telescope": "SARAO MeerKAT",
+  "paper_title": "Revealing Hidden Structures in the Zone of Avoidance \u2013 A Blind MeerKAT HI Survey of the Vela Supercluster",
+  "authors": "Courtois, H. M., et al.",
+  "publication": "MNRAS, 535(4), 3429\u20133445 (2024)",
+  "doi": "10.1093/mnras/stae2499",
+  "zenodo_doi": "10.5281/zenodo.12522808",
+  "coverage": "263 <= l <= 284 deg, extended Galactic latitude coverage",
+  "detections": 719,
+  "new_discoveries": 508,
+  "holdout_protection": "LOCKED - Training access forbidden"
+}

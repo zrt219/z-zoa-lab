@@ -1,0 +1,70 @@
+{
+  "test_id": "01_FILE_HASH_AND_ROLE_INTEGRITY",
+  "status": "PASS",
+  "datasets_checked": 7,
+  "records": [
+    {
+      "dataset_id": "cf4_sample",
+      "role": "DatasetRole.TRAIN",
+      "file_path": "datasets/raw/cf4/cf4_sample.parquet",
+      "exists": true,
+      "sha256": "ad16175675a14f5726adfb7eb6c5fa78fdb6099f18441d7439ba1ddfaf39727f",
+      "hash_matches_registry": true,
+      "train_accessible": true
+    },
+    {
+      "dataset_id": "hizoa_s_sample",
+      "role": "DatasetRole.TRAIN_AFTER_DECONTAMINATION",
+      "file_path": "datasets/raw/hizoa/hizoa_sample.parquet",
+      "exists": true,
+      "sha256": "93c0aa820149450aa3e542842e34df539472603d8b9feaa5545a59bc100eef19",
+      "hash_matches_registry": true,
+      "train_accessible": true
+    },
+    {
+      "dataset_id": "vela_smgps_sample",
+      "role": "DatasetRole.HOLDOUT",
+      "file_path": "datasets/HOLDOUT/vela_smgps/vela_smgps_sample.parquet",
+      "exists": true,
+      "sha256": "14bf9335626eef369af3fcd15a19b03aa7efbb7b54bf88171a80c9b9f308b926",
+      "hash_matches_registry": true,
+      "train_accessible": false
+    },
+    {
+      "dataset_id": "ga_smgps_477",
+      "role": "DatasetRole.HOLDOUT",
+      "file_path": "datasets/HOLDOUT/ga_smgps/ga_smgps_477.csv",
+      "exists": true,
+      "sha256": "2a9d2a9a471b59ac0e4e30ace48eae24b8f08387942277dc5aed34162a0604e4",
+      "hash_matches_registry": true,
+      "train_accessible": false
+    },
+    {
+      "dataset_id": "wallaby_dr2",
+      "role": "DatasetRole.COMPARISON_ONLY",
+      "file_path": "datasets/reference/wallaby_dr2/wallaby_dr2_source_catalogue.csv",
+      "exists": true,
+      "sha256": "7d8117c14ff2e3e5ea896f4894a9f04fa1a417af9e039a7127d89bb28b380318",
+      "hash_matches_registry": true,
+      "train_accessible": false
+    },
+    {
+      "dataset_id": "2mrs_sample",
+      "role": "DatasetRole.TRAIN",
+      "file_path": "datasets/raw/2mrs/2mrs_sample.csv",
+      "exists": true,
+      "sha256": "2c7265613198f1c22b9de792e8df55c1e975450454c6a5aa7edc7e8c615b9916",
+      "hash_matches_registry": true,
+      "train_accessible": true
+    },
+    {
+      "dataset_id": "hizoa_s_full",
+      "role": "DatasetRole.TRAIN_AFTER_DECONTAMINATION",
+      "file_path": "datasets/raw/hizoa/hizoa_s_full.csv",
+      "exists": true,
+      "sha256": "68e2535c91073ef99c069047515277709709bad36a2a074d8a706e41a0962d76",
+      "hash_matches_registry": true,
+      "train_accessible": true
+    }
+  ]
+}

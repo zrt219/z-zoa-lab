@@ -1,0 +1,39 @@
+{
+  "timestamp_utc": "2026-09-15T22:10:49Z",
+  "overall_acceptance_status": "PASS",
+  "criteria_evaluated": 5,
+  "criteria_passed": 5,
+  "run_id": "VELA-001",
+  "items": [
+    {
+      "part": "A",
+      "criterion": "Dataset Registry & Cryptographic SHA-256 Integrity",
+      "details": "7 datasets registered with immutable SHA-256 digests; zero mock fallbacks.",
+      "status": "PASS"
+    },
+    {
+      "part": "B",
+      "criterion": "Synthetic Full Pipeline Rehearsal (ZoA Inpainting)",
+      "details": "Recovered masked density field with Pearson r = 0.905 (criterion >= 0.65), RMSE = 0.238.",
+      "status": "PASS"
+    },
+    {
+      "part": "C",
+      "criterion": "Leakage Attack Rehearsals (Defense-in-Depth)",
+      "details": "Direct holdout load in TRAINING rejected: True; invalid reveal token rejected: True; gate active: True.",
+      "status": "PASS"
+    },
+    {
+      "part": "D",
+      "criterion": "Cleanroom Leakage Certificate (18/18 Tests)",
+      "details": "All 18 automated leakage tests pass; zero ID, sky, or velocity collisions across holdouts.",
+      "status": "PASS"
+    },
+    {
+      "part": "E",
+      "criterion": "Real VELA-001 Confirmatory Validation & Paper Outputs",
+      "details": "Validation Confirmed: True; Publication Figures 1-4: True; Tables 1-6 (CSV/LaTeX): True.",
+      "status": "PASS"
+    }
+  ]
+}

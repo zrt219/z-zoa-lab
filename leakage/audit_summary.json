@@ -1,0 +1,16 @@
+{
+  "pipeline_version": "Z-ZOA-DECONTAM-v1.0",
+  "hizoa_total_rows": 883,
+  "hizoa_excluded_rows": 39,
+  "hizoa_clean_rows": 844,
+  "cf4_total_rows": 8,
+  "cf4_excluded_rows": 0,
+  "cf4_clean_rows": 8,
+  "mrs_total_rows": 50,
+  "mrs_excluded_rows": 0,
+  "mrs_clean_rows": 50,
+  "total_exclusions": 39,
+  "total_train_clean_rows": 902,
+  "known_hizoa_vela_39_status": "EXACT_MATCH_39_EXCLUDED",
+  "clean_output_path": "datasets/processed/TRAIN_CLEAN/train_clean_combined.parquet"
+}

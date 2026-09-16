@@ -1,0 +1,38 @@
+{
+  "test_id": "08_TUNING_LEAKAGE_TEST",
+  "status": "PASS",
+  "pre_reveal_frozen": true,
+  "holdout_tuned_parameters": 0,
+  "parameters": [
+    {
+      "param": "smoothing_scale_mpc",
+      "value": 10.0,
+      "chosen_basis": "Cosmic web correlation length from CF4 baseline",
+      "holdout_influence": false
+    },
+    {
+      "param": "grid_size",
+      "value": 32,
+      "chosen_basis": "Sufficient resolution (12.5 Mpc/voxel) for linear theory",
+      "holdout_influence": false
+    },
+    {
+      "param": "cz_max_cut_kms",
+      "value": 25000.0,
+      "chosen_basis": "Maximum depth of HIZOA/2MRS redshift completeness",
+      "holdout_influence": false
+    },
+    {
+      "param": "h0_kms_mpc",
+      "value": 74.6,
+      "chosen_basis": "Standard Cosmicflows-4 Hubble constant",
+      "holdout_influence": false
+    },
+    {
+      "param": "omega_m",
+      "value": 0.3,
+      "chosen_basis": "Standard Planck/CF4 flat LCDM prior",
+      "holdout_influence": false
+    }
+  ]
+}

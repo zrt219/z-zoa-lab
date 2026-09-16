@@ -1,0 +1,6 @@
+{
+  "test_id": "04_REDSHIFT_VELOCITY_CROSSMATCH",
+  "status": "PASS",
+  "clean_tracers_in_holdout_footprint": 0,
+  "residual_velocity_overlap_records": 0
+}

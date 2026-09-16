@@ -1,0 +1,8 @@
+| Quantity | Symbol | Value |
+| --- | --- | --- |
+| Baseline Clean Tracers | N_train | 902 |
+| Assimilated MeerKAT Tracers | N_holdout | 39 |
+| Mean Density Contrast Shift | <Delta delta> | +0.0001 |
+| Peak Overdensity Sharpening | max(Delta delta) | +33.81 |
+| Max Pointwise Uncertainty Reduction | max(Delta sigma) | 0.0125 |
+| Mean Volume-Averaged Uncertainty Reduction | <Delta sigma / sigma> | 0.13% |

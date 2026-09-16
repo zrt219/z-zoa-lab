@@ -1,0 +1,8 @@
+Metric,Value,Significance
+Withheld Holdout Galaxies (N),39,Primary Confirmatory Benchmark
+Observed Mean Overdensity <delta>,134.84,Significantly positive overdensity
+Null Hypothesis Mean (mu_null),95.79 +/- 19.93,"1,000 mock catalog realizations"
+Effect Size (Cohen's d),1.96 sigma,Strong out-of-sample signal
+Empirical P-Value,0.0270,Statistically confirmed (p < 0.05)
+Fraction in Overdense Voxels (delta > 0),97.4%,38 of 39 galaxies in delta > 0
+Fraction in High-Probability Voxels (P > 0.5),92.3%,Robust exceedance probability

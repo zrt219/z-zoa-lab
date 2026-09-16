@@ -1,0 +1,8 @@
+{
+  "test_id": "05_HIZOA_VELA_39_KNOWN_OVERLAPS",
+  "published_literature_benchmark": 39,
+  "detected_hizoa_overlaps": 39,
+  "quarantined_to_exclusion_list": 39,
+  "status": "PASS",
+  "literature_citation": "Kraan-Korteweg et al. 2024, MNRAS 531, 3486"
+}

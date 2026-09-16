@@ -1,0 +1,15 @@
+{
+  "run_id": "VELA-001",
+  "holdout_catalog": "Vela-SMGPS (withheld HIZOA-S 39 detections)",
+  "holdout_count": 39,
+  "primary_metric": "mean_overdensity_at_holdout",
+  "observed_mean_delta": 134.83907177810605,
+  "null_hypothesis_mean": 99.16849251351766,
+  "null_hypothesis_std": 20.92677978178852,
+  "empirical_p_value": "0.0200",
+  "effect_size_cohens_d": 1.7045422007766415,
+  "fraction_in_overdense_voxels": 0.9743589743589743,
+  "fraction_in_high_prob_voxels": 0.9230769230769231,
+  "n_null_realizations": 50,
+  "status": "VALIDATION_CONFIRMED"
+}

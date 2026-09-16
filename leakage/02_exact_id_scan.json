@@ -1,0 +1,8 @@
+{
+  "test_id": "02_EXACT_ID_DUPLICATE_SCAN",
+  "status": "PASS",
+  "train_unique_ids": 902,
+  "holdout_unique_ids": 481,
+  "collisions_found": 0,
+  "colliding_ids": []
+}
