@@ -1,0 +1,13 @@
+{
+  "run_id": "STUDY-001",
+  "study_name": "Vela Baseline Replication",
+  "holdout_catalog": "Vela-SMGPS Holdout (N=39)",
+  "holdout_count": 39,
+  "primary_metric": "mean_overdensity_at_holdout",
+  "observed_score": 22.905409866983078,
+  "null_hypothesis_mean": -3.657009115087817e-05,
+  "null_hypothesis_std": 5.843226131906691,
+  "z_score": 3.92,
+  "empirical_p_value": 0.02,
+  "status": "VALIDATION_CONFIRMED"
+}

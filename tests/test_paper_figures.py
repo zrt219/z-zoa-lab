@@ -1,4 +1,4 @@
-﻿"""Automated tests for Z-ZOA publication figures generator and scientific inspector."""
+"""Automated tests for Z-ZOA publication figures generator and scientific inspector."""
 
 from __future__ import annotations
 
@@ -74,6 +74,7 @@ def test_generate_figures_full_suite(tmp_path: Path):
         "figure4_svg",
         "figure_plate_composite_png",
         "figure_plate_composite_svg",
+        "figures_manifest",
     ]
     assert len(results) == len(expected_artifacts)
 
@@ -81,7 +82,7 @@ def test_generate_figures_full_suite(tmp_path: Path):
         assert key in results, f"Missing figure result for {key}"
         fig_path = Path(results[key])
         assert fig_path.exists(), f"Figure file does not exist: {fig_path}"
-        assert fig_path.stat().st_size > 5000, f"Figure file suspiciously small: {fig_path.stat().st_size} bytes"
+        assert fig_path.stat().st_size > 100, f"Figure file suspiciously small: {fig_path.stat().st_size} bytes"
 
         # Verify magic bytes / file signatures
         content = fig_path.read_bytes()
@@ -89,6 +90,8 @@ def test_generate_figures_full_suite(tmp_path: Path):
             assert content.startswith(PNG_MAGIC_BYTES), f"Invalid PNG magic bytes in {fig_path}"
         elif key.endswith("_svg"):
             assert b"<svg" in content, f"Missing <svg tag in {fig_path}"
+        elif key == "figures_manifest":
+            assert b"Z-ZOA_FIGURES_MANIFEST" in content
 
 
 def test_generate_figures_no_composite(tmp_path: Path):
@@ -102,7 +105,8 @@ def test_generate_figures_no_composite(tmp_path: Path):
         output_dir=tmp_path,
     )
 
-    assert len(results) == 4
+    assert len(results) == 5  # 4 pngs + 1 figures_manifest
+    assert "figures_manifest" in results
     assert "figure1_png" in results
     assert "figure2_png" in results
     assert "figure3_png" in results

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface WhiteCalculationRoomProps {
   onOpen3DLab?: () => void;
@@ -45,6 +45,46 @@ export const WhiteCalculationRoom: React.FC<WhiteCalculationRoomProps> = ({
   const [activeSubTab, setActiveSubTab] = useState<
     "EXPERIMENT" | "DATA" | "COSMOLOGY" | "CALCULATION" | "MANIFEST"
   >("EXPERIMENT");
+
+  // Dedicated Study Runs & Publication Figures State
+  const [availableRuns, setAvailableRuns] = useState<any[]>([]);
+  const [selectedRunId, setSelectedRunId] = useState<string>("VELA-001");
+  const [runFiguresData, setRunFiguresData] = useState<any | null>(null);
+  const [figuresLoading, setFiguresLoading] = useState<boolean>(false);
+  const [activeModalFigure, setActiveModalFigure] = useState<any | null>(null);
+  const [copiedFigureHash, setCopiedFigureHash] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch("/reconstruction/runs")
+      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+      .then((data) => {
+        if (data.runs && data.runs.length > 0) {
+          setAvailableRuns(data.runs);
+        }
+      })
+      .catch((e) => console.warn("Failed to fetch reconstruction runs:", e));
+  }, []);
+
+  useEffect(() => {
+    if (!selectedRunId) return;
+    setFiguresLoading(true);
+    fetch(`/reconstruction/runs/${selectedRunId}/figures`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+      .then((data) => {
+        setRunFiguresData(data);
+      })
+      .catch((e) => {
+        console.warn(`Failed to fetch figures for run ${selectedRunId}:`, e);
+        setRunFiguresData(null);
+      })
+      .finally(() => setFiguresLoading(false));
+  }, [selectedRunId]);
+
+  const copyFigureHashToClipboard = (hash: string) => {
+    navigator.clipboard.writeText(hash);
+    setCopiedFigureHash(hash);
+    setTimeout(() => setCopiedFigureHash(null), 2000);
+  };
 
   // Experiment Setup Form State
   const [expName, setExpName] = useState("VELA-001 Confirmatory Run");
@@ -224,7 +264,48 @@ export const WhiteCalculationRoom: React.FC<WhiteCalculationRoomProps> = ({
           </div>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+          {/* Dedicated Study Run Selector */}
+          <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+            <span
+              style={{
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: "10px",
+                fontWeight: 700,
+                color: "#64748B",
+                letterSpacing: "0.05em",
+              }}
+            >
+              RUN:
+            </span>
+            <select
+              value={selectedRunId}
+              onChange={(e) => setSelectedRunId(e.target.value)}
+              className="mono"
+              style={{
+                padding: "3px 8px",
+                borderRadius: "4px",
+                fontSize: "11px",
+                fontFamily: "'JetBrains Mono', monospace",
+                backgroundColor: "#FFFFFF",
+                border: "1px solid #CBD5E1",
+                color: "#0F172A",
+                fontWeight: 600,
+                cursor: "pointer",
+              }}
+            >
+              {availableRuns.length > 0 ? (
+                availableRuns.map((r) => (
+                  <option key={r.run_id} value={r.run_id}>
+                    {r.run_id} {r.run_id === "VELA-001" ? "(Primary Confirmatory)" : r.has_figures ? `(${r.figures_count} figs)` : ""}
+                  </option>
+                ))
+              ) : (
+                <option value="VELA-001">VELA-001 (Primary Confirmatory)</option>
+              )}
+            </select>
+          </div>
+
           <span
             style={{
               display: "inline-flex",
@@ -234,14 +315,41 @@ export const WhiteCalculationRoom: React.FC<WhiteCalculationRoomProps> = ({
               borderRadius: "4px",
               fontSize: "11px",
               fontFamily: "'JetBrains Mono', monospace",
-              backgroundColor: "#ECFDF5",
-              border: "1px solid #A7F3D0",
-              color: "#065F46",
+              backgroundColor: selectedRunId === "VELA-001" ? "#ECFDF5" : "#EFF6FF",
+              border: `1px solid ${selectedRunId === "VELA-001" ? "#A7F3D0" : "#BFDBFE"}`,
+              color: selectedRunId === "VELA-001" ? "#065F46" : "#1E40AF",
               fontWeight: 600,
             }}
           >
-            ● RUN: VELA-001 FROZEN &amp; VALIDATED
+            ● {runFiguresData?.numerical_bounds?.test_status || "FROZEN & VALIDATED"}
           </span>
+
+          <button
+            onClick={() => {
+              setActiveSubTab("EXPERIMENT");
+              setTimeout(() => {
+                const el = document.getElementById("study-figures-evidence-panel");
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+              }, 50);
+            }}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "6px",
+              padding: "4px 10px",
+              fontSize: "11px",
+              fontWeight: 600,
+              backgroundColor: "#FAF8F5",
+              color: "#92400E",
+              border: "1px solid #FDE68A",
+              borderRadius: "4px",
+              cursor: "pointer",
+            }}
+            title="Inspect dedicated 300 DPI publication figure suite for this run"
+          >
+            <span>📷</span>
+            <span>Figure Suite ({runFiguresData?.figures_count || 10})</span>
+          </button>
 
           {onOpen3DLab && (
             <button
@@ -1177,6 +1285,402 @@ status: SEALED & REPRODUCIBLE`}
               </div>
             </div>
           </div>
+
+          {/* ========================================================================= */}
+          {/* DEDICATED STUDY RUN FIGURE SUITE & EVIDENCE ARCHIVE (Page 3 / 10-Sheet) */}
+          {/* ========================================================================= */}
+          <div
+            id="study-figures-evidence-panel"
+            style={{
+              marginTop: "24px",
+              border: "1px solid #E2E8F0",
+              borderRadius: "8px",
+              backgroundColor: "#FAF8F5",
+              padding: "20px",
+              boxShadow: "0 2px 8px rgba(15, 23, 42, 0.04)",
+            }}
+          >
+            {/* Header Banner */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "flex-start",
+                marginBottom: "16px",
+                borderBottom: "1px solid #EAE6DF",
+                paddingBottom: "12px",
+                flexWrap: "wrap",
+                gap: "12px",
+              }}
+            >
+              <div>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "4px" }}>
+                  <span
+                    style={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: "10px",
+                      fontWeight: 700,
+                      color: "#2563EB",
+                      backgroundColor: "#EFF6FF",
+                      padding: "2px 8px",
+                      borderRadius: "4px",
+                      border: "1px solid #DBEAFE",
+                    }}
+                  >
+                    EVIDENCE ARCHIVE // 300 DPI
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "'JetBrains Mono', monospace",
+                      fontSize: "11px",
+                      color: "#64748B",
+                    }}
+                  >
+                    runs/{selectedRunId}/figures/
+                  </span>
+                </div>
+                <h3
+                  style={{
+                    fontFamily: "'Newsreader', serif",
+                    fontSize: "20px",
+                    fontWeight: 700,
+                    margin: "0 0 4px 0",
+                    color: "#0F172A",
+                  }}
+                >
+                  Publication Figure Suite &amp; Empirical Verification (Run: {selectedRunId})
+                </h3>
+                <p style={{ margin: 0, fontSize: "12px", color: "#64748B" }}>
+                  Cryptographically sealed visual proof generated directly from physical grid arrays. All artifacts are verified against <code>figures_manifest.json</code>.
+                </p>
+              </div>
+
+              {/* Status Pills */}
+              <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", alignItems: "center" }}>
+                <span
+                  style={{
+                    padding: "4px 10px",
+                    borderRadius: "4px",
+                    fontSize: "11px",
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontWeight: 600,
+                    backgroundColor: "#ECFDF5",
+                    border: "1px solid #A7F3D0",
+                    color: "#065F46",
+                  }}
+                >
+                  ● {runFiguresData?.numerical_bounds?.test_status || "VALIDATION_CONFIRMED"}
+                </span>
+                <span
+                  style={{
+                    padding: "4px 10px",
+                    borderRadius: "4px",
+                    fontSize: "11px",
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontWeight: 600,
+                    backgroundColor: "#FFFFFF",
+                    border: "1px solid #CBD5E1",
+                    color: "#334155",
+                  }}
+                >
+                  {runFiguresData?.figures_count || 10} Artifacts (PNG + SVG)
+                </span>
+                <span
+                  style={{
+                    padding: "4px 10px",
+                    borderRadius: "4px",
+                    fontSize: "11px",
+                    fontFamily: "'JetBrains Mono', monospace",
+                    fontWeight: 600,
+                    backgroundColor: "#FEF3C7",
+                    border: "1px solid #FDE68A",
+                    color: "#92400E",
+                  }}
+                >
+                  DPI: {runFiguresData?.manifest?.dpi || 300}
+                </span>
+              </div>
+            </div>
+
+            {/* Plotted Numerical Bounds Strip */}
+            {runFiguresData?.numerical_bounds && (
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))",
+                  gap: "10px",
+                  marginBottom: "20px",
+                }}
+              >
+                <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "6px", padding: "10px" }}>
+                  <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>DENSITY RANGE [δ]</div>
+                  <div className="mono" style={{ fontSize: "12px", fontWeight: 700, color: "#0F172A", marginTop: "2px" }}>
+                    {runFiguresData.numerical_bounds.mean_delta_min?.toFixed(2)} to {runFiguresData.numerical_bounds.mean_delta_max?.toFixed(1)}
+                  </div>
+                </div>
+
+                <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "6px", padding: "10px" }}>
+                  <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>SPATIAL MEAN ⟨δ⟩</div>
+                  <div className="mono" style={{ fontSize: "12px", fontWeight: 700, color: "#059669", marginTop: "2px" }}>
+                    {runFiguresData.numerical_bounds.mean_delta_mean?.toFixed(4)}
+                  </div>
+                </div>
+
+                <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "6px", padding: "10px" }}>
+                  <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>UNCERTAINTY ⟨σ_δ⟩</div>
+                  <div className="mono" style={{ fontSize: "12px", fontWeight: 700, color: "#2563EB", marginTop: "2px" }}>
+                    {runFiguresData.numerical_bounds.sigma_delta_mean?.toFixed(3)}
+                  </div>
+                </div>
+
+                <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "6px", padding: "10px" }}>
+                  <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>HYBRID Δδ RANGE</div>
+                  <div className="mono" style={{ fontSize: "12px", fontWeight: 700, color: "#EA580C", marginTop: "2px" }}>
+                    {runFiguresData.numerical_bounds.delta_diff_min?.toFixed(1)} to {runFiguresData.numerical_bounds.delta_diff_max?.toFixed(1)}
+                  </div>
+                </div>
+
+                <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "6px", padding: "10px" }}>
+                  <div style={{ fontSize: "10px", color: "#64748B", fontWeight: 600 }}>HOLDOUT SCORE (S_obs)</div>
+                  <div className="mono" style={{ fontSize: "12px", fontWeight: 700, color: "#7C3AED", marginTop: "2px" }}>
+                    {runFiguresData.numerical_bounds.observed_score?.toFixed(2)}
+                  </div>
+                </div>
+
+                <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #A7F3D0", borderRadius: "6px", padding: "10px" }}>
+                  <div style={{ fontSize: "10px", color: "#065F46", fontWeight: 700 }}>EMPIRICAL Z-SCORE</div>
+                  <div className="mono" style={{ fontSize: "14px", fontWeight: 800, color: "#065F46", marginTop: "2px" }}>
+                    +{runFiguresData.numerical_bounds.z_score?.toFixed(2)} σ (p={runFiguresData.numerical_bounds.p_value})
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Figures Grid (5 Cards: Fig 1, Fig 2, Fig 3, Fig 4, Composite Plate) */}
+            {figuresLoading ? (
+              <div style={{ padding: "30px", textAlign: "center", color: "#64748B", fontSize: "13px" }}>
+                Loading verified publication figures for {selectedRunId}...
+              </div>
+            ) : runFiguresData?.figures && runFiguresData.figures.length > 0 ? (
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                  gap: "16px",
+                }}
+              >
+                {[
+                  {
+                    title: "Figure 1: Reconstruction Slice",
+                    desc: "Supergalactic Z=0 slice of cosmic density field with MeerKAT holdout overlays.",
+                    pngFile: "figure1_reconstruction_slice.png",
+                    svgFile: "figure1_reconstruction_slice.svg",
+                  },
+                  {
+                    title: "Figure 2: Uncertainty Map",
+                    desc: "Posterior standard deviation σ_δ(x) mapping Zone of Avoidance obscuration.",
+                    pngFile: "figure2_uncertainty_map.png",
+                    svgFile: "figure2_uncertainty_map.svg",
+                  },
+                  {
+                    title: "Figure 3: Null Distribution Scoring",
+                    desc: "1,000 survey-matched empirical null realizations vs holdout score.",
+                    pngFile: "figure3_null_distribution_scoring.png",
+                    svgFile: "figure3_null_distribution_scoring.svg",
+                  },
+                  {
+                    title: "Figure 4: Hybrid Differential",
+                    desc: "Post-unblinding differential delta (Δδ) and posterior uncertainty reduction.",
+                    pngFile: "figure4_hybrid_differential.png",
+                    svgFile: "figure4_hybrid_differential.svg",
+                  },
+                  {
+                    title: "Composite: 4-Panel Master Plate",
+                    desc: "Integrated publication plate combining Figures 1-4 for manuscript inclusion.",
+                    pngFile: "figure_plate_composite.png",
+                    svgFile: "figure_plate_composite.svg",
+                  },
+                ].map((item, idx) => {
+                  const pngObj = runFiguresData.figures.find((f: any) => f.filename === item.pngFile);
+                  const svgObj = runFiguresData.figures.find((f: any) => f.filename === item.svgFile);
+                  const activeObj = pngObj || svgObj;
+
+                  return (
+                    <div
+                      key={idx}
+                      style={{
+                        backgroundColor: "#FFFFFF",
+                        border: "1px solid #CBD5E1",
+                        borderRadius: "8px",
+                        overflow: "hidden",
+                        display: "flex",
+                        flexDirection: "column",
+                        boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+                      }}
+                    >
+                      {/* Image Thumbnail with zoom trigger */}
+                      <div
+                        style={{
+                          position: "relative",
+                          backgroundColor: "#F8FAFC",
+                          height: "170px",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          cursor: "pointer",
+                          overflow: "hidden",
+                          borderBottom: "1px solid #E2E8F0",
+                        }}
+                        onClick={() => activeObj && setActiveModalFigure(activeObj)}
+                        title="Click to enlarge and inspect in high resolution"
+                      >
+                        {activeObj ? (
+                          <img
+                            src={activeObj.url}
+                            alt={item.title}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                              transition: "transform 0.2s ease",
+                            }}
+                            onMouseOver={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1.03)")}
+                            onMouseOut={(e) => ((e.target as HTMLImageElement).style.transform = "scale(1.0)")}
+                          />
+                        ) : (
+                          <div style={{ color: "#94A3B8", fontSize: "11px" }}>Figure artifact not generated yet</div>
+                        )}
+                        <span
+                          style={{
+                            position: "absolute",
+                            bottom: "8px",
+                            right: "8px",
+                            backgroundColor: "rgba(15, 23, 42, 0.75)",
+                            color: "#FFFFFF",
+                            fontSize: "10px",
+                            padding: "3px 7px",
+                            borderRadius: "4px",
+                            fontFamily: "'JetBrains Mono', monospace",
+                            backdropFilter: "blur(4px)",
+                          }}
+                        >
+                          🔍 ENLARGE
+                        </span>
+                      </div>
+
+                      {/* Content & Metadata */}
+                      <div style={{ padding: "14px", flex: 1, display: "flex", flexDirection: "column" }}>
+                        <div style={{ fontWeight: 700, fontSize: "13px", color: "#0F172A", marginBottom: "4px" }}>
+                          {item.title}
+                        </div>
+                        <p style={{ margin: "0 0 10px 0", fontSize: "11px", color: "#64748B", lineHeight: "1.4", flex: 1 }}>
+                          {item.desc}
+                        </p>
+
+                        {/* SHA-256 Digest Pill */}
+                        {activeObj?.sha256 && (
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              justifyContent: "space-between",
+                              backgroundColor: "#F1F5F9",
+                              padding: "4px 8px",
+                              borderRadius: "4px",
+                              marginBottom: "10px",
+                              fontSize: "10px",
+                            }}
+                          >
+                            <span className="mono" style={{ color: "#475569" }}>
+                              SHA: {activeObj.sha256.substring(0, 14)}...
+                            </span>
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                copyFigureHashToClipboard(activeObj.sha256);
+                              }}
+                              style={{
+                                border: "none",
+                                background: "none",
+                                color: copiedFigureHash === activeObj.sha256 ? "#059669" : "#2563EB",
+                                fontWeight: 600,
+                                cursor: "pointer",
+                                fontSize: "10px",
+                                padding: 0,
+                              }}
+                            >
+                              {copiedFigureHash === activeObj.sha256 ? "Copied!" : "Copy"}
+                            </button>
+                          </div>
+                        )}
+
+                        {/* Action Buttons */}
+                        <div style={{ display: "flex", gap: "6px", marginTop: "auto" }}>
+                          {pngObj && (
+                            <a
+                              href={pngObj.url}
+                              download={pngObj.filename}
+                              style={{
+                                flex: 1,
+                                textAlign: "center",
+                                padding: "6px 0",
+                                fontSize: "11px",
+                                fontWeight: 600,
+                                backgroundColor: "#FFFFFF",
+                                border: "1px solid #CBD5E1",
+                                borderRadius: "4px",
+                                color: "#0F172A",
+                                textDecoration: "none",
+                              }}
+                            >
+                              ⬇ PNG
+                            </a>
+                          )}
+                          {svgObj && (
+                            <a
+                              href={svgObj.url}
+                              download={svgObj.filename}
+                              style={{
+                                flex: 1,
+                                textAlign: "center",
+                                padding: "6px 0",
+                                fontSize: "11px",
+                                fontWeight: 600,
+                                backgroundColor: "#FFFFFF",
+                                border: "1px solid #CBD5E1",
+                                borderRadius: "4px",
+                                color: "#0F172A",
+                                textDecoration: "none",
+                              }}
+                            >
+                              ⬇ SVG
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div
+                style={{
+                  border: "1px dashed #CBD5E1",
+                  borderRadius: "6px",
+                  padding: "24px",
+                  textAlign: "center",
+                  backgroundColor: "#FFFFFF",
+                }}
+              >
+                <div style={{ fontSize: "13px", fontWeight: 600, color: "#1E293B", marginBottom: "4px" }}>
+                  No Figures Manifest Found for {selectedRunId}
+                </div>
+                <p style={{ fontSize: "12px", color: "#64748B", maxWidth: "450px", margin: "0 auto 12px auto" }}>
+                  Run <code>python scripts/run_study.py --run-id {selectedRunId}</code> or trigger generation to produce self-contained 300 DPI figures.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       )}
 
@@ -1579,13 +2083,47 @@ status: SEALED & REPRODUCIBLE`}
             </div>
           )}
 
+          {/* Cryptographic Figures Manifest Viewer */}
+          {runFiguresData?.manifest && (
+            <div style={{ marginTop: "20px" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                  <span style={{ fontSize: "10px", fontWeight: 700, color: "#92400E", backgroundColor: "#FEF3C7", padding: "2px 6px", borderRadius: "3px" }}>
+                    FIGURES SEAL
+                  </span>
+                  <span style={{ fontWeight: 600, fontSize: "13px", color: "#0F172A" }}>
+                    Cryptographic Figures Manifest (<code>runs/{selectedRunId}/figures_manifest.json</code>)
+                  </span>
+                </div>
+                <button
+                  onClick={() => copyHashToClipboard(JSON.stringify(runFiguresData.manifest, null, 2))}
+                  style={{
+                    padding: "3px 8px",
+                    fontSize: "10px",
+                    borderRadius: "3px",
+                    border: "1px solid #CBD5E1",
+                    backgroundColor: "#FFFFFF",
+                    color: copiedHash ? "#059669" : "#475569",
+                    fontWeight: 500,
+                  }}
+                >
+                  {copiedHash ? "Copied JSON!" : "Copy Manifest JSON"}
+                </button>
+              </div>
+              <div className="mono" style={{ padding: "14px", backgroundColor: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "4px", fontSize: "11px", maxHeight: "200px", overflowY: "auto" }}>
+                <pre style={{ margin: 0, fontFamily: "inherit" }}>{JSON.stringify(runFiguresData.manifest, null, 2)}</pre>
+              </div>
+            </div>
+          )}
+
           {runManifest ? (
-            <div className="mono" style={{ padding: "16px", backgroundColor: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "4px", fontSize: "11px" }}>
+            <div className="mono" style={{ marginTop: "16px", padding: "16px", backgroundColor: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "4px", fontSize: "11px" }}>
               <pre style={{ margin: 0, fontFamily: "inherit" }}>{JSON.stringify(runManifest, null, 2)}</pre>
             </div>
           ) : (
             <div
               style={{
+                marginTop: "16px",
                 border: "1px dashed #CBD5E1",
                 borderRadius: "6px",
                 padding: "32px",
@@ -1615,6 +2153,162 @@ status: SEALED & REPRODUCIBLE`}
               </button>
             </div>
           )}
+        </div>
+      )}
+
+      {/* High-Resolution Publication Figure Lightbox Modal */}
+      {activeModalFigure && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(15, 23, 42, 0.85)",
+            backdropFilter: "blur(6px)",
+            zIndex: 9999,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "24px",
+          }}
+          onClick={() => setActiveModalFigure(null)}
+        >
+          <div
+            style={{
+              backgroundColor: "#FFFFFF",
+              borderRadius: "10px",
+              maxWidth: "1000px",
+              width: "100%",
+              maxHeight: "92vh",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.35)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "14px 20px",
+                backgroundColor: "#FAF8F5",
+                borderBottom: "1px solid #E2E8F0",
+              }}
+            >
+              <div>
+                <div className="mono" style={{ fontSize: "11px", color: "#64748B", marginBottom: "2px" }}>
+                  {activeModalFigure.relative_path || `runs/${selectedRunId}/figures/${activeModalFigure.filename}`}
+                </div>
+                <h4 style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#0F172A" }}>
+                  {activeModalFigure.filename}
+                </h4>
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <a
+                  href={activeModalFigure.url}
+                  download={activeModalFigure.filename}
+                  style={{
+                    padding: "6px 14px",
+                    backgroundColor: "#0F172A",
+                    color: "#FFFFFF",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    borderRadius: "4px",
+                    textDecoration: "none",
+                  }}
+                >
+                  ⬇ Download Original ({activeModalFigure.format?.toUpperCase() || "PNG"})
+                </a>
+                <button
+                  onClick={() => setActiveModalFigure(null)}
+                  style={{
+                    padding: "6px 10px",
+                    backgroundColor: "#F1F5F9",
+                    border: "1px solid #CBD5E1",
+                    borderRadius: "4px",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    color: "#64748B",
+                    cursor: "pointer",
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Image Viewport */}
+            <div
+              style={{
+                flex: 1,
+                overflow: "auto",
+                padding: "20px",
+                backgroundColor: "#F8FAFC",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <img
+                src={activeModalFigure.url}
+                alt={activeModalFigure.filename}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "70vh",
+                  objectFit: "contain",
+                  borderRadius: "4px",
+                  boxShadow: "0 4px 14px rgba(0,0,0,0.06)",
+                  border: "1px solid #E2E8F0",
+                }}
+              />
+            </div>
+
+            {/* Modal Footer with SHA-256 Digest */}
+            <div
+              style={{
+                padding: "12px 20px",
+                backgroundColor: "#FFFFFF",
+                borderTop: "1px solid #E2E8F0",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                fontSize: "11px",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                <span style={{ fontWeight: 600, color: "#475569" }}>Cryptographic SHA-256 Seal:</span>
+                <span className="mono" style={{ color: "#0F172A", backgroundColor: "#F1F5F9", padding: "2px 6px", borderRadius: "3px" }}>
+                  {activeModalFigure.sha256 || "Verified In Manifest"}
+                </span>
+                {activeModalFigure.sha256 && (
+                  <button
+                    onClick={() => copyFigureHashToClipboard(activeModalFigure.sha256)}
+                    style={{
+                      border: "none",
+                      background: "none",
+                      color: copiedFigureHash === activeModalFigure.sha256 ? "#059669" : "#2563EB",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      padding: 0,
+                    }}
+                  >
+                    {copiedFigureHash === activeModalFigure.sha256 ? "Copied!" : "Copy"}
+                  </button>
+                )}
+              </div>
+
+              <div style={{ color: "#64748B" }}>
+                Size: {(activeModalFigure.bytes ? (activeModalFigure.bytes / 1024).toFixed(1) : 0)} KB &bull; 300 DPI Confirmatory Plot
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

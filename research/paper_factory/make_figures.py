@@ -10,7 +10,10 @@ Produces publication-ready 300 DPI PNGs and vector SVGs:
 
 from __future__ import annotations
 
+import hashlib
 import json
+import shutil
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, Any, Tuple
 
@@ -19,6 +22,15 @@ import polars as pl
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+
+
+def compute_sha256(path: Path) -> str:
+    """Compute cryptographic SHA-256 hash of a file."""
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        while chunk := f.read(65536):
+            h.update(chunk)
+    return h.hexdigest()
 
 
 def set_paper_style():
@@ -66,6 +78,11 @@ def get_figure_inspection_summary(repo_root: Path, run_id: str = "VELA-001") -> 
     p_value = float(val_report.get("empirical_p_value", 0.0200))
     test_status = str(val_report.get("status", val_report.get("test_status", "CONFIRMATORY_DETECTION_CONFIRMED")))
 
+    figures_manifest_path = runs_dir / "figures_manifest.json"
+    run_figures_dir = runs_dir / "figures"
+    has_manifest = figures_manifest_path.exists()
+    fig_count = len(list(run_figures_dir.glob("*.*"))) if run_figures_dir.exists() else 0
+
     return {
         "run_id": run_id,
         "grid_shape": list(mean_delta.shape),
@@ -82,6 +99,8 @@ def get_figure_inspection_summary(repo_root: Path, run_id: str = "VELA-001") -> 
         "z_score": z_score,
         "p_value": p_value,
         "test_status": test_status,
+        "has_figures_manifest": has_manifest,
+        "figures_count": fig_count,
     }
 
 
@@ -363,6 +382,63 @@ def generate_figures(
             fig_comp.savefig(fig_comp_svg, bbox_inches="tight")
             results["figure_plate_composite_svg"] = str(fig_comp_svg)
         plt.close(fig_comp)
+
+    # -------------------------------------------------------------
+    # Per-Run Figure Archival & Cryptographic Figures Manifest
+    # -------------------------------------------------------------
+    if runs_dir.exists():
+        run_figures_dir = runs_dir / "figures"
+        run_figures_dir.mkdir(parents=True, exist_ok=True)
+
+        # 1. Ensure all generated figures are archived in runs/<run_id>/figures/
+        for key, path_str in list(results.items()):
+            src_path = Path(path_str)
+            if src_path.exists() and src_path.is_file():
+                dest_path = run_figures_dir / src_path.name
+                if src_path.resolve() != dest_path.resolve():
+                    shutil.copy2(src_path, dest_path)
+
+        # 2. If this is VELA-001 (primary publication run), also ensure paper/figures/ is mirrored
+        if run_id == "VELA-001":
+            paper_figures_dir = repo_root / "paper" / "figures"
+            paper_figures_dir.mkdir(parents=True, exist_ok=True)
+            for fig_path in run_figures_dir.glob("*.*"):
+                if fig_path.suffix.lower() in [".png", ".svg"]:
+                    paper_dest = paper_figures_dir / fig_path.name
+                    if fig_path.resolve() != paper_dest.resolve():
+                        shutil.copy2(fig_path, paper_dest)
+
+        # 3. Build cryptographic figures manifest
+        figs_catalog = {}
+        for fig_file in sorted(run_figures_dir.glob("*.*")):
+            if fig_file.suffix.lower() in [".png", ".svg"]:
+                rel_path = str(fig_file.relative_to(repo_root)).replace("\\", "/")
+                figs_catalog[fig_file.name] = {
+                    "filename": fig_file.name,
+                    "format": fig_file.suffix.lower().lstrip("."),
+                    "bytes": fig_file.stat().st_size,
+                    "sha256": compute_sha256(fig_file),
+                    "relative_path": rel_path,
+                }
+
+        inspection = get_figure_inspection_summary(repo_root, run_id=run_id)
+        manifest_payload = {
+            "manifest_type": "Z-ZOA_FIGURES_MANIFEST",
+            "run_id": run_id,
+            "created_at_utc": datetime.now(timezone.utc).isoformat(),
+            "dpi": dpi,
+            "formats": list(formats),
+            "has_composite": include_composite,
+            "figures_count": len(figs_catalog),
+            "numerical_bounds": inspection,
+            "figures": figs_catalog,
+        }
+        manifest_raw = json.dumps(manifest_payload, indent=2).encode("utf-8")
+        manifest_payload["manifest_seal_sha256"] = hashlib.sha256(manifest_raw).hexdigest()
+
+        manifest_file = runs_dir / "figures_manifest.json"
+        manifest_file.write_text(json.dumps(manifest_payload, indent=2), encoding="utf-8")
+        results["figures_manifest"] = str(manifest_file)
 
     return results
 

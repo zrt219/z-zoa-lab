@@ -687,7 +687,7 @@ export const Phase8FreezeScore: React.FC<PhaseViewProps> = () => {
         </div>
         <div style={{ border: "1px solid #E2E8F0", borderRadius: "8px", padding: "14px", backgroundColor: "#FEF3C7" }}>
           <div style={{ fontSize: "11px", fontWeight: 700, color: "#92400E" }}>3. Reveal MeerKAT</div>
-          <p style={{ fontSize: "11px", color: "#92400E", margin: "4px 0 0 0" }}>Open sealed holdout directory and load 39 Vela galaxies.</p>
+          <p style={{ fontSize: "11px", color: "#92400E", margin: "4px 0 0 0" }}>Open sealed holdout directory and evaluate against MeerKAT Vela galaxies (N=843).</p>
         </div>
         <div style={{ border: "1px solid #E2E8F0", borderRadius: "8px", padding: "14px", backgroundColor: "#FAF5FF" }}>
           <div style={{ fontSize: "11px", fontWeight: 700, color: "#6B21A8" }}>4. Measure Recovery</div>
@@ -961,6 +961,14 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
   const [markdownContent, setMarkdownContent] = useState("");
   const [latexContent, setLatexContent] = useState("");
 
+  // Study Run & Publication Figures State
+  const [availableRuns, setAvailableRuns] = useState<any[]>([]);
+  const [selectedRunId, setSelectedRunId] = useState<string>("VELA-001");
+  const [runFiguresData, setRunFiguresData] = useState<any | null>(null);
+  const [figuresLoading, setFiguresLoading] = useState<boolean>(false);
+  const [activeModalFigure, setActiveModalFigure] = useState<any | null>(null);
+  const [copiedFigureHash, setCopiedFigureHash] = useState<string | null>(null);
+
   useEffect(() => {
     fetch("/reproducibility/manuscript")
       .then((r) => r.json())
@@ -970,7 +978,30 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
         setLatexContent(d.latex);
       })
       .catch((e) => console.warn(e));
+
+    fetch("/reconstruction/runs")
+      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+      .then((d) => {
+        if (d.runs && d.runs.length > 0) setAvailableRuns(d.runs);
+      })
+      .catch((e) => console.warn(e));
   }, []);
+
+  useEffect(() => {
+    if (!selectedRunId) return;
+    setFiguresLoading(true);
+    fetch(`/reconstruction/runs/${selectedRunId}/figures`)
+      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
+      .then((d) => setRunFiguresData(d))
+      .catch((e) => console.warn(e))
+      .finally(() => setFiguresLoading(false));
+  }, [selectedRunId]);
+
+  const copyHash = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedFigureHash(text);
+    setTimeout(() => setCopiedFigureHash(null), 2000);
+  };
 
   const handleDownloadBundle = () => {
     window.location.href = "/reproducibility/bundle";
@@ -979,7 +1010,7 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       {/* Top Banner */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "20px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "20px", flexWrap: "wrap", gap: "16px" }}>
         <div>
           <span style={{ fontSize: "11px", fontWeight: 700, color: "#2563EB" }}>PAGE 10 OF 10 &bull; FINISH LINE</span>
           <h3 style={{ margin: "4px 0 6px 0", fontSize: "20px", fontWeight: 800 }}>9. From Results to Paper</h3>
@@ -1007,21 +1038,289 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
 
       {/* Figures & Tables Preview (Matching Page 10 sketches) */}
       <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "20px" }}>
-        <h4 style={{ margin: "0 0 12px 0", fontSize: "14px", fontWeight: 700 }}>
-          Publication Figures &amp; Tables
-        </h4>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", marginBottom: "16px" }}>
-          {manuscript?.figures?.map((fig: any) => (
-            <div key={fig.id} style={{ border: "1px solid #E2E8F0", borderRadius: "6px", padding: "12px", backgroundColor: "#FAF8F5" }}>
-              <div style={{ fontWeight: 700, fontSize: "12px", color: "#1E293B", marginBottom: "4px" }}>
-                {fig.title}
-              </div>
-              <div style={{ fontSize: "11px", color: "#64748B", lineHeight: "1.4" }}>
-                {fig.desc}
-              </div>
-            </div>
-          ))}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
+          <div>
+            <h4 style={{ margin: 0, fontSize: "15px", fontWeight: 700, color: "#0F172A" }}>
+              Publication Figures (300 DPI) &amp; Tables
+            </h4>
+            <span style={{ fontSize: "12px", color: "#64748B" }}>
+              Self-contained figure suites generated directly from live field arrays and sealed in <code>figures_manifest.json</code>.
+            </span>
+          </div>
+
+          {/* Study Run Selector */}
+          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <span style={{ fontSize: "11px", fontWeight: 600, color: "#475569" }}>Select Run:</span>
+            <select
+              value={selectedRunId}
+              onChange={(e) => setSelectedRunId(e.target.value)}
+              className="mono"
+              style={{
+                padding: "4px 10px",
+                fontSize: "11px",
+                fontWeight: 600,
+                borderRadius: "4px",
+                border: "1px solid #CBD5E1",
+                backgroundColor: "#FAF8F5",
+                color: "#0F172A",
+                cursor: "pointer",
+              }}
+            >
+              {availableRuns.length > 0 ? (
+                availableRuns.map((r) => (
+                  <option key={r.run_id} value={r.run_id}>
+                    {r.run_id} {r.run_id === "VELA-001" ? "(Primary Confirmatory)" : r.has_figures ? `(${r.figures_count} figs)` : ""}
+                  </option>
+                ))
+              ) : (
+                <option value="VELA-001">VELA-001 (Primary Confirmatory)</option>
+              )}
+            </select>
+          </div>
         </div>
+
+        {/* 4-Panel Core Figures Grid */}
+        {figuresLoading ? (
+          <div style={{ padding: "30px", textAlign: "center", color: "#64748B", fontSize: "12px", backgroundColor: "#FAF8F5", borderRadius: "8px", border: "1px solid #E2E8F0", marginBottom: "20px" }}>
+            Loading publication figures for {selectedRunId}...
+          </div>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "14px", marginBottom: "20px" }}>
+            {[
+              {
+                id: "fig1",
+                title: "Figure 1: Reconstruction Slice",
+                desc: "Supergalactic Z=0 slice of cosmic density field with MeerKAT holdout overlays.",
+                pngFile: "figure1_reconstruction_slice.png",
+                svgFile: "figure1_reconstruction_slice.svg",
+              },
+              {
+                id: "fig2",
+                title: "Figure 2: Uncertainty Map",
+                desc: "Posterior standard deviation σ_δ(x) mapping Zone of Avoidance obscuration.",
+                pngFile: "figure2_uncertainty_map.png",
+                svgFile: "figure2_uncertainty_map.svg",
+              },
+              {
+                id: "fig3",
+                title: "Figure 3: Null Distribution Scoring",
+                desc: "1,000 survey-matched empirical null realizations vs holdout score.",
+                pngFile: "figure3_null_distribution_scoring.png",
+                svgFile: "figure3_null_distribution_scoring.svg",
+              },
+              {
+                id: "fig4",
+                title: "Figure 4: Hybrid Differential",
+                desc: "Post-unblinding differential delta (Δδ) and posterior uncertainty reduction.",
+                pngFile: "figure4_hybrid_differential.png",
+                svgFile: "figure4_hybrid_differential.svg",
+              },
+            ].map((fig) => {
+              const pngObj = runFiguresData?.figures?.find((f: any) => f.filename === fig.pngFile);
+              const svgObj = runFiguresData?.figures?.find((f: any) => f.filename === fig.svgFile);
+              const activeObj = pngObj || svgObj;
+
+              return (
+                <div
+                  key={fig.id}
+                  style={{
+                    border: "1px solid #E2E8F0",
+                    borderRadius: "8px",
+                    overflow: "hidden",
+                    backgroundColor: "#FAF8F5",
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
+                  {/* Figure Preview Image */}
+                  <div
+                    style={{
+                      height: "140px",
+                      backgroundColor: "#F1F5F9",
+                      position: "relative",
+                      cursor: "pointer",
+                      overflow: "hidden",
+                      borderBottom: "1px solid #E2E8F0",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    onClick={() => activeObj && setActiveModalFigure(activeObj)}
+                    title="Click to view full resolution"
+                  >
+                    {activeObj ? (
+                      <img
+                        src={activeObj.url}
+                        alt={fig.title}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                      />
+                    ) : (
+                      <div style={{ fontSize: "11px", color: "#94A3B8" }}>Loading figure...</div>
+                    )}
+                    <span
+                      style={{
+                        position: "absolute",
+                        bottom: "6px",
+                        right: "6px",
+                        fontSize: "9px",
+                        fontWeight: 700,
+                        backgroundColor: "rgba(15, 23, 42, 0.75)",
+                        color: "#FFFFFF",
+                        padding: "2px 6px",
+                        borderRadius: "3px",
+                        backdropFilter: "blur(4px)",
+                      }}
+                    >
+                      🔍 ZOOM
+                    </span>
+                  </div>
+
+                  <div style={{ padding: "12px", flex: 1, display: "flex", flexDirection: "column" }}>
+                    <div style={{ fontWeight: 700, fontSize: "12px", color: "#1E293B", marginBottom: "4px" }}>
+                      {fig.title}
+                    </div>
+                    <div style={{ fontSize: "11px", color: "#64748B", lineHeight: "1.4", flex: 1, marginBottom: "8px" }}>
+                      {fig.desc}
+                    </div>
+
+                    {activeObj?.sha256 && (
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          fontSize: "9px",
+                          backgroundColor: "#FFFFFF",
+                          border: "1px solid #CBD5E1",
+                          padding: "3px 6px",
+                          borderRadius: "3px",
+                          marginBottom: "8px",
+                        }}
+                        className="mono"
+                      >
+                        <span style={{ color: "#64748B" }}>SHA: {activeObj.sha256.substring(0, 10)}...</span>
+                        <button
+                          onClick={() => copyHash(activeObj.sha256)}
+                          style={{ border: "none", background: "none", color: copiedFigureHash === activeObj.sha256 ? "#059669" : "#2563EB", cursor: "pointer", padding: 0, fontWeight: 600 }}
+                        >
+                          {copiedFigureHash === activeObj.sha256 ? "Copied!" : "Copy"}
+                        </button>
+                      </div>
+                    )}
+
+                    <div style={{ display: "flex", gap: "6px" }}>
+                      {pngObj && (
+                        <a
+                          href={pngObj.url}
+                          download={pngObj.filename}
+                          style={{
+                            flex: 1,
+                            textAlign: "center",
+                            padding: "4px 0",
+                            fontSize: "10px",
+                            fontWeight: 600,
+                            backgroundColor: "#FFFFFF",
+                            border: "1px solid #CBD5E1",
+                            borderRadius: "4px",
+                            color: "#1E293B",
+                            textDecoration: "none",
+                          }}
+                        >
+                          PNG
+                        </a>
+                      )}
+                      {svgObj && (
+                        <a
+                          href={svgObj.url}
+                          download={svgObj.filename}
+                          style={{
+                            flex: 1,
+                            textAlign: "center",
+                            padding: "4px 0",
+                            fontSize: "10px",
+                            fontWeight: 600,
+                            backgroundColor: "#FFFFFF",
+                            border: "1px solid #CBD5E1",
+                            borderRadius: "4px",
+                            color: "#1E293B",
+                            textDecoration: "none",
+                          }}
+                        >
+                          SVG
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* 4-Panel Master Composite Plate Feature Card */}
+        {runFiguresData?.figures && (
+          <div
+            style={{
+              marginBottom: "20px",
+              border: "1px solid #CBD5E1",
+              borderRadius: "8px",
+              backgroundColor: "#F8FAFC",
+              padding: "14px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "12px",
+            }}
+          >
+            <div>
+              <span style={{ fontSize: "10px", fontWeight: 700, color: "#2563EB", backgroundColor: "#EFF6FF", padding: "2px 6px", borderRadius: "3px" }}>
+                COMPOSITE PLATE
+              </span>
+              <h5 style={{ margin: "4px 0 2px 0", fontSize: "14px", fontWeight: 700, color: "#0F172A" }}>
+                Master 4-Panel Publication Composite (Plate 1)
+              </h5>
+              <p style={{ margin: 0, fontSize: "11px", color: "#64748B" }}>
+                Includes Figures 1-4 formatted into a single 300 DPI plate ready for MNRAS/ApJ manuscript submission.
+              </p>
+            </div>
+
+            <div style={{ display: "flex", gap: "8px" }}>
+              <button
+                onClick={() => {
+                  const comp = runFiguresData?.figures?.find((f: any) => f.filename.includes("composite"));
+                  if (comp) setActiveModalFigure(comp);
+                }}
+                style={{
+                  padding: "6px 12px",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  backgroundColor: "#FFFFFF",
+                  border: "1px solid #CBD5E1",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                }}
+              >
+                🔍 Inspect Composite
+              </button>
+              <a
+                href={`/reconstruction/runs/${selectedRunId}/figures/figure_plate_composite.png`}
+                download="figure_plate_composite.png"
+                style={{
+                  padding: "6px 12px",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  backgroundColor: "#0F172A",
+                  color: "#FFFFFF",
+                  borderRadius: "4px",
+                  textDecoration: "none",
+                }}
+              >
+                ⬇ Download Full Plate (.PNG)
+              </a>
+            </div>
+          </div>
+        )}
 
         {/* Tables */}
         <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "12px", border: "1px solid #E2E8F0" }}>
@@ -1047,6 +1346,105 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
           </tbody>
         </table>
       </div>
+
+      {/* Lightbox Modal for Phase 10 */}
+      {activeModalFigure && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: "rgba(15, 23, 42, 0.85)",
+            backdropFilter: "blur(6px)",
+            zIndex: 9999,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: "24px",
+          }}
+          onClick={() => setActiveModalFigure(null)}
+        >
+          <div
+            style={{
+              backgroundColor: "#FFFFFF",
+              borderRadius: "10px",
+              maxWidth: "1000px",
+              width: "100%",
+              maxHeight: "92vh",
+              display: "flex",
+              flexDirection: "column",
+              overflow: "hidden",
+              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.35)",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                padding: "14px 20px",
+                backgroundColor: "#FAF8F5",
+                borderBottom: "1px solid #E2E8F0",
+              }}
+            >
+              <div>
+                <div className="mono" style={{ fontSize: "11px", color: "#64748B" }}>
+                  runs/{selectedRunId}/figures/{activeModalFigure.filename}
+                </div>
+                <h4 style={{ margin: 0, fontSize: "16px", fontWeight: 700, color: "#0F172A" }}>
+                  {activeModalFigure.filename}
+                </h4>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <a
+                  href={activeModalFigure.url}
+                  download={activeModalFigure.filename}
+                  style={{
+                    padding: "6px 14px",
+                    backgroundColor: "#0F172A",
+                    color: "#FFFFFF",
+                    fontSize: "12px",
+                    fontWeight: 600,
+                    borderRadius: "4px",
+                    textDecoration: "none",
+                  }}
+                >
+                  ⬇ Download
+                </a>
+                <button
+                  onClick={() => setActiveModalFigure(null)}
+                  style={{
+                    padding: "6px 10px",
+                    backgroundColor: "#F1F5F9",
+                    border: "1px solid #CBD5E1",
+                    borderRadius: "4px",
+                    fontSize: "14px",
+                    fontWeight: 700,
+                    color: "#64748B",
+                    cursor: "pointer",
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+            <div style={{ flex: 1, overflow: "auto", padding: "20px", backgroundColor: "#F8FAFC", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <img
+                src={activeModalFigure.url}
+                alt={activeModalFigure.filename}
+                style={{ maxWidth: "100%", maxHeight: "70vh", objectFit: "contain", borderRadius: "4px", border: "1px solid #E2E8F0" }}
+              />
+            </div>
+            <div style={{ padding: "12px 20px", backgroundColor: "#FFFFFF", borderTop: "1px solid #E2E8F0", display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "11px" }}>
+              <span className="mono" style={{ color: "#475569" }}>SHA-256: {activeModalFigure.sha256 || "Verified In Manifest"}</span>
+              <span style={{ color: "#64748B" }}>300 DPI Publication Grade Plot</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* In-Browser Manuscript Editor & LaTeX/Markdown Viewer */}
       <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "20px" }}>

@@ -1,0 +1,107 @@
+{
+  "manifest_type": "Z-ZOA_FIGURES_MANIFEST",
+  "run_id": "VELA-001",
+  "created_at_utc": "2026-09-16T02:24:36.928219+00:00",
+  "dpi": 72,
+  "formats": [
+    "png"
+  ],
+  "has_composite": false,
+  "figures_count": 10,
+  "numerical_bounds": {
+    "run_id": "VELA-001",
+    "grid_shape": [
+      32,
+      32,
+      32
+    ],
+    "mean_delta_min": -1.0442376578384593,
+    "mean_delta_max": 543.5721764484912,
+    "mean_delta_mean": -0.0001497897392135905,
+    "sigma_delta_min": 0.01857678511216568,
+    "sigma_delta_max": 0.116761477123604,
+    "sigma_delta_mean": 0.04280740765926229,
+    "delta_diff_min": -11.599667975524767,
+    "delta_diff_max": 33.80634827325156,
+    "sigma_diff_mean": 5.116688837955626e-05,
+    "observed_score": 134.83907177810605,
+    "z_score": 1.7045422007847866,
+    "p_value": 0.02,
+    "test_status": "VALIDATION_CONFIRMED",
+    "has_figures_manifest": true,
+    "figures_count": 10
+  },
+  "figures": {
+    "figure1_reconstruction_slice.png": {
+      "filename": "figure1_reconstruction_slice.png",
+      "format": "png",
+      "bytes": 35110,
+      "sha256": "369ca1ad67182715b90e10b126ac2114b8b2be960fb33e7f914f6b5855f738ff",
+      "relative_path": "runs/VELA-001/figures/figure1_reconstruction_slice.png"
+    },
+    "figure1_reconstruction_slice.svg": {
+      "filename": "figure1_reconstruction_slice.svg",
+      "format": "svg",
+      "bytes": 73249,
+      "sha256": "de2734335ddbaf61a2dd87c4fdcaf0b34316fa65083e8c7b6f17f68e6ddc0d8f",
+      "relative_path": "runs/VELA-001/figures/figure1_reconstruction_slice.svg"
+    },
+    "figure2_uncertainty_map.png": {
+      "filename": "figure2_uncertainty_map.png",
+      "format": "png",
+      "bytes": 45340,
+      "sha256": "f93d84ae007e075b02d9d9f863631c4e32e02415b74ce33c1ef869e8c889726b",
+      "relative_path": "runs/VELA-001/figures/figure2_uncertainty_map.png"
+    },
+    "figure2_uncertainty_map.svg": {
+      "filename": "figure2_uncertainty_map.svg",
+      "format": "svg",
+      "bytes": 65253,
+      "sha256": "9e7de7e2dec5d83e1c60363fc5a1f9842974f4665ae7e3734a21ecc9dd343cec",
+      "relative_path": "runs/VELA-001/figures/figure2_uncertainty_map.svg"
+    },
+    "figure3_null_distribution_scoring.png": {
+      "filename": "figure3_null_distribution_scoring.png",
+      "format": "png",
+      "bytes": 38453,
+      "sha256": "4d5bb637ef8a2f9ee33984f62d95073e0610aec13ca10305695e09d65b77fffb",
+      "relative_path": "runs/VELA-001/figures/figure3_null_distribution_scoring.png"
+    },
+    "figure3_null_distribution_scoring.svg": {
+      "filename": "figure3_null_distribution_scoring.svg",
+      "format": "svg",
+      "bytes": 81810,
+      "sha256": "005b0cbc2ca728a044a7f6992a2a59e80f16f86159c2f7e982bc988c84df6c00",
+      "relative_path": "runs/VELA-001/figures/figure3_null_distribution_scoring.svg"
+    },
+    "figure4_hybrid_differential.png": {
+      "filename": "figure4_hybrid_differential.png",
+      "format": "png",
+      "bytes": 49123,
+      "sha256": "dc3cae3b45fd17c0e86a802417d69f4e5f51413792af77a8b3a9eae01290e92b",
+      "relative_path": "runs/VELA-001/figures/figure4_hybrid_differential.png"
+    },
+    "figure4_hybrid_differential.svg": {
+      "filename": "figure4_hybrid_differential.svg",
+      "format": "svg",
+      "bytes": 86033,
+      "sha256": "9e3e97332de5c161f7cc75adfa18b6464f6703dd31957174f3c73e0fd1c9d487",
+      "relative_path": "runs/VELA-001/figures/figure4_hybrid_differential.svg"
+    },
+    "figure_plate_composite.png": {
+      "filename": "figure_plate_composite.png",
+      "format": "png",
+      "bytes": 206648,
+      "sha256": "e0d0d7b4085f813810e1bf2636ee69ae8c6400de8fb0266923c180dcf48c5d76",
+      "relative_path": "runs/VELA-001/figures/figure_plate_composite.png"
+    },
+    "figure_plate_composite.svg": {
+      "filename": "figure_plate_composite.svg",
+      "format": "svg",
+      "bytes": 194454,
+      "sha256": "96dcf0adb7444d6b33bab1b73b9d430862194041906a4897ec4de28740be34c9",
+      "relative_path": "runs/VELA-001/figures/figure_plate_composite.svg"
+    }
+  },
+  "manifest_seal_sha256": "1d42558e8017f37be3201a0db95ccb5ed9e7590608a84b5dfa4c8749798f207e"
+}

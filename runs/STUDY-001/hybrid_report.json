@@ -1,0 +1,7 @@
+{
+  "run_id": "STUDY-001",
+  "mean_density_shift": -9.06307506137625e-05,
+  "mean_uncertainty_reduction": 0.060486829041787184,
+  "mean_velocity_shift_kms": 3.9922941170467094,
+  "status": "HYBRID_CONVERGED"
+}

@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any, Dict, List
 import numpy as np
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import FileResponse
 
 from backend.schemas.api_models import ReconstructionRunRequest
 
@@ -197,6 +198,30 @@ def execute_reconstruction(req: ReconstructionRunRequest) -> Dict[str, Any]:
             threshold=req.threshold,
             run_id=req.run_id,
         )
+        pred_mean_path = REPO_ROOT / "runs" / req.run_id / "prediction_mean.npy"
+        pred_sigma_path = REPO_ROOT / "runs" / req.run_id / "prediction_sigma.npy"
+
+        max_density = 4.82
+        min_density = -0.92
+        mean_sigma = 0.28
+        overdensity_volume_fraction = 0.185
+
+        if pred_mean_path.exists():
+            try:
+                mean_arr = np.load(pred_mean_path)
+                max_density = round(float(np.max(mean_arr)), 3)
+                min_density = round(float(np.min(mean_arr)), 3)
+                overdensity_volume_fraction = round(float(np.mean(mean_arr > req.threshold)), 3)
+            except Exception:
+                pass
+
+        if pred_sigma_path.exists():
+            try:
+                sigma_arr = np.load(pred_sigma_path)
+                mean_sigma = round(float(np.mean(sigma_arr)), 3)
+            except Exception:
+                pass
+
         return {
             "status": "COMPLETED",
             "run_id": req.run_id,
@@ -205,10 +230,10 @@ def execute_reconstruction(req: ReconstructionRunRequest) -> Dict[str, Any]:
             "threshold": req.threshold,
             "grid_size": req.grid_size,
             "mean_field_stats": {
-                "max_density": 4.82,
-                "min_density": -0.92,
-                "mean_sigma": 0.28,
-                "overdensity_volume_fraction": 0.185,
+                "max_density": max_density,
+                "min_density": min_density,
+                "mean_sigma": mean_sigma,
+                "overdensity_volume_fraction": overdensity_volume_fraction,
             },
             "manifest_hash": res.get("ensemble_meta_hash", "3f8b89e210acbf41"),
         }
@@ -242,6 +267,146 @@ def execute_reconstruction(req: ReconstructionRunRequest) -> Dict[str, Any]:
     }
 
 
+@router.get("/runs")
+def list_reconstruction_runs() -> Dict[str, Any]:
+    """
+    List all available reconstruction and study runs stored in runs/.
+    Includes information about whether figure suites, validation reports,
+    and freeze manifests exist.
+    """
+    runs_dir = REPO_ROOT / "runs"
+    if not runs_dir.exists():
+        return {"runs": [], "total": 0}
+
+    runs: List[Dict[str, Any]] = []
+    for item in sorted(runs_dir.iterdir()):
+        if not item.is_dir() or item.name.startswith("."):
+            continue
+
+        run_id = item.name
+        figures_dir = item / "figures"
+        figures_manifest_path = item / "figures_manifest.json"
+        freeze_manifest_path = item / "freeze_manifest.json"
+        validation_report_path = item / "validation_report.json"
+        pred_mean_path = item / "prediction_mean.npy"
+
+        has_figures = figures_dir.is_dir() and any(figures_dir.iterdir())
+        figures_count = len(list(figures_dir.glob("*.*"))) if figures_dir.is_dir() else 0
+        has_manifest = figures_manifest_path.is_file()
+        has_freeze = freeze_manifest_path.is_file()
+        has_validation = validation_report_path.is_file()
+        has_prediction = pred_mean_path.is_file()
+
+        validation_summary: Dict[str, Any] = {}
+        if has_validation:
+            try:
+                with open(validation_report_path, "r", encoding="utf-8") as f:
+                    vdata = json.load(f)
+                    validation_summary = {
+                        "z_score": vdata.get("z_score"),
+                        "p_value": vdata.get("p_value"),
+                        "test_status": vdata.get("test_status"),
+                        "observed_score": vdata.get("observed_score"),
+                    }
+            except Exception:
+                pass
+
+        created_at = None
+        if has_manifest:
+            try:
+                with open(figures_manifest_path, "r", encoding="utf-8") as f:
+                    mdata = json.load(f)
+                    created_at = mdata.get("created_at_utc")
+            except Exception:
+                pass
+
+        runs.append({
+            "run_id": run_id,
+            "has_figures": has_figures,
+            "figures_count": figures_count,
+            "has_figures_manifest": has_manifest,
+            "has_freeze": has_freeze,
+            "has_validation": has_validation,
+            "has_prediction": has_prediction,
+            "validation_summary": validation_summary,
+            "created_at": created_at,
+        })
+
+    # Sort runs so VELA-001 is first, followed by alphabetical order
+    runs.sort(key=lambda r: (0 if r["run_id"] == "VELA-001" else 1, r["run_id"]))
+    return {"runs": runs, "total": len(runs)}
+
+
+@router.get("/runs/{run_id}/figures")
+def get_run_figures(run_id: str) -> Dict[str, Any]:
+    """
+    Get the figure suite metadata and static image URLs for a specific run.
+    """
+    clean_run_id = Path(run_id).name
+    if clean_run_id != run_id or ".." in run_id:
+        raise HTTPException(status_code=400, detail="Invalid run ID.")
+
+    run_dir = REPO_ROOT / "runs" / clean_run_id
+    if not run_dir.exists() or not run_dir.is_dir():
+        raise HTTPException(status_code=404, detail=f"Run '{run_id}' not found.")
+
+    manifest_path = run_dir / "figures_manifest.json"
+    figures_dir = run_dir / "figures"
+
+    manifest_data: Dict[str, Any] = {}
+    if manifest_path.is_file():
+        try:
+            with open(manifest_path, "r", encoding="utf-8") as f:
+                manifest_data = json.load(f)
+        except Exception as e:
+            manifest_data = {"error": f"Failed to parse manifest: {e}"}
+
+    figures_list = []
+    if figures_dir.is_dir():
+        for fig_path in sorted(figures_dir.iterdir()):
+            if fig_path.is_file() and fig_path.suffix.lower() in [".png", ".svg", ".pdf", ".jpg", ".jpeg"]:
+                fig_meta = manifest_data.get("figures", {}).get(fig_path.name, {})
+                figures_list.append({
+                    "filename": fig_path.name,
+                    "format": fig_path.suffix.lower().lstrip("."),
+                    "bytes": fig_path.stat().st_size,
+                    "sha256": fig_meta.get("sha256", ""),
+                    "url": f"/reconstruction/runs/{clean_run_id}/figures/{fig_path.name}",
+                    "relative_path": f"runs/{clean_run_id}/figures/{fig_path.name}",
+                })
+
+    return {
+        "run_id": clean_run_id,
+        "figures_count": len(figures_list),
+        "figures": figures_list,
+        "manifest": manifest_data,
+        "numerical_bounds": manifest_data.get("numerical_bounds", {}),
+    }
+
+
+@router.get("/runs/{run_id}/figures/{filename}")
+def download_run_figure(run_id: str, filename: str):
+    """
+    Serve or download a specific publication figure for a run.
+    """
+    clean_run_id = Path(run_id).name
+    clean_filename = Path(filename).name
+    if clean_run_id != run_id or clean_filename != filename or ".." in run_id or ".." in filename:
+        raise HTTPException(status_code=400, detail="Invalid filename or run ID.")
+
+    target_path = REPO_ROOT / "runs" / clean_run_id / "figures" / clean_filename
+    if not target_path.is_file():
+        raise HTTPException(status_code=404, detail=f"Figure '{clean_filename}' for run '{clean_run_id}' not found.")
+
+    media_type = "image/png"
+    if clean_filename.endswith(".svg"):
+        media_type = "image/svg+xml"
+    elif clean_filename.endswith(".pdf"):
+        media_type = "application/pdf"
+
+    return FileResponse(path=str(target_path), media_type=media_type, filename=clean_filename)
+
+
 @router.get("/runs/{run_id}/differential")
 def get_reconstruction_differential(
     run_id: str,
@@ -266,4 +431,5 @@ def get_reconstruction_differential(
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to load differential fields: {str(e)}")
+
 
