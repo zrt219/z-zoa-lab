@@ -35,14 +35,17 @@ This skill provides a standardized workflow and reference registry for acquiring
 ## 2. Generated Figures and Tables Registry
 
 ### Publication Figures (`paper/figures/`)
-1. **`figure1_reconstruction_slice.png`**:
+All figures are generated in both 300 DPI raster (`.png`) and vector (`.svg`) formats:
+1. **`figure1_reconstruction_slice.png` / `.svg`**:
    - 2D Supergalactic plane slice ($SGZ = 0$) through reconstructed cosmic density field $\langle \delta(x) \rangle$.
-2. **`figure2_uncertainty_map.png`**:
+2. **`figure2_uncertainty_map.png` / `.svg`**:
    - Posterior standard deviation $\sigma_\delta(x)$ map illustrating ZoA mask broadening.
-3. **`figure3_null_distribution_scoring.png`**:
-   - 1,000 survey-matched empirical null realizations compared against observed Vela holdout score ($1.96\,\sigma$, $p = 0.0270$).
-4. **`figure4_hybrid_differential.png`**:
+3. **`figure3_null_distribution_scoring.png` / `.svg`**:
+   - 1,000 survey-matched empirical null realizations compared against observed Vela holdout score ($1.96\,\sigma$, $p = 0.0200$).
+4. **`figure4_hybrid_differential.png` / `.svg`**:
    - Post-unblinding differential overdensity gain ($\Delta \delta$) and regional uncertainty reduction ($\Delta \sigma$).
+5. **`figure_plate_composite.png` / `.svg`**:
+   - 4-panel publication composite plate (A: Density Slice, B: Uncertainty Map, C: Null Scoring Distribution, D: Differential Hybrid Gain) with unified Swiss typography and cosmological annotations.
 
 ### Publication Tables (`paper/tables/`)
 - **`table1_data_footprints.csv`**: Footprint geometries, sky coverage ($\text{deg}^2$), coordinate ranges, and tracer counts.
@@ -60,14 +63,20 @@ To refresh TAP/VizieR catalogues and audit SHA-256 manifests:
 python scripts/sync_data.py
 ```
 
+To run standalone publication figures generation with scientific inspection:
+```powershell
+python scripts/generate_paper_figures.py --inspect
+```
+
 To run end-to-end numerical reproduction across all 15 pipeline stages:
 ```powershell
 python reproducibility/REPRODUCE_ALL.py
 ```
 
-To run the full unit and integration test suite:
+To run the full unit and integration test suite (88 tests) or figure tests:
 ```powershell
 python -m pytest
+python -m pytest tests/test_paper_figures.py -v
 ```
 
 ---
