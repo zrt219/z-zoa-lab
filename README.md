@@ -118,6 +118,9 @@ z-zoa-lab/
 ├── reproducibility/                      # End-to-end master reproduction scripts
 │   ├── REPRODUCE_ALL.py                  # Single-command reproduction of all 18 pipeline stages
 │   └── run_acceptance.py                 # 5-part final acceptance audit runner
+├── prompts/                              # Complete research prompt pack & workflows
+│   ├── ALL_PROMPTS.md                    # Canonical prompt workflow catalog
+│   └── README.md                         # Prompt pack usage guide
 ├── docs/                                 # Manuscript draft, pre-submission audit, preregistration
 └── tests/                                # Full pytest test suite (84 automated tests)
 ```
@@ -214,6 +217,18 @@ If you use the Z-ZOA Calculation Room, datasets, or reconstruction algorithms, p
 
 ---
 
-## 📄 License
+## 🏛️ Independent Research Disclaimer
 
-This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
+Z-ZOA is an **independent research project**. It is not an official project of, endorsed by, or affiliated with the Cosmicflows, MeerKAT, SARAO, WALLABY, ASKAP, HIZOA, 2MRS, or other survey collaborations referenced by the research plan. Names of surveys, catalogues, instruments, and collaborations are used strictly to identify public scientific data products and prior observational work.
+
+---
+
+## 📄 License & Authorship
+
+- **Author**: Zhane Grey & Research Collaborators (2026)
+- Software in this repository is released under the [MIT License](LICENSE).
+- Scientific observational datasets obtained from external astronomical archives remain subject to their original licences, acknowledgements, and citation requirements.
+
+---
+
+> *"Same sky. More galaxies. A clearer tomorrow."*
