@@ -1,7 +1,7 @@
 {
   "manifest_type": "Z-ZOA_FIGURES_MANIFEST",
   "run_id": "VELA-001",
-  "created_at_utc": "2026-09-16T02:24:36.928219+00:00",
+  "created_at_utc": "2026-09-16T02:44:23.666224+00:00",
   "dpi": 72,
   "formats": [
     "png"
@@ -43,7 +43,7 @@
       "filename": "figure1_reconstruction_slice.svg",
       "format": "svg",
       "bytes": 73249,
-      "sha256": "de2734335ddbaf61a2dd87c4fdcaf0b34316fa65083e8c7b6f17f68e6ddc0d8f",
+      "sha256": "e43639a0661b677ab2ae72d0074ce402fd6dc30503fe11263e112b3e7387d9fe",
       "relative_path": "runs/VELA-001/figures/figure1_reconstruction_slice.svg"
     },
     "figure2_uncertainty_map.png": {
@@ -57,7 +57,7 @@
       "filename": "figure2_uncertainty_map.svg",
       "format": "svg",
       "bytes": 65253,
-      "sha256": "9e7de7e2dec5d83e1c60363fc5a1f9842974f4665ae7e3734a21ecc9dd343cec",
+      "sha256": "70ca4aa53681f21e45416a29b2bba5bf4d065478515061fd6d18312342dd0062",
       "relative_path": "runs/VELA-001/figures/figure2_uncertainty_map.svg"
     },
     "figure3_null_distribution_scoring.png": {
@@ -71,7 +71,7 @@
       "filename": "figure3_null_distribution_scoring.svg",
       "format": "svg",
       "bytes": 81810,
-      "sha256": "005b0cbc2ca728a044a7f6992a2a59e80f16f86159c2f7e982bc988c84df6c00",
+      "sha256": "8e0e765e61765c572c254f5de3d8791fc458941d7a67bb1256034bc0f6450fb2",
       "relative_path": "runs/VELA-001/figures/figure3_null_distribution_scoring.svg"
     },
     "figure4_hybrid_differential.png": {
@@ -85,7 +85,7 @@
       "filename": "figure4_hybrid_differential.svg",
       "format": "svg",
       "bytes": 86033,
-      "sha256": "9e3e97332de5c161f7cc75adfa18b6464f6703dd31957174f3c73e0fd1c9d487",
+      "sha256": "c371ab5c2ad210c7aa889db5122b156ccf560c8e4a6aa91a8576536a74339a4d",
       "relative_path": "runs/VELA-001/figures/figure4_hybrid_differential.svg"
     },
     "figure_plate_composite.png": {
@@ -99,9 +99,9 @@
       "filename": "figure_plate_composite.svg",
       "format": "svg",
       "bytes": 194454,
-      "sha256": "96dcf0adb7444d6b33bab1b73b9d430862194041906a4897ec4de28740be34c9",
+      "sha256": "a696d39bcd9258052fb921361674f3d0244bffc6486023a3cb429249e2ded39c",
       "relative_path": "runs/VELA-001/figures/figure_plate_composite.svg"
     }
   },
-  "manifest_seal_sha256": "1d42558e8017f37be3201a0db95ccb5ed9e7590608a84b5dfa4c8749798f207e"
+  "manifest_seal_sha256": "e58c924f793c866c84d7724cec5de9678457f6718609b40800aa0bf193282afd"
 }

@@ -1,0 +1,108 @@
+{
+  "manifest_type": "Z-ZOA_FIGURES_MANIFEST",
+  "run_id": "STUDY-002",
+  "created_at_utc": "2026-09-16T02:26:58.017425+00:00",
+  "dpi": 100,
+  "formats": [
+    "png",
+    "svg"
+  ],
+  "has_composite": true,
+  "figures_count": 10,
+  "numerical_bounds": {
+    "run_id": "STUDY-002",
+    "grid_shape": [
+      32,
+      32,
+      32
+    ],
+    "mean_delta_min": -1.0000000000000007,
+    "mean_delta_max": 543.5726025711542,
+    "mean_delta_mean": -3.6570091150905926e-05,
+    "sigma_delta_min": 0.05027644504016418,
+    "sigma_delta_max": 81.58589038567312,
+    "sigma_delta_mean": 0.33603793912103985,
+    "delta_diff_min": -0.18790845410667312,
+    "delta_diff_max": 0.18879690931065662,
+    "sigma_diff_mean": 0.060486829041787184,
+    "observed_score": 22.905409866983078,
+    "z_score": 3.92,
+    "p_value": 0.02,
+    "test_status": "VALIDATION_CONFIRMED",
+    "has_figures_manifest": false,
+    "figures_count": 10
+  },
+  "figures": {
+    "figure1_reconstruction_slice.png": {
+      "filename": "figure1_reconstruction_slice.png",
+      "format": "png",
+      "bytes": 49958,
+      "sha256": "52e7c14e53350c80c27972255a5617d08b5f3f921787cd526cdbedc65b03193e",
+      "relative_path": "runs/STUDY-002/figures/figure1_reconstruction_slice.png"
+    },
+    "figure1_reconstruction_slice.svg": {
+      "filename": "figure1_reconstruction_slice.svg",
+      "format": "svg",
+      "bytes": 73376,
+      "sha256": "1e18ea058890771263345837b92e427df8514e01f52de58c283d539687a1155f",
+      "relative_path": "runs/STUDY-002/figures/figure1_reconstruction_slice.svg"
+    },
+    "figure2_uncertainty_map.png": {
+      "filename": "figure2_uncertainty_map.png",
+      "format": "png",
+      "bytes": 43758,
+      "sha256": "6e15621935117860bb9cff5b35b00c4695c25d762e529990caaf8a9f5a4d9fd4",
+      "relative_path": "runs/STUDY-002/figures/figure2_uncertainty_map.png"
+    },
+    "figure2_uncertainty_map.svg": {
+      "filename": "figure2_uncertainty_map.svg",
+      "format": "svg",
+      "bytes": 58126,
+      "sha256": "e12bb3b9e1b35ac82e8737e7ff3d2d9f621e65fd3d8d56493ac24fb666b4301d",
+      "relative_path": "runs/STUDY-002/figures/figure2_uncertainty_map.svg"
+    },
+    "figure3_null_distribution_scoring.png": {
+      "filename": "figure3_null_distribution_scoring.png",
+      "format": "png",
+      "bytes": 56663,
+      "sha256": "29831763538b53c06c08818393f835f160d8e7586e03c3a0deace9d0aec63441",
+      "relative_path": "runs/STUDY-002/figures/figure3_null_distribution_scoring.png"
+    },
+    "figure3_null_distribution_scoring.svg": {
+      "filename": "figure3_null_distribution_scoring.svg",
+      "format": "svg",
+      "bytes": 81430,
+      "sha256": "cf9934962be75e7d35335a127b41402bf03486fe92bc86aef6ec70afcdec2743",
+      "relative_path": "runs/STUDY-002/figures/figure3_null_distribution_scoring.svg"
+    },
+    "figure4_hybrid_differential.png": {
+      "filename": "figure4_hybrid_differential.png",
+      "format": "png",
+      "bytes": 73800,
+      "sha256": "42d88adaac5b5564060d1640aee52ab7a5977980c466fac7db34725352697d6d",
+      "relative_path": "runs/STUDY-002/figures/figure4_hybrid_differential.png"
+    },
+    "figure4_hybrid_differential.svg": {
+      "filename": "figure4_hybrid_differential.svg",
+      "format": "svg",
+      "bytes": 87266,
+      "sha256": "402fbde4558a85c53aa0bee50d271d9267f2cbe13aa3a6c6ce26e5d0846b077e",
+      "relative_path": "runs/STUDY-002/figures/figure4_hybrid_differential.svg"
+    },
+    "figure_plate_composite.png": {
+      "filename": "figure_plate_composite.png",
+      "format": "png",
+      "bytes": 175773,
+      "sha256": "d8103e844711ad682825a802b67bf4b6e034447a031002c2d00a8a70a4765234",
+      "relative_path": "runs/STUDY-002/figures/figure_plate_composite.png"
+    },
+    "figure_plate_composite.svg": {
+      "filename": "figure_plate_composite.svg",
+      "format": "svg",
+      "bytes": 194614,
+      "sha256": "9c41c6e551ae1ad0944d2d39bd6937f33f7699207db35f8dbbf1082470706935",
+      "relative_path": "runs/STUDY-002/figures/figure_plate_composite.svg"
+    }
+  },
+  "manifest_seal_sha256": "fa3390401dac449096a0bdb902ea16a85849a7ab3f5bfcf0a3142f461aa41010"
+}
