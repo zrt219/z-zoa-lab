@@ -459,57 +459,22 @@ export function App() {
           </span>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "14px", fontSize: "11px" }}>
           <a
-            href="https://github.com/zrt219"
+            href="https://github.com/zrt219/z-zoa-lab"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              padding: "3px 8px",
-              borderRadius: "4px",
-              border: "1px solid #CBD5E1",
-              backgroundColor: "#FFFFFF",
-              color: "#0F172A",
-              textDecoration: "none",
-              fontSize: "11px",
-              fontWeight: 500,
-            }}
+            style={{ color: "#64748B", textDecoration: "none" }}
           >
-            GitHub: @zrt219 ↗
-          </a>
-          <a
-            href="https://www.linkedin.com/in/zhane-umattr"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              padding: "3px 8px",
-              borderRadius: "4px",
-              border: "1px solid #BAE6FD",
-              backgroundColor: "#F0F9FF",
-              color: "#0284C7",
-              textDecoration: "none",
-              fontSize: "11px",
-              fontWeight: 500,
-            }}
-          >
-            LinkedIn ↗
+            GitHub ↗
           </a>
           <a
             href="https://umattr.ca"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              padding: "3px 8px",
-              borderRadius: "4px",
-              border: "1px solid #0F172A",
-              backgroundColor: "#0F172A",
-              color: "#FFFFFF",
-              textDecoration: "none",
-              fontSize: "11px",
-              fontWeight: 600,
-            }}
+            style={{ color: "#64748B", textDecoration: "none" }}
           >
-            UMATTR.CA ↗
+            UMATTR ↗
           </a>
         </div>
       </footer>

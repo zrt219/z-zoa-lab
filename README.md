@@ -231,32 +231,11 @@ Z-ZOA is an **independent research project**. It is not an official project of, 
 
 ## 📄 License & Authorship
 
-- **Author**: **Zhane Grey** (Lead Cosmological Architect & Researcher)
+- **Author**: **Zhane Grey** ([@zrt219](https://github.com/zrt219)) &bull; [umattr.ca](https://umattr.ca)
 - Software in this repository is released under the [MIT License](LICENSE).
 - Scientific observational datasets obtained from external astronomical archives remain subject to their original licences, acknowledgements, and citation requirements.
 
 ---
 
-## 🔗 Connect & Author Links
-
-<p align="left">
-  <a href="https://github.com/zrt219" target="_blank">
-    <img src="https://img.shields.io/badge/GitHub-zrt219-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub" />
-  </a>
-  &nbsp;
-  <a href="https://www.linkedin.com/in/zhane-umattr" target="_blank">
-    <img src="https://img.shields.io/badge/LinkedIn-zhane--umattr-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn" />
-  </a>
-  &nbsp;
-  <a href="https://umattr.ca" target="_blank">
-    <img src="https://img.shields.io/badge/Platform-UMATTR.CA-0F172A?style=for-the-badge" alt="UMATTR" />
-  </a>
-</p>
-
-- **GitHub**: [@zrt219](https://github.com/zrt219)
-- **LinkedIn**: [zhane-umattr](https://www.linkedin.com/in/zhane-umattr)
-- **UMATTR**: [umattr.ca](https://umattr.ca)
-
----
-
 > *"Same sky. More galaxies. A clearer tomorrow."*
+
