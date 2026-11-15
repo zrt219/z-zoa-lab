@@ -375,12 +375,21 @@ def generate_figures(
 
         if "png" in formats:
             fig_comp_png = figures_dir / "figure_plate_composite.png"
-            fig_comp.savefig(fig_comp_png, dpi=dpi, bbox_inches="tight")
-            results["figure_plate_composite_png"] = str(fig_comp_png)
+            try:
+                fig_comp.savefig(str(fig_comp_png), dpi=dpi, bbox_inches="tight")
+                results["figure_plate_composite_png"] = str(fig_comp_png)
+            except Exception as e:
+                # Fallback without bbox_inches if file system locks tight bounding box
+                fig_comp.savefig(str(fig_comp_png), dpi=dpi)
+                results["figure_plate_composite_png"] = str(fig_comp_png)
         if "svg" in formats:
             fig_comp_svg = figures_dir / "figure_plate_composite.svg"
-            fig_comp.savefig(fig_comp_svg, bbox_inches="tight")
-            results["figure_plate_composite_svg"] = str(fig_comp_svg)
+            try:
+                fig_comp.savefig(str(fig_comp_svg), bbox_inches="tight")
+                results["figure_plate_composite_svg"] = str(fig_comp_svg)
+            except Exception:
+                fig_comp.savefig(str(fig_comp_svg))
+                results["figure_plate_composite_svg"] = str(fig_comp_svg)
         plt.close(fig_comp)
 
     # -------------------------------------------------------------

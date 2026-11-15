@@ -55,14 +55,32 @@ export const WhiteCalculationRoom: React.FC<WhiteCalculationRoomProps> = ({
   const [copiedFigureHash, setCopiedFigureHash] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch("/reconstruction/runs")
-      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
-      .then((data) => {
-        if (data.runs && data.runs.length > 0) {
-          setAvailableRuns(data.runs);
+    const loadRuns = async () => {
+      try {
+        const res = await fetch("/experiments/runs");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setAvailableRuns(data);
+            return;
+          }
         }
-      })
-      .catch((e) => console.warn("Failed to fetch reconstruction runs:", e));
+      } catch (e) {
+        console.warn("Failed to fetch /experiments/runs:", e);
+      }
+      try {
+        const r2 = await fetch("/reconstruction/runs");
+        if (r2.ok) {
+          const d2 = await r2.json();
+          if (d2.runs && d2.runs.length > 0) {
+            setAvailableRuns(d2.runs);
+          }
+        }
+      } catch (e) {
+        console.warn("Failed to fetch /reconstruction/runs:", e);
+      }
+    };
+    loadRuns();
   }, []);
 
   useEffect(() => {
@@ -294,15 +312,29 @@ export const WhiteCalculationRoom: React.FC<WhiteCalculationRoomProps> = ({
                 cursor: "pointer",
               }}
             >
-              {availableRuns.length > 0 ? (
-                availableRuns.map((r) => (
-                  <option key={r.run_id} value={r.run_id}>
-                    {r.run_id} {r.run_id === "VELA-001" ? "(Primary Confirmatory)" : r.has_figures ? `(${r.figures_count} figs)` : ""}
+              {Array.from(new Set([
+                "VELA-001",
+                "GA-001",
+                "WALLABY-001",
+                ...availableRuns.map((r) => r.run_id).filter(Boolean)
+              ])).map((rid) => {
+                const rObj = availableRuns.find((r) => r.run_id === rid);
+                const label =
+                  rid === "VELA-001"
+                    ? `${rid} (Primary Confirmatory)`
+                    : rid === "GA-001"
+                    ? `${rid} (Great Attractor Blind H I)`
+                    : rid === "WALLABY-001"
+                    ? `${rid} (WALLABY DR2 Blind H I)`
+                    : rObj?.has_figures
+                    ? `${rid} (${rObj.figures_count} figs)`
+                    : rid;
+                return (
+                  <option key={rid} value={rid}>
+                    {label}
                   </option>
-                ))
-              ) : (
-                <option value="VELA-001">VELA-001 (Primary Confirmatory)</option>
-              )}
+                );
+              })}
             </select>
           </div>
 

@@ -1,9 +1,9 @@
 {
   "manifest_type": "Z-ZOA_PREDICTION_FREEZE_MANIFEST",
   "run_id": "VELA-001",
-  "frozen_at_utc": "2026-09-15T22:10:23.651283+00:00",
-  "git_commit": "df3536ec918a78c7a43c0b23876ea03d5a5224c7",
-  "python_version": "3.12.12 (main, Feb 12 2026, 00:40:26) [MSC v.1944 64 bit (AMD64)]",
+  "frozen_at_utc": "2026-11-13T06:58:31.262314+00:00",
+  "git_commit": "2ce3c4c8b343155797a695aa8c64fe894cd1086b",
+  "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
   "train_clean_catalog_path": "datasets/processed/TRAIN_CLEAN/train_clean_combined.parquet",
   "train_clean_catalog_sha256": "57f13296510e2c1fc7a2262981dcab7a90b006e5cabfd8100272a4c965d2edf6",
   "file_hashes": {
@@ -19,5 +19,5 @@
   "metrics_spec_sha256": "fca6aee016b040c8ae7ab05510d05d6601e8b9fc39675e928bbb244cd3ea5719",
   "null_spec_sha256": "e86c7a326c6ab87ffb903234341ea599b2f422ed8792d2e083896080e1799e61",
   "status": "PREDICTION_FROZEN",
-  "manifest_seal_sha256": "2514714ce4522b3e4d817f72610a63ad2a8334d109dfbfb5ef4ddc85fa94b9a2"
+  "manifest_seal_sha256": "8a8df631daddbbfacffcae0cbc8b4f484622a13731ed9cde8aa2cde5afd626be"
 }

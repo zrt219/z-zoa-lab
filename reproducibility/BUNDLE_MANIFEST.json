@@ -1,8 +1,8 @@
 {
   "bundle_name": "Z_ZOA_REPRODUCIBILITY_BUNDLE.zip",
-  "bundle_sha256": "623048f0defe14d50b30eb15d6de87a58aa83b3964e97763d268aecef89f965c",
-  "total_files": 146,
-  "total_bytes": 1075083,
+  "bundle_sha256": "84016ab9c5eddd28e26c48ccc8d91060695d2f33325d81212202698b3a162d12",
+  "total_files": 188,
+  "total_bytes": 3768445,
   "run_id": "VELA-001",
   "files": [
     {
@@ -41,9 +41,44 @@
       "sha256": "8ab03b43b590e622ae29cb8e7227f333eca783835213c40dd4c8fbb28432b639"
     },
     {
+      "path": "docs/BAYESIAN_VELA_ATLAS_CONFIRMATION_REPORT.md",
+      "bytes": 4283,
+      "sha256": "7e1721762cf5bd0639d43708204ef52084dfd11e7c92df43d4da30aedbaeca04"
+    },
+    {
+      "path": "docs/BLIND_ZOA_TOPOLOGICAL_PEAKS.md",
+      "bytes": 2444,
+      "sha256": "cb69808fcae4e8d47745d7b7fc027d866e5923dbcd70ffb3f61ca9d5f8ab60dd"
+    },
+    {
+      "path": "docs/CANDIDATE_GALAXY_CONFIRMATION.json",
+      "bytes": 8091,
+      "sha256": "8a2c64f83832ba01c170e1919dc8333df1c815dbfedc2be769cb5aa952c3a4cb"
+    },
+    {
       "path": "docs/cf4_reference_validation.md",
       "bytes": 2646,
       "sha256": "e110ff366247d431ef8044dbd1c4ac7a934d2e5d84f3e5f64aa767367caf4e8e"
+    },
+    {
+      "path": "docs/COSMIC_WEB_FILAMENT_SPINES.md",
+      "bytes": 3630,
+      "sha256": "2962bbc8e1375c9660ce657a690b4abb77bf5aa51d987fff348409750d48f65f"
+    },
+    {
+      "path": "docs/DISCOVERED_GALAXY_CANDIDATE.json",
+      "bytes": 2595,
+      "sha256": "34e7c56882d39526bd96848668758375a3e0961f8ce6098ad6665f47fb21929f"
+    },
+    {
+      "path": "docs/DISCOVERED_GALAXY_CANDIDATE.md",
+      "bytes": 2694,
+      "sha256": "03fd321e94337e5fc2684b123c89049500d1b2644dfa3aed1979fabbac81a509"
+    },
+    {
+      "path": "docs/GENUINE_DISCOVERY_CANDIDATE_CONFIRMATION.md",
+      "bytes": 6513,
+      "sha256": "2fcf6e62f2f34e7fe55121ff0f030dddbd7ba0a8c15ad777494165ce17bfc4a0"
     },
     {
       "path": "docs/hybrid_report.md",
@@ -57,8 +92,8 @@
     },
     {
       "path": "docs/MANUSCRIPT_DRAFT.md",
-      "bytes": 14055,
-      "sha256": "3b3424c75b44d066e7039a871787555b1be1e054f287261c3113c90d0da30f79"
+      "bytes": 16315,
+      "sha256": "f6738b473043384493a786130004ec971d8add34f4304f393696e05d087a2910"
     },
     {
       "path": "docs/mock_universe_validation.md",
@@ -67,8 +102,8 @@
     },
     {
       "path": "docs/PRE_SUBMISSION_AUDIT.md",
-      "bytes": 5862,
-      "sha256": "5933d5372b23c7917befbfbdde279ece3203eec72708ed4a0767394534a16731"
+      "bytes": 7230,
+      "sha256": "699ff15666a62446ef040e9b5a2affff6f4cdbcd41d70c7a5b1a42dee07740ed"
     },
     {
       "path": "docs/preregistered_analysis_plan.json",
@@ -81,19 +116,34 @@
       "sha256": "3aa9d83abcf00ccf3b76312d98ddda9fef750369dd545c377ab7ca225d41fed8"
     },
     {
+      "path": "docs/RADIO_FOLLOWUP_POINTING_DOSSIER.md",
+      "bytes": 5165,
+      "sha256": "3650b48b8ab6567e97e8e5588b8503a50755272e378c8ca5968cff0d818e5dc4"
+    },
+    {
+      "path": "docs/REPO_AUDIT_FINDINGS.json",
+      "bytes": 9672,
+      "sha256": "50abb9057ccb08af9bf94a1f0688260545e815acc5f7780e87e064a99855bcf3"
+    },
+    {
+      "path": "docs/REPO_AUDIT_FINDINGS.md",
+      "bytes": 10751,
+      "sha256": "c1827ea20d92ba86cac11cb52308b9dba9e974acc1621ec5c8c3b5b5f5853ea4"
+    },
+    {
       "path": "docs/research_run_anchoring.md",
       "bytes": 6165,
       "sha256": "43ca141de8a5dad2c77f9a07c6babcf169b9fa89fd8b09114e700d86e6a5dcf8"
     },
     {
       "path": "docs/robustness_matrix.csv",
-      "bytes": 1094,
-      "sha256": "9e998186de006c83a03ccfe9f5d7dd74b3aa531c9cd9e3cb6bd75ebfa96343a1"
+      "bytes": 1100,
+      "sha256": "8953f6cb4ea85a91533f761280ce2e9298d5f5d8a7822a4cd2ecabd01105bba5"
     },
     {
       "path": "docs/robustness_report.md",
-      "bytes": 1751,
-      "sha256": "7c8e9b9e50c6d0a5408ce675ff6223826ede2d627714df347c565cec4a049310"
+      "bytes": 1750,
+      "sha256": "e8136cd7ce8d87e7e7d4d1529df2d73420be82ecd70e49d0ea85d65fec0fa62d"
     },
     {
       "path": "docs/selection_function_report.md",
@@ -188,12 +238,12 @@
     {
       "path": "leakage/16_side_channel_scan.json",
       "bytes": 193,
-      "sha256": "1829e10a7010964fc96020968967cb42efda452703fa2bdadf49172c441f4dd2"
+      "sha256": "2240f66315586a2d776b7b6e759d4277f48c35aab605a4b91f4ac154d3395b17"
     },
     {
       "path": "leakage/17_reveal_gate.json",
       "bytes": 411,
-      "sha256": "c1583939dfd94aedce7f9021739e1481b2a6fc16e2400d3f149a14c6641acf02"
+      "sha256": "72633c51be4a52fd963a8a5d0db1ee8a54721b1fb1cf09bccaa3ff29520ad4f8"
     },
     {
       "path": "leakage/18_cleanroom_reproduction.json",
@@ -223,52 +273,92 @@
     {
       "path": "leakage/FINAL_LEAKAGE_REPORT.md",
       "bytes": 5079,
-      "sha256": "505784ad24d7c974fe3fc308db6a5991f115d18845b81c230c3247c35fccc109"
+      "sha256": "ad604172392b32e6414a17c496618c020403b7f1a6e793d6ad2deafc45737257"
     },
     {
       "path": "leakage/leakage_certificate.json",
       "bytes": 10208,
-      "sha256": "d638f062365413b98edfbecaf85d850f8d417030a17c09aa044236451dff2655"
+      "sha256": "11fea99284bffde6c26b1de6a665efac26935f31405ed20f2f0866e31be6b328"
     },
     {
       "path": "paper/figures/figure1_reconstruction_slice.png",
-      "bytes": 216134,
-      "sha256": "eb5b7764a8f2692ef96b5a9e115464fbf6da406b16b42833aa4c6e242edbcea9"
+      "bytes": 170869,
+      "sha256": "35ad6ccf26579b324e553f3e936fa61dcb3f3d39d2ee4c06d425aa782b3d38ef"
     },
     {
       "path": "paper/figures/figure1_reconstruction_slice.svg",
-      "bytes": 79077,
-      "sha256": "0ffd95d80002d86fd7baaa1244f9ed28d78194c1ce7a5f81b984a01e1d58c6e0"
+      "bytes": 88266,
+      "sha256": "1d193569491675aadb43c21cb75f9b08c830d846aeb77a9f004b82999bf9961d"
     },
     {
       "path": "paper/figures/figure2_uncertainty_map.png",
-      "bytes": 236534,
-      "sha256": "2c616f0607d0a6f75373bd05897efcaa12849b165572fd0876f99d547edae576"
+      "bytes": 194663,
+      "sha256": "ec0957927a6420fa1afa6c497e253c4ca897cebeebe5453b5b84ec76b256e705"
     },
     {
       "path": "paper/figures/figure2_uncertainty_map.svg",
-      "bytes": 80895,
-      "sha256": "6ba271ff2997a025ba940bb823db32da761ab4cf3c9bc1d3a872b352cf1c886e"
+      "bytes": 80393,
+      "sha256": "7c06acca0f3aee9508c3192b0b9cd6cf232282018dd31baa7b1ae14141cd26f7"
     },
     {
       "path": "paper/figures/figure3_null_distribution_scoring.png",
-      "bytes": 154659,
-      "sha256": "cb16135a2f8700a5639731a54cc3994723e16295388ad2d32fd9e88ab192269d"
+      "bytes": 187701,
+      "sha256": "c374f4cc9edd8aa72394ce1d4fc5dd2bec45767c240339af5fb35035f3ab807a"
     },
     {
       "path": "paper/figures/figure3_null_distribution_scoring.svg",
-      "bytes": 71426,
-      "sha256": "f9b82dee474b0cc0966dd63d5cd453dee9350d7ce82cb35527b0526767623860"
+      "bytes": 79876,
+      "sha256": "3ee39b555d30d55ec87ef779bde678d391aea0362d51dc16ef32d8e846d81d5a"
     },
     {
       "path": "paper/figures/figure4_hybrid_differential.png",
-      "bytes": 261123,
-      "sha256": "8e0b4c3a76f44fd9dceab81156b7eda1e4a7f5f379556b9e17ebac2e31c8b85e"
+      "bytes": 219688,
+      "sha256": "74c7df792f5b8fe8242798e08d2c188dd6189de884f6fc71360a99a9eafe0049"
     },
     {
       "path": "paper/figures/figure4_hybrid_differential.svg",
-      "bytes": 114513,
-      "sha256": "199a0a28fa1ffe2402b7a989a41d60c9223834841a45e47bbb86642563e6e448"
+      "bytes": 107971,
+      "sha256": "547d3b279846f2ae0260e9a1a40b51bcd5460881201f722616c0c05c64c8f11d"
+    },
+    {
+      "path": "paper/figures/figure5_blind_topological_peaks.png",
+      "bytes": 326813,
+      "sha256": "79093c53afdbef19f866d0b14dacc1474321337a1838771a7fbd3ffaf934155b"
+    },
+    {
+      "path": "paper/figures/figure5_discovered_candidate_embedding.png",
+      "bytes": 340901,
+      "sha256": "0e1618e6462183901de8f8683eea9215e40a7a71346bcc76f633dae52e83dc40"
+    },
+    {
+      "path": "paper/figures/figure6_bayesian_197_confirmation.png",
+      "bytes": 345898,
+      "sha256": "a8e1c3715c8e9e994c5d37a43b6338cba802b04b053f7f8350b3fa97dec6b66b"
+    },
+    {
+      "path": "paper/figures/figure7_filament_spine_bridge.png",
+      "bytes": 435254,
+      "sha256": "e61268dd95e6168187180dc2d5823381d06e41aa828d71cd4210c2638a793d49"
+    },
+    {
+      "path": "paper/figures/figure8_radio_pointing_sky_dossier.png",
+      "bytes": 253780,
+      "sha256": "1da9d23336ead397f2a96dda37af59a28c2ce721bef554f065f8ca4d3692b491"
+    },
+    {
+      "path": "paper/figures/figure_plate_composite.png",
+      "bytes": 579443,
+      "sha256": "aea86fc31e163a632cfee196d38958f87f4465b3f5d51afceaf1d53c988081d1"
+    },
+    {
+      "path": "paper/figures/figure_plate_composite.svg",
+      "bytes": 250715,
+      "sha256": "e968bb37478c54ccd4ac5a92e03a6c6030c338d06f0f4e087efb117d423fe23f"
+    },
+    {
+      "path": "paper/figures/z_zoa_3d_lab_hero.png",
+      "bytes": 562705,
+      "sha256": "2afecf1a765ef1e9b6ec9b2f822695187732dd97d7a4479e56005134166bc99d"
     },
     {
       "path": "paper/tables/table1_data_footprints.csv",
@@ -347,23 +437,63 @@
     },
     {
       "path": "paper/tables/table6_robustness_matrix.csv",
-      "bytes": 1094,
-      "sha256": "9e998186de006c83a03ccfe9f5d7dd74b3aa531c9cd9e3cb6bd75ebfa96343a1"
+      "bytes": 1100,
+      "sha256": "8953f6cb4ea85a91533f761280ce2e9298d5f5d8a7822a4cd2ecabd01105bba5"
     },
     {
       "path": "paper/tables/table6_robustness_matrix.md",
-      "bytes": 1329,
-      "sha256": "b871aeeea604e55a41b6a09fc025097c2f89c5bb2114cbef70f8d871f9e2158a"
+      "bytes": 1335,
+      "sha256": "3e49e7cf95c5843d2cc35a64a260d9613096548fe71ff3d6df79fb2e1ee65f9c"
     },
     {
       "path": "paper/tables/table6_robustness_matrix.tex",
-      "bytes": 1331,
-      "sha256": "ed62c115683b975cefa9e17145ffdce05280e08e4ddb8d971aa7972926b54630"
+      "bytes": 1337,
+      "sha256": "96fba20a24d54513dee5212b4b3751529f7a9a6c7f549918078695e7070f0f89"
+    },
+    {
+      "path": "paper/tables/table_route_a_topological_peaks.csv",
+      "bytes": 760,
+      "sha256": "f5121bbd0f6a564c23bab29ab9b834f09a5c0e2d3951ae7913508834f9408f0d"
+    },
+    {
+      "path": "paper/tables/table_route_a_topological_peaks.tex",
+      "bytes": 945,
+      "sha256": "b176181bd4ad1202b4eb59ddabcbc1bb0ea2c826b49f354feb9fa5b3dba13af6"
+    },
+    {
+      "path": "paper/tables/table_route_b_confirmed_candidates.csv",
+      "bytes": 39835,
+      "sha256": "1ba9db501dfcda42ce523d07da317ea9385573fe22196c31ec808c06a11d1a8e"
+    },
+    {
+      "path": "paper/tables/table_route_b_confirmed_candidates.tex",
+      "bytes": 3319,
+      "sha256": "9f3346ec84e56aa11d7e6fc81b3a433fe991348b179e7737ad562b0bda54e395"
+    },
+    {
+      "path": "paper/tables/table_route_c_filament_spines.csv",
+      "bytes": 7329,
+      "sha256": "fd56519911982d5f1b7d5fec25c0fc0ece87d5611a9c3f7fe75bf7ce99eeac80"
+    },
+    {
+      "path": "paper/tables/table_route_c_filament_spines.tex",
+      "bytes": 2539,
+      "sha256": "5a84010d54d1eb9e0d6d37a3f694f1e299f4005708e60c25a01c2194385b73ac"
+    },
+    {
+      "path": "paper/tables/table_route_d_radio_pointings.csv",
+      "bytes": 7284,
+      "sha256": "67424c58074b5abeae6ea8a5670581f8cab10417f9101591114312a143ed1848"
+    },
+    {
+      "path": "paper/tables/table_route_d_radio_pointings.tex",
+      "bytes": 2886,
+      "sha256": "bd6dd35283433094b4fcbc083405b5daa3731dab7a084e82edd62930b2733335"
     },
     {
       "path": "pyproject.toml",
-      "bytes": 797,
-      "sha256": "fd13e6b47244d9f6d34ba3afac46a3ac74fd5bcd6945faed50e0bc42c943e519"
+      "bytes": 832,
+      "sha256": "480c8096242660236b7fc7b0ddb17ccd0a34ef18e07a349be11367ab680f9cdc"
     },
     {
       "path": "reproducibility/environment_lock.txt",
@@ -452,8 +582,8 @@
     },
     {
       "path": "research/cosmology/__init__.py",
-      "bytes": 642,
-      "sha256": "23084d0527792a67eb6afb4bebdc07d61ebea60dcdf331baf4f7e96617776625"
+      "bytes": 700,
+      "sha256": "39793fa8a0a241e832539a0353792c336539c6d7d3a6e09b3d5d2709b32e95b5"
     },
     {
       "path": "research/cosmology/distances.py",
@@ -462,8 +592,8 @@
     },
     {
       "path": "research/cosmology/models.py",
-      "bytes": 2498,
-      "sha256": "d360c123bd0b7a56a86b2d3557cb21ff1e3a59064ae2438a057928cb4d05677e"
+      "bytes": 2733,
+      "sha256": "e00790d0ce644b404145f8a1e0ffbec64e9748652eca8aaf40eb2371cf92be1c"
     },
     {
       "path": "research/experiments/__init__.py",
@@ -492,8 +622,8 @@
     },
     {
       "path": "research/experiments/robustness.py",
-      "bytes": 6474,
-      "sha256": "4b4dea654d389333ad2ad69e386f6149a84e31c588b0764a2e4a9ebc6c794eea"
+      "bytes": 7331,
+      "sha256": "15e3e7e152a7d55b9e1917506241249591d63c3d5ed3839b7b7daeee794c4898"
     },
     {
       "path": "research/experiments/runner.py",
@@ -507,8 +637,13 @@
     },
     {
       "path": "research/holdouts/exceptions.py",
-      "bytes": 1217,
-      "sha256": "a920779953f160d05fbd11d8b56a751f4c4709316e7a4e30de221b5ebf81e1f7"
+      "bytes": 1472,
+      "sha256": "1906b61c892485bbe38a9f99e403c951019252d3b1716e1912a0eaedc244759d"
+    },
+    {
+      "path": "research/holdouts/ga_decontam.py",
+      "bytes": 5153,
+      "sha256": "225891d4d99a584a74a13f7af37a76ad87448fcbbb8fb367020a27a198d16b21"
     },
     {
       "path": "research/holdouts/guard.py",
@@ -522,33 +657,48 @@
     },
     {
       "path": "research/ledger/__init__.py",
-      "bytes": 1309,
-      "sha256": "a11571f35fff3fe10550ac63ae45c53df77d7e41f73f2a3c4f3bc1202843e145"
+      "bytes": 1929,
+      "sha256": "b0e62e593b52d58ae733ccbcc0c95214202b9b6107da63faa4cb50627b984ce1"
     },
     {
       "path": "research/ledger/anchor.py",
-      "bytes": 7200,
-      "sha256": "25755fbbaabcc8817e30b21cabd3ee2fbbc3096f93797f024d32587e23c761ad"
+      "bytes": 10790,
+      "sha256": "462c5238e0fc8e34a3d95452fc5fe480016d7151678f9e5b145e01fbfd5b9aab"
     },
     {
       "path": "research/ledger/canonicalize.py",
-      "bytes": 3968,
-      "sha256": "ecf295b665567cce256049c5bf74d38ac9cef304b41f374ea88df0b0887e0ae4"
+      "bytes": 5054,
+      "sha256": "5e7b2f3b7ef3d0178fa9885b0d3320aba3cf4ffc7f531194de31e3f9444ac7f3"
+    },
+    {
+      "path": "research/ledger/evm_client.py",
+      "bytes": 14112,
+      "sha256": "e18e47a617d51354e0f66f4ab1e6c59d4d01a8c4aa54ffa66fd9164e06eb961f"
     },
     {
       "path": "research/ledger/receipt.py",
-      "bytes": 3633,
-      "sha256": "fa885a602f9673b7d672adba03b0bcd5a7562c5c75c679f631cfbfc3ba1b459d"
+      "bytes": 7197,
+      "sha256": "b23d430a857fca42dbc894996e599748b2411fbacbe820afb6ea0afb6505ff17"
     },
     {
       "path": "research/ledger/verify.py",
-      "bytes": 13265,
-      "sha256": "fa0641d6231b42703d7aedb5102667401fd852630177606fb5c140e165b3b70e"
+      "bytes": 15908,
+      "sha256": "c30f8bf64b83292fb9de5c873381b6e394e611e8d6f5b4435977044526d59545"
     },
     {
       "path": "research/ledger/xrpl_client.py",
       "bytes": 6216,
       "sha256": "8917fa9c96d936fb835f769daa11b1d1c377b778a10ff378701f7c17381f9de3"
+    },
+    {
+      "path": "research/llm/__init__.py",
+      "bytes": 412,
+      "sha256": "17f5f855630e0db2881d4708646b633e5a99a30db424c20e2d36622476ef5cbb"
+    },
+    {
+      "path": "research/llm/deepseek.py",
+      "bytes": 4730,
+      "sha256": "f5312fb71458ca981bc874b0817f4ac90dd4bb67c7ad90cc07d36065372d73d5"
     },
     {
       "path": "research/masks/__init__.py",
@@ -582,8 +732,8 @@
     },
     {
       "path": "research/paper_factory/make_figures.py",
-      "bytes": 8675,
-      "sha256": "8596a9153f67a2cc8a166a2aa8820325df22dcb8eb6b8e33e619bf1ca7c6c5e5"
+      "bytes": 20691,
+      "sha256": "3a7707c5215ba9a7257ddf991c12f4e352e3d0bc6aed090f0c296d2b3078c28c"
     },
     {
       "path": "research/paper_factory/make_tables.py",
@@ -606,9 +756,19 @@
       "sha256": "924c88dff190d129462ba69fd1a158bccd8e52ac8a2275c8085c40f04e819fda"
     },
     {
+      "path": "research/reconstruction/bayesian_confirmation.py",
+      "bytes": 19925,
+      "sha256": "dc2350168b312efbe77d158f7a493495041f1a996cc91af1e6ffe620e422d2fe"
+    },
+    {
       "path": "research/reconstruction/constrained.py",
       "bytes": 4174,
       "sha256": "c883cf7c27c4b8c97759d8a5d56d2400a71d30259d592f76a2d21bb6c490732d"
+    },
+    {
+      "path": "research/reconstruction/discover_candidate.py",
+      "bytes": 9863,
+      "sha256": "bbe1998f020815081a71dcaf5c896ba571074ad98de22f8746528561267803ff"
     },
     {
       "path": "research/reconstruction/engine.py",
@@ -616,9 +776,29 @@
       "sha256": "049effda8bba2628073a7a906f3084192215437a403d38fac38bfb933d12be88"
     },
     {
+      "path": "research/reconstruction/filament_spine.py",
+      "bytes": 16904,
+      "sha256": "4b23d1702e0182c9304bf49621d8d03a7ec0921e6bee62bf74ff76e58169e488"
+    },
+    {
       "path": "research/reconstruction/hybrid.py",
       "bytes": 14932,
       "sha256": "25bdb4ab92fbfa1e69fedc8c881aeebb539e01d6f8bcc85314c8d74e0c131e2c"
+    },
+    {
+      "path": "research/reconstruction/peak_finding.py",
+      "bytes": 20973,
+      "sha256": "06505505282abf3f25f6e83ace22663e703cb5ed8e33cba2d69ae29215920f64"
+    },
+    {
+      "path": "research/reconstruction/pointing_dossier.py",
+      "bytes": 27807,
+      "sha256": "62896e6795febe03ce9781b72e763355edd7e5ada4f54ceae8acc105da731f54"
+    },
+    {
+      "path": "research/reconstruction/vweb.py",
+      "bytes": 8012,
+      "sha256": "aa418ad57f63f53163be14c3f0a6ae94049515a49a17e6a54c90ddae524b5073"
     },
     {
       "path": "research/reproducibility/bundle_cli.py",
@@ -691,6 +871,16 @@
       "sha256": "81213b51376cf059f7d78875c05e763c5e3cdcb933735578fe208ea01f74951d"
     },
     {
+      "path": "runs/VELA-001/bayesian_197_confirmation.json",
+      "bytes": 302879,
+      "sha256": "e9aae44488cd94d0e1eeeeef6eea0e79fd992c67b9fa0f32d4c99b554d072e21"
+    },
+    {
+      "path": "runs/VELA-001/blind_topological_peaks.json",
+      "bytes": 7673,
+      "sha256": "2062d4d2aab0ebca3c18ba47f69ac53b2056bd87b773f9c9ca80afd807128063"
+    },
+    {
       "path": "runs/VELA-001/checksums.sha256",
       "bytes": 715,
       "sha256": "f7a0eb581466d0cc38a9f5d8b94d7df0ee9c5fbd18df9d522ee173fcd781cd7c"
@@ -701,14 +891,24 @@
       "sha256": "677ffb4fa16631e9415b69f7cded6ea96a023f6b8355ec4e572ef65b961c3f13"
     },
     {
+      "path": "runs/VELA-001/figures_manifest.json",
+      "bytes": 5563,
+      "sha256": "2ed4d25518ef2500dbdfdcee36c2ed01107ebe7d7b8b4247e9837c3fb22d46f7"
+    },
+    {
+      "path": "runs/VELA-001/filament_spine_bridge.json",
+      "bytes": 56893,
+      "sha256": "aa055e61abf51959b1d44d5b0cb9bf1e51351a888cbec0d6c60966cef644bec4"
+    },
+    {
       "path": "runs/VELA-001/freeze_manifest.json",
-      "bytes": 1612,
-      "sha256": "b966a6f413f07bd34d6859455fc83d537b01805ef789432efddb57a61427c9ad"
+      "bytes": 1629,
+      "sha256": "d39ab51c34fda21d6f855f7bd34e93b1c65a1263416dfb3aecbe3a26de862867"
     },
     {
       "path": "runs/VELA-001/hybrid_report.json",
       "bytes": 392,
-      "sha256": "6d9d510f561ac79dff7ba622fb43323a1453331a69a7666d936ef40481da4308"
+      "sha256": "ea9f8daaa20fdc148fad3305b6526d738a61143ff8443bb2cada548f9c225b1e"
     },
     {
       "path": "runs/VELA-001/metrics_spec.json",
@@ -721,19 +921,29 @@
       "sha256": "e86c7a326c6ab87ffb903234341ea599b2f422ed8792d2e083896080e1799e61"
     },
     {
+      "path": "runs/VELA-001/radio_pointing_dossier.json",
+      "bytes": 35054,
+      "sha256": "bb264ccb59e174684488cfc6b97935461a2eb484a82d77df2650b540b079cabc"
+    },
+    {
       "path": "runs/VELA-001/reconstruction_meta.json",
-      "bytes": 662,
-      "sha256": "f260f762d057fc29a7c15abb9f671a3ea4dad6a528e443e68f8463d1729a86f6"
+      "bytes": 663,
+      "sha256": "d013c9affa7e5e3b2ea3de136962b5630ba7538d63b40882019417924a92f0dc"
     },
     {
       "path": "runs/VELA-001/UNBLINDING_RECEIPT.json",
       "bytes": 515,
-      "sha256": "d382d6adaf666919e3003f0f9f763e2b091c694ee92527089942bfc015daea29"
+      "sha256": "ab2aaaf8ec712b751572d4af7567644b4d880eece88451be0808e228dc375255"
     },
     {
       "path": "runs/VELA-001/validation_report.json",
       "bytes": 569,
       "sha256": "62cf1688715e02807fb7e812a26221ab4d18c1e001ca493b3e8e0d9bd669f2e8"
+    },
+    {
+      "path": "runs/VELA-001/vweb_report.json",
+      "bytes": 523,
+      "sha256": "c8641e93a13c21b300359aea5703569473be10d704796fc50714965d91148bea"
     }
   ]
 }

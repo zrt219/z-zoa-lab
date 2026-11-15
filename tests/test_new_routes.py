@@ -40,8 +40,8 @@ def test_validation_endpoints():
     data = res.json()
     assert data["final_status"] == "PASS"
 
-    # Freeze & reveal scoring
-    res_fr = client.post("/validation/freeze-reveal", json={"run_id": "VELA-001", "n_null_samples": 50})
+    # Freeze & reveal scoring (tested on a dedicated test run ID to avoid mutating production VELA-001)
+    res_fr = client.post("/validation/freeze-reveal", json={"run_id": "TEST-FR-ROUTE", "n_null_samples": 50})
     assert res_fr.status_code == 200
     d_fr = res_fr.json()
     assert d_fr["status"] in ["REVEALED_AND_SCORED", "VALIDATION_CONFIRMED"]

@@ -37,3 +37,12 @@ class AnchorVerificationHoldoutViolationError(HoldoutSecurityError, PermissionEr
     """
     pass
 
+
+class UnphysicalCosmologyError(ValueError):
+    """
+    CRITICAL COSMOLOGICAL SCALE SANITY VIOLATION:
+    Peculiar velocities v_pec exceed physical cosmic infall limits (v_rms in [300, 600] km/s,
+    v_max <= 2,500 km/s, or v > 0.01c).
+    """
+    pass
+

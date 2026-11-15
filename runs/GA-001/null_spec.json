@@ -1,0 +1,16 @@
+{
+  "spec_version": "1.0",
+  "survey_footprint": "GA_SMGPS",
+  "bounds": {
+    "l_min_deg": 302.0,
+    "l_max_deg": 332.0,
+    "b_min_deg": -1.5,
+    "b_max_deg": 1.5,
+    "cz_min_kms": 0.0,
+    "cz_max_kms": 25000.0
+  },
+  "selection_weight_model": "aperture_matched_uniform_falloff",
+  "null_realizations": 1000,
+  "seed": 20240915,
+  "condition": "Holdout coordinates and counts matched (N=477); drawn strictly from GA survey window."
+}

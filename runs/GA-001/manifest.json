@@ -1,0 +1,98 @@
+{
+  "run_id": "GA-001",
+  "experiment_name": "Great Attractor (GA-001) out-of-sample reconstruction and holdout validation",
+  "created_at": "2026-11-13T19:33:17.180610+00:00",
+  "git_commit": "2ce3c4c8b343155797a695aa8c64fe894cd1086b",
+  "random_seed": 42,
+  "package_versions": {
+    "python": "3.10.11",
+    "astropy": "6.1.7",
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "polars": "1.44.2",
+    "pydantic": "2.13.4"
+  },
+  "cosmology": {
+    "cosmology_name": "CF4_Nominal",
+    "H0": 74.6,
+    "H0_unit": "km / (s Mpc)",
+    "Om0": 0.3,
+    "Ode0": 0.7,
+    "reference": "Tully et al. 2023 (ApJ 944, 94)"
+  },
+  "datasets": [
+    {
+      "dataset_id": "train_clean_ga_combined",
+      "role": "TRAIN_CLEAN",
+      "sha256": "31607e541a8bf00ead792ae1df20914bd9b2936af2e8ceb2bcffaab60e4dae07",
+      "row_count": 796
+    },
+    {
+      "dataset_id": "ga_smgps_477",
+      "role": "HOLDOUT",
+      "sha256": "2a9d2a9a471b59ac0e4e30ace48eae24b8f08387942277dc5aed34162a0604e4",
+      "row_count": 477
+    }
+  ],
+  "calculations": [
+    {
+      "action": "constrained_ensemble_reconstruction",
+      "source": "ReconstructionEngine",
+      "inputs": {
+        "catalog": "train_clean_ga_combined.parquet",
+        "n_realizations": 20,
+        "grid_size": 32,
+        "box_size_mpc": 400.0,
+        "smoothing_scale_mpc": 10.0
+      },
+      "outputs": {
+        "pred_mean_stats": {
+          "min": -1.0442376578384593,
+          "max": 635.0992348147075,
+          "mean": -0.00015469640868223666,
+          "std": 11.89578804926819
+        }
+      }
+    },
+    {
+      "action": "holdout_scoring_and_null_testing",
+      "source": "MeerKAT GA-SMGPS (Steyn et al. 2024)",
+      "inputs": {
+        "holdout_count": 477,
+        "n_null_realizations": 1000
+      },
+      "outputs": {
+        "run_id": "GA-001",
+        "holdout_catalog": "Great Attractor (MeerKAT GA-SMGPS Steyn et al. 2024)",
+        "holdout_count": 477,
+        "primary_metric": "mean_overdensity_at_holdout",
+        "observed_mean_delta": 62.1392759281121,
+        "null_hypothesis_mean": 47.402285158220884,
+        "null_hypothesis_std": 3.8564531584990323,
+        "empirical_p_value": "< 0.0010",
+        "effect_size_cohens_d": 3.821384615298906,
+        "fraction_in_overdense_voxels": 0.8218029350104822,
+        "fraction_in_high_prob_voxels": 0.7610062893081762,
+        "n_null_realizations": 1000,
+        "status": "VALIDATION_CONFIRMED"
+      }
+    }
+  ],
+  "warnings": [],
+  "outputs": {
+    "run_id": "GA-001",
+    "holdout_catalog": "Great Attractor (MeerKAT GA-SMGPS Steyn et al. 2024)",
+    "holdout_count": 477,
+    "primary_metric": "mean_overdensity_at_holdout",
+    "observed_mean_delta": 62.1392759281121,
+    "null_hypothesis_mean": 47.402285158220884,
+    "null_hypothesis_std": 3.8564531584990323,
+    "empirical_p_value": "< 0.0010",
+    "effect_size_cohens_d": 3.821384615298906,
+    "fraction_in_overdense_voxels": 0.8218029350104822,
+    "fraction_in_high_prob_voxels": 0.7610062893081762,
+    "n_null_realizations": 1000,
+    "status": "VALIDATION_CONFIRMED"
+  },
+  "manifest_sha256": "e1d5cfaf641bcadad5cf34710d2a083222d79eba94236e9427db8cb35c9c956f"
+}

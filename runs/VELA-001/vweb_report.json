@@ -1,0 +1,19 @@
+{
+  "run_id": "VELA-001",
+  "grid_size": 32,
+  "box_size_mpc": 400.0,
+  "dx_mpc": 12.5,
+  "h0_kms_mpc": 74.6,
+  "threshold_lambda_th": 0.1,
+  "volume_fractions": {
+    "void_fraction": 0.189117431640625,
+    "sheet_fraction": 0.358978271484375,
+    "filament_fraction": 0.450103759765625,
+    "cluster_fraction": 0.001800537109375
+  },
+  "zoa_midplane_filament_fraction": 0.7216796875,
+  "morphology_summary": {
+    "dominant_morphology": "filament",
+    "filament_to_void_ratio": 2.3800225915765694
+  }
+}

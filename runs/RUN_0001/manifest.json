@@ -1,8 +1,8 @@
 {
   "run_id": "RUN_0001",
   "experiment_name": "Vela holdout baseline",
-  "created_at": "2026-09-15T21:43:36.274761+00:00",
-  "git_commit": "df3536ec918a78c7a43c0b23876ea03d5a5224c7",
+  "created_at": "2026-09-30T05:19:09.811809+00:00",
+  "git_commit": "2ce3c4c8b343155797a695aa8c64fe894cd1086b",
   "random_seed": 382019,
   "package_versions": {
     "python": "3.12.12",
@@ -30,8 +30,8 @@
   ],
   "calculations": [
     {
-      "record_id": "7bd73d3c-e218-48ee-bb43-4a21b984d968",
-      "timestamp": "2026-09-15T21:43:36.233128+00:00",
+      "record_id": "d0ed69e4-d60f-459d-a5d3-d5ed5279e172",
+      "timestamp": "2026-09-30T05:19:09.774855+00:00",
       "action": "dataset_load",
       "formula": null,
       "inputs": {
@@ -58,8 +58,8 @@
       "notes": "Role: TRAIN, SHA256: ad16175675a14f5726adfb7eb6c5fa78fdb6099f18441d7439ba1ddfaf39727f"
     },
     {
-      "record_id": "8c8c3aec-82be-492d-84f3-33190b2b3aca",
-      "timestamp": "2026-09-15T21:43:36.234128+00:00",
+      "record_id": "b8844f3c-a72c-401c-b5d0-ea625255c920",
+      "timestamp": "2026-09-30T05:19:09.775377+00:00",
       "action": "peculiar_velocity",
       "formula": "v_pec = cz - H0 * d",
       "inputs": {
@@ -97,8 +97,8 @@
       "notes": null
     },
     {
-      "record_id": "711acbf7-736a-4978-9122-4a107414a55e",
-      "timestamp": "2026-09-15T21:43:36.234838+00:00",
+      "record_id": "18ddb0cb-bd9f-45db-98a2-c6d8db068bd7",
+      "timestamp": "2026-09-30T05:19:09.776371+00:00",
       "action": "peculiar_velocity",
       "formula": "v_pec = cz - H0 * d",
       "inputs": {
@@ -136,8 +136,8 @@
       "notes": null
     },
     {
-      "record_id": "3f1b8db3-0e83-43a3-8fe8-dfe2e052f320",
-      "timestamp": "2026-09-15T21:43:36.235381+00:00",
+      "record_id": "f3bae696-5c44-487a-ae4c-c7298491a38b",
+      "timestamp": "2026-09-30T05:19:09.776371+00:00",
       "action": "peculiar_velocity",
       "formula": "v_pec = cz - H0 * d",
       "inputs": {
@@ -175,8 +175,8 @@
       "notes": null
     },
     {
-      "record_id": "ad2af56c-c83c-4167-ba99-585e979c3b68",
-      "timestamp": "2026-09-15T21:43:36.235381+00:00",
+      "record_id": "73c53f86-267b-4392-8723-e2801a29e7df",
+      "timestamp": "2026-09-30T05:19:09.777462+00:00",
       "action": "peculiar_velocity",
       "formula": "v_pec = cz - H0 * d",
       "inputs": {
@@ -214,8 +214,8 @@
       "notes": null
     },
     {
-      "record_id": "3cabab8b-9788-42cb-89a3-9e3006c05719",
-      "timestamp": "2026-09-15T21:43:36.236353+00:00",
+      "record_id": "3fb62040-4a64-4a0c-822c-efe29755f9d5",
+      "timestamp": "2026-09-30T05:19:09.778419+00:00",
       "action": "peculiar_velocity",
       "formula": "v_pec = cz - H0 * d",
       "inputs": {
@@ -253,8 +253,8 @@
       "notes": null
     },
     {
-      "record_id": "480ccc87-d21d-443d-90c1-b232d175ae25",
-      "timestamp": "2026-09-15T21:43:36.236353+00:00",
+      "record_id": "1604f200-6856-409d-be92-0cf60d546973",
+      "timestamp": "2026-09-30T05:19:09.778419+00:00",
       "action": "peculiar_velocity",
       "formula": "v_pec = cz - H0 * d",
       "inputs": {
@@ -292,8 +292,8 @@
       "notes": null
     },
     {
-      "record_id": "3900ac5a-58be-4965-8b63-bc35e3bc2fcc",
-      "timestamp": "2026-09-15T21:43:36.237353+00:00",
+      "record_id": "67faa007-f81b-434a-add9-6ba8aa669d6d",
+      "timestamp": "2026-09-30T05:19:09.779419+00:00",
       "action": "peculiar_velocity",
       "formula": "v_pec = cz - H0 * d",
       "inputs": {
@@ -331,8 +331,8 @@
       "notes": null
     },
     {
-      "record_id": "30fe8969-15fe-4486-9382-59e3581f838d",
-      "timestamp": "2026-09-15T21:43:36.237353+00:00",
+      "record_id": "3fc94e47-b663-46fa-9b14-9f7ca8a1de8e",
+      "timestamp": "2026-09-30T05:19:09.780979+00:00",
       "action": "peculiar_velocity",
       "formula": "v_pec = cz - H0 * d",
       "inputs": {
@@ -631,5 +631,5 @@
       }
     ]
   },
-  "manifest_sha256": "274409783493b769b9df7e30a08ecf08bc9c0bf0e49a60725f3943646c885887"
+  "manifest_sha256": "a0f9f6b88650b28baf9f40e52a8d1b2f165c1d8d6563f5a7181d2447feb13bdf"
 }

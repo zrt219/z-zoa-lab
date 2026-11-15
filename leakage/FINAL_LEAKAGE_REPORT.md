@@ -2,7 +2,7 @@
 
 **Experiment / Run Candidate ID**: `VELA-001`  
 **Audit Status**: **PASS**  
-**Certificate SHA-256**: `2f54572a74ad45db308a48a77b3e0afcd29c87e001cea63387542d0d207ab37f`  
+**Certificate SHA-256**: `9bf8a1840235cfd9232e51ab8c35d7c26a1f71522de42cb54c5f3e13a54c3982`  
 **Tests Executed**: `18/18 Passed`  
 
 ---

@@ -1,0 +1,43 @@
+{
+  "pipeline_version": "Z-ZOA-GA-DECONTAM-v1.0",
+  "run_id": "GA-001",
+  "generated_utc": "2026-10-21T11:15:40Z",
+  "holdout_files_read": [],
+  "quarantine_volume": {
+    "l_min_deg": 299.0,
+    "l_max_deg": 336.0,
+    "b_min_deg": -3.0,
+    "b_max_deg": 3.0,
+    "cz_max_kms": 21000.0,
+    "footprint_source": "Steyn et al. 2024, MNRAS Letters 529, L88. MeerKAT survey across the Great Attractor ZoA core.",
+    "buffer_deg": 1.0,
+    "cz_buffer_kms": 1000.0
+  },
+  "input_sha256": {
+    "hizoa_s_full": "ec24cf417d48e0063409afd9782589277a801498209d655ff30329342f3c93e2",
+    "cf4_sample": "7d6822b6e3c1cca16e650e815c1328c25960c2879b3f3883e6b534b32bcbf29c",
+    "2mrs_sample": "22881bd45f6346346cfa05db730240092ef348e9b711694f83337aadca6fa66f"
+  },
+  "per_source": {
+    "hizoa_s_full": {
+      "input_rows": 883,
+      "excluded_rows": 145,
+      "clean_rows": 738
+    },
+    "cf4_sample": {
+      "input_rows": 8,
+      "excluded_rows": 0,
+      "clean_rows": 8
+    },
+    "2mrs_sample": {
+      "input_rows": 50,
+      "excluded_rows": 0,
+      "clean_rows": 50
+    }
+  },
+  "total_excluded": 145,
+  "total_train_clean_ga": 796,
+  "exclusion_list_sha256": "73e542fe3d12b31dc18c4662d70d9db43fffbc38ad27f5d0f1c962deb9f37d5f",
+  "train_clean_ga_sha256": "31607e541a8bf00ead792ae1df20914bd9b2936af2e8ceb2bcffaab60e4dae07",
+  "clean_output_path": "datasets/processed/TRAIN_CLEAN_GA/train_clean_ga_combined.parquet"
+}

@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 import astropy.units as u
 from astropy.cosmology import Planck18, FlatLambdaCDM
-from research.cosmology.models import CosmologyConfig, COSMOLOGY_PRESETS
+from research.cosmology.models import CosmologyConfig, COSMOLOGY_PRESETS, UnphysicalCosmologyError
 from research.cosmology.distances import (
     comoving_distance,
     luminosity_distance,
@@ -76,3 +76,10 @@ def test_redshift_inversion():
     z_sol = redshift_from_comoving_distance(target_dist, cfg)
     dc_check = comoving_distance(z_sol, cfg)
     assert np.isclose(dc_check.value, 100.0, atol=1e-4)
+
+
+def test_unphysical_cosmology_error_definition():
+    """Verify UnphysicalCosmologyError inherits from ValueError and can be raised."""
+    with pytest.raises(UnphysicalCosmologyError, match="exceeds cosmic infall limits"):
+        raise UnphysicalCosmologyError("Velocity v = 95000 km/s exceeds cosmic infall limits (v_max <= 2500 km/s).")
+

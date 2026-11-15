@@ -1,13 +1,13 @@
 {
   "manifest_type": "Z-ZOA_FIGURES_MANIFEST",
   "run_id": "VELA-001",
-  "created_at_utc": "2026-09-16T02:44:23.666224+00:00",
+  "created_at_utc": "2026-11-14T02:58:23.948718+00:00",
   "dpi": 72,
   "formats": [
     "png"
   ],
   "has_composite": false,
-  "figures_count": 10,
+  "figures_count": 14,
   "numerical_bounds": {
     "run_id": "VELA-001",
     "grid_shape": [
@@ -25,83 +25,111 @@
     "delta_diff_max": 33.80634827325156,
     "sigma_diff_mean": 5.116688837955626e-05,
     "observed_score": 134.83907177810605,
-    "z_score": 1.7045422007847866,
-    "p_value": 0.02,
+    "z_score": 1.9598229284613495,
+    "p_value": 0.027,
     "test_status": "VALIDATION_CONFIRMED",
     "has_figures_manifest": true,
-    "figures_count": 10
+    "figures_count": 14
   },
   "figures": {
     "figure1_reconstruction_slice.png": {
       "filename": "figure1_reconstruction_slice.png",
       "format": "png",
-      "bytes": 35110,
-      "sha256": "369ca1ad67182715b90e10b126ac2114b8b2be960fb33e7f914f6b5855f738ff",
+      "bytes": 30747,
+      "sha256": "be8686e5d95552dd28af7900414cdffb5b9015bb1b6968342400a378eb8f0cae",
       "relative_path": "runs/VELA-001/figures/figure1_reconstruction_slice.png"
     },
     "figure1_reconstruction_slice.svg": {
       "filename": "figure1_reconstruction_slice.svg",
       "format": "svg",
-      "bytes": 73249,
-      "sha256": "e43639a0661b677ab2ae72d0074ce402fd6dc30503fe11263e112b3e7387d9fe",
+      "bytes": 73376,
+      "sha256": "b8819ec13ac2611f942fe26f34e84f37bd1fe963f3108d7d91138ef4dd36c8f7",
       "relative_path": "runs/VELA-001/figures/figure1_reconstruction_slice.svg"
     },
     "figure2_uncertainty_map.png": {
       "filename": "figure2_uncertainty_map.png",
       "format": "png",
-      "bytes": 45340,
-      "sha256": "f93d84ae007e075b02d9d9f863631c4e32e02415b74ce33c1ef869e8c889726b",
+      "bytes": 41727,
+      "sha256": "8e585853ebc7c3d79f1ce6d0e916db112bd26d1a8348aa74e53dd690b21268d3",
       "relative_path": "runs/VELA-001/figures/figure2_uncertainty_map.png"
     },
     "figure2_uncertainty_map.svg": {
       "filename": "figure2_uncertainty_map.svg",
       "format": "svg",
-      "bytes": 65253,
-      "sha256": "70ca4aa53681f21e45416a29b2bba5bf4d065478515061fd6d18312342dd0062",
+      "bytes": 65387,
+      "sha256": "d4c92c65f072cb8809109cf7c280b31ab482caf532a6be722feb2de38ae9572f",
       "relative_path": "runs/VELA-001/figures/figure2_uncertainty_map.svg"
     },
     "figure3_null_distribution_scoring.png": {
       "filename": "figure3_null_distribution_scoring.png",
       "format": "png",
-      "bytes": 38453,
-      "sha256": "4d5bb637ef8a2f9ee33984f62d95073e0610aec13ca10305695e09d65b77fffb",
+      "bytes": 35506,
+      "sha256": "40fd64766285f35cfe5b68f310db70e71816d9257ef679036b212d8e7bfd332d",
       "relative_path": "runs/VELA-001/figures/figure3_null_distribution_scoring.png"
     },
     "figure3_null_distribution_scoring.svg": {
       "filename": "figure3_null_distribution_scoring.svg",
       "format": "svg",
-      "bytes": 81810,
-      "sha256": "8e0e765e61765c572c254f5de3d8791fc458941d7a67bb1256034bc0f6450fb2",
+      "bytes": 79876,
+      "sha256": "955062bd30055422704805f52be8a1c75fc928668db442687cd68017101b529a",
       "relative_path": "runs/VELA-001/figures/figure3_null_distribution_scoring.svg"
     },
     "figure4_hybrid_differential.png": {
       "filename": "figure4_hybrid_differential.png",
       "format": "png",
-      "bytes": 49123,
-      "sha256": "dc3cae3b45fd17c0e86a802417d69f4e5f51413792af77a8b3a9eae01290e92b",
+      "bytes": 41235,
+      "sha256": "bdf1fd570169132dc30c2c4585d515b5a425dee410c7dd6681013f053d156c22",
       "relative_path": "runs/VELA-001/figures/figure4_hybrid_differential.png"
     },
     "figure4_hybrid_differential.svg": {
       "filename": "figure4_hybrid_differential.svg",
       "format": "svg",
-      "bytes": 86033,
-      "sha256": "c371ab5c2ad210c7aa889db5122b156ccf560c8e4a6aa91a8576536a74339a4d",
+      "bytes": 86187,
+      "sha256": "3a8573376380d8846e3286050937b6a358cba5633f3c7f818add841f17eb604f",
       "relative_path": "runs/VELA-001/figures/figure4_hybrid_differential.svg"
+    },
+    "figure5_blind_topological_peaks.png": {
+      "filename": "figure5_blind_topological_peaks.png",
+      "format": "png",
+      "bytes": 326813,
+      "sha256": "79093c53afdbef19f866d0b14dacc1474321337a1838771a7fbd3ffaf934155b",
+      "relative_path": "runs/VELA-001/figures/figure5_blind_topological_peaks.png"
+    },
+    "figure6_bayesian_197_confirmation.png": {
+      "filename": "figure6_bayesian_197_confirmation.png",
+      "format": "png",
+      "bytes": 345898,
+      "sha256": "a8e1c3715c8e9e994c5d37a43b6338cba802b04b053f7f8350b3fa97dec6b66b",
+      "relative_path": "runs/VELA-001/figures/figure6_bayesian_197_confirmation.png"
+    },
+    "figure7_filament_spine_bridge.png": {
+      "filename": "figure7_filament_spine_bridge.png",
+      "format": "png",
+      "bytes": 435254,
+      "sha256": "e61268dd95e6168187180dc2d5823381d06e41aa828d71cd4210c2638a793d49",
+      "relative_path": "runs/VELA-001/figures/figure7_filament_spine_bridge.png"
+    },
+    "figure8_radio_pointing_sky_dossier.png": {
+      "filename": "figure8_radio_pointing_sky_dossier.png",
+      "format": "png",
+      "bytes": 253780,
+      "sha256": "1da9d23336ead397f2a96dda37af59a28c2ce721bef554f065f8ca4d3692b491",
+      "relative_path": "runs/VELA-001/figures/figure8_radio_pointing_sky_dossier.png"
     },
     "figure_plate_composite.png": {
       "filename": "figure_plate_composite.png",
       "format": "png",
-      "bytes": 206648,
-      "sha256": "e0d0d7b4085f813810e1bf2636ee69ae8c6400de8fb0266923c180dcf48c5d76",
+      "bytes": 184660,
+      "sha256": "27904266b3b3489adbe23152f3db47c9b376b5d478d5f8cc7c57b971bf4587a0",
       "relative_path": "runs/VELA-001/figures/figure_plate_composite.png"
     },
     "figure_plate_composite.svg": {
       "filename": "figure_plate_composite.svg",
       "format": "svg",
-      "bytes": 194454,
-      "sha256": "a696d39bcd9258052fb921361674f3d0244bffc6486023a3cb429249e2ded39c",
+      "bytes": 199940,
+      "sha256": "4a55168bcd775631d320e228c1afb3b19539c8082bb4af79af8ac8f411976703",
       "relative_path": "runs/VELA-001/figures/figure_plate_composite.svg"
     }
   },
-  "manifest_seal_sha256": "e58c924f793c866c84d7724cec5de9678457f6718609b40800aa0bf193282afd"
+  "manifest_seal_sha256": "f57ad9b74f99c420450322a8ac6c2a582281e47eb02171cce49f6434f3a0b4a2"
 }

@@ -1,0 +1,13 @@
+{
+  "spec_version": "1.0",
+  "primary_metric": "mean_overdensity_at_holdout",
+  "description": "Mean reconstructed density contrast delta evaluated at verified out-of-sample GA-SMGPS galaxy locations",
+  "secondary_metrics": [
+    "fraction_in_overdense_voxels_delta_gt_0",
+    "fraction_in_high_prob_voxels_p_gt_0_5",
+    "null_hypothesis_empirical_p_value",
+    "effect_size_cohens_d"
+  ],
+  "null_samples_count": 1000,
+  "significance_threshold_alpha": 0.001
+}

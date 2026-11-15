@@ -1,0 +1,20 @@
+run_id: GA-001
+experiment_name: Great Attractor (GA-001) out-of-sample reconstruction and holdout
+  validation
+random_seed: 42
+cosmology:
+  cosmology_name: CF4_Nominal
+  H0: 74.6
+  H0_unit: km / (s Mpc)
+  Om0: 0.3
+  Ode0: 0.7
+  reference: Tully et al. 2023 (ApJ 944, 94)
+datasets:
+- dataset_id: train_clean_ga_combined
+  role: TRAIN_CLEAN
+  sha256: 31607e541a8bf00ead792ae1df20914bd9b2936af2e8ceb2bcffaab60e4dae07
+  row_count: 796
+- dataset_id: ga_smgps_477
+  role: HOLDOUT
+  sha256: 2a9d2a9a471b59ac0e4e30ace48eae24b8f08387942277dc5aed34162a0604e4
+  row_count: 477

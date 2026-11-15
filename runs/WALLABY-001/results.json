@@ -1,0 +1,15 @@
+{
+  "run_id": "WALLABY-001",
+  "holdout_catalog": "ASKAP WALLABY Pilot DR2 (Murugeshan et al. 2024)",
+  "holdout_count": 3454,
+  "primary_metric": "mean_overdensity_at_holdout",
+  "observed_mean_delta": 33.00742391445992,
+  "null_hypothesis_mean": 21.830525313126913,
+  "null_hypothesis_std": 1.2022121110011914,
+  "empirical_p_value": "< 0.0010",
+  "effect_size_cohens_d": 9.296943940362814,
+  "fraction_in_overdense_voxels": 0.3167342211928199,
+  "fraction_in_high_prob_voxels": 0.2872032426172554,
+  "n_null_realizations": 1000,
+  "status": "VALIDATION_CONFIRMED"
+}

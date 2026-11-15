@@ -1,6 +1,6 @@
 """Cosmology module for Z-ZOA."""
 
-from research.cosmology.models import CosmologyConfig, COSMOLOGY_PRESETS
+from research.cosmology.models import CosmologyConfig, COSMOLOGY_PRESETS, UnphysicalCosmologyError
 from research.cosmology.distances import (
     comoving_distance,
     luminosity_distance,
@@ -12,6 +12,7 @@ from research.cosmology.distances import (
 )
 
 __all__ = [
+    "UnphysicalCosmologyError",
     "CosmologyConfig",
     "COSMOLOGY_PRESETS",
     "comoving_distance",

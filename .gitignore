@@ -4,6 +4,7 @@ __pycache__/
 *.pyc
 *.pyo
 .pytest_cache/
+.pytest_tmp/
 .coverage
 htmlcov/
 *.egg-info/
@@ -25,11 +26,53 @@ xrpl_secret*
 .DS_Store
 Thumbs.db
 
-# Synthetic test runs
+# Synthetic and swarm benchmark test runs
 runs/SYNTHETIC-*
+runs/BOOST-*
+runs/SWARM-*
+runs/SWARM_*
+runs/INTENSE-500/
 
 # Large binary datasets (>100MB exceeds GitHub push limits)
 *.npz
 *.zip
 reproducibility/*.zip
+
+# Logs, Archives & Temporary Execution Outputs
+*.log
+uvicorn*.log
+runs/*.tar.gz
+paper/*.aux
+paper/*.log
+paper/*.out
+
+# Pre-Publication Discovery Candidates & Pointing Dossiers (Protected Research)
+docs/*CANDIDATE*
+docs/*POINTING*
+docs/GENUINE_DISCOVERY*
+docs/RADIO_FOLLOWUP*
+docs/BAYESIAN_VELA_ATLAS*
+docs/BLIND_ZOA_TOPOLOGICAL*
+docs/COSMIC_WEB_FILAMENT*
+docs/REPO_AUDIT_FINDINGS*
+paper/figures/figure5_*
+paper/figures/figure6_*
+paper/figures/figure7_*
+paper/figures/figure8_*
+paper/tables/table_route_*
+runs/VELA-001/figures/figure5_*
+runs/VELA-001/figures/figure6_*
+runs/VELA-001/figures/figure7_*
+runs/VELA-001/figures/figure8_*
+runs/VELA-001/bayesian_197_confirmation.json
+runs/VELA-001/blind_topological_peaks.json
+runs/VELA-001/filament_spine_bridge.json
+runs/VELA-001/radio_pointing_dossier.json
+research/reconstruction/discover_candidate.py
+research/reconstruction/pointing_dossier.py
+scripts/analyze_unconfirmed_candidates.py
+scripts/make_candidate_figure.py
+tests/test_candidate_discovery.py
+tests/test_discovery_routes.py
+
 

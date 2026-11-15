@@ -1,0 +1,23 @@
+{
+  "manifest_type": "Z-ZOA_PREDICTION_FREEZE_MANIFEST",
+  "run_id": "WALLABY-001",
+  "frozen_at_utc": "2026-11-14T02:54:10.664879+00:00",
+  "git_commit": "2ce3c4c8b343155797a695aa8c64fe894cd1086b",
+  "python_version": "3.10.11 (tags/v3.10.11:7d4cc5a, Apr  5 2023, 00:38:17) [MSC v.1929 64 bit (AMD64)]",
+  "train_clean_catalog_path": "datasets/processed/TRAIN_CLEAN/train_clean_combined.parquet",
+  "train_clean_catalog_sha256": "57f13296510e2c1fc7a2262981dcab7a90b006e5cabfd8100272a4c965d2edf6",
+  "file_hashes": {
+    "prediction_mean.npy": "1db50f1ea922a439b52d895e2b44cf36e150763f79b80c756753a0c264729995",
+    "prediction_sigma.npy": "aa0606f91d61c1215835ad8ea9f316ebf778922920531baee43bf42a9d6e9313",
+    "prediction_probability.npy": "eb7bc84e59ca3a8be72eb4706e8fc9a661de3b5631de406937773369d5a12914",
+    "prediction_velocity_mean.npy": "91fa7dbad1ccec2cb5f15ec6feeb80a5304fca52f85aa5fff9756c7b2e77bc1b",
+    "prediction_velocity_sigma.npy": "2097ec6ed61fe45e955a10fd4b9c9b5e5cdfdeebdba2239b4c462b990cbbc38e",
+    "ensemble_meta.json": "4b03ec3e7b50f763917522798319fe11855b60c79d453f46508cf267bfaf0a86",
+    "metrics_spec.json": "ef5f2d3c75c997900f353504170b9516079e98740a4c604d8e6d1767b5e6b364",
+    "null_spec.json": "548214e5d3e7aab9508e04769a235273a3860a83cfde0615df0c2e29b16b321b"
+  },
+  "metrics_spec_sha256": "ef5f2d3c75c997900f353504170b9516079e98740a4c604d8e6d1767b5e6b364",
+  "null_spec_sha256": "548214e5d3e7aab9508e04769a235273a3860a83cfde0615df0c2e29b16b321b",
+  "status": "PREDICTION_FROZEN",
+  "manifest_seal_sha256": "7284c7d857630bb126d2f914900d3cf8bab196eabc95c02b8b4f465ba3ebb9d6"
+}

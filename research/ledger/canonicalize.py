@@ -54,29 +54,51 @@ def build_canonical_anchor_manifest(
     run_path = Path(run_dir)
     manifest_file = run_path / "manifest.json"
     if not manifest_file.exists():
-        raise FileNotFoundError(f"Run directory {run_path} missing required 'manifest.json'")
+        manifest_file = run_path / "freeze_manifest.json"
+    if not manifest_file.exists():
+        raise FileNotFoundError(f"Run directory {run_path} missing required 'manifest.json' or 'freeze_manifest.json'")
 
     with open(manifest_file, "r", encoding="utf-8") as f:
         manifest_data = json.load(f)
 
     run_id = manifest_data.get("run_id", run_path.name)
     git_commit = manifest_data.get("git_commit", "UNKNOWN")
-    manifest_sha256 = manifest_data.get("manifest_sha256") or compute_file_sha256(manifest_file)
+    manifest_sha256 = (
+        manifest_data.get("manifest_seal_sha256")
+        or manifest_data.get("manifest_sha256")
+        or compute_file_sha256(manifest_file)
+    )
 
     # Config hash
     config_file = run_path / "config.yaml"
     if config_file.exists():
         config_sha256 = compute_file_sha256(config_file)
     else:
-        # Compute from cosmology and run config in manifest
-        config_payload = {
-            "cosmology": manifest_data.get("cosmology", {}),
-            "random_seed": manifest_data.get("random_seed", 0),
-        }
-        config_sha256 = compute_sha256(canonical_serialize(config_payload))
+        # Check ensemble_meta.json or reconstruction_meta.json if present
+        meta_file = run_path / "ensemble_meta.json"
+        if not meta_file.exists():
+            meta_file = run_path / "reconstruction_meta.json"
+        if meta_file.exists():
+            config_sha256 = compute_file_sha256(meta_file)
+        else:
+            # Compute from cosmology and run config in manifest
+            config_payload = {
+                "cosmology": manifest_data.get("cosmology", {}),
+                "random_seed": manifest_data.get("random_seed", 0),
+            }
+            config_sha256 = compute_sha256(canonical_serialize(config_payload))
 
     # Dataset manifest hash
-    datasets = manifest_data.get("datasets", [])
+    datasets = manifest_data.get("datasets")
+    if datasets is None:
+        if "train_clean_catalog_sha256" in manifest_data:
+            datasets = [{
+                "dataset_id": "TRAIN_CLEAN",
+                "path": manifest_data.get("train_clean_catalog_path", ""),
+                "sha256": manifest_data.get("train_clean_catalog_sha256", ""),
+            }]
+        else:
+            datasets = []
     datasets_serialized = canonical_serialize({"datasets": datasets})
     dataset_manifest_sha256 = compute_sha256(datasets_serialized)
 
@@ -84,6 +106,10 @@ def build_canonical_anchor_manifest(
     results_file = run_path / "results.json"
     if results_file.exists():
         results_manifest_sha256 = compute_file_sha256(results_file)
+    elif "file_hashes" in manifest_data:
+        results_manifest_sha256 = compute_sha256(
+            canonical_serialize({"file_hashes": manifest_data["file_hashes"]})
+        )
     else:
         outputs = manifest_data.get("outputs", {})
         results_manifest_sha256 = compute_sha256(canonical_serialize({"outputs": outputs}))
