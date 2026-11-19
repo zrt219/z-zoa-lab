@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for z-zoa-lab on 2026-11-19T11:48:21Z
+# fly.toml app configuration file for z-zoa-lab
 #
 # See https://docs.fly.io/reference/configuration for information about how to use this file.
 #
@@ -7,6 +7,7 @@ app = 'z-zoa-lab'
 primary_region = 'ams'
 
 [build]
+
 [http_service]
   internal_port = 8080
   force_https = true
@@ -19,4 +20,3 @@ primary_region = 'ams'
   memory = '1gb'
   cpu_kind = 'shared'
   cpus = 1
-  memory_mb = 256
