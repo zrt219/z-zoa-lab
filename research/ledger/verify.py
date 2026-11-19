@@ -1,4 +1,4 @@
-"""Verification engine for XRPL research run anchors."""
+"""Verification engine for XRPL and XRPL EVM Sidechain research run anchors."""
 
 import json
 from pathlib import Path
@@ -14,13 +14,14 @@ from research.ledger.canonicalize import (
     build_canonical_anchor_manifest,
     compute_anchor_payload_hash,
 )
-from research.ledger.receipt import get_receipt
+from research.ledger.receipt import get_receipt, get_dual_receipt
 from research.ledger.xrpl_client import get_xrpl_client
 from research.ledger.anchor import STAGE_ORDER, get_preceding_stage
+from research.ledger.evm_client import get_evm_client, EVMClient
 
 
 class VerificationResult(BaseModel):
-    """Structured report of an anchor verification audit."""
+    """Structured report of an anchor verification audit across XRPL and XRPL EVM Sidechain."""
     run_id: str
     stage: str
     status: str  # VALIDATED_SUCCESS, RUN_INTEGRITY_FAILURE, TESTNET_HISTORY_UNAVAILABLE, MISSING_RECEIPT
@@ -34,6 +35,12 @@ class VerificationResult(BaseModel):
     checks: Dict[str, bool] = Field(default_factory=dict)
     errors: List[str] = Field(default_factory=list)
     audit_report: str = ""
+    # EVM Sidechain verification fields
+    evm_verified: Optional[bool] = None
+    evm_tx_hash: Optional[str] = None
+    evm_block_number: Optional[int] = None
+    evm_contract_address: Optional[str] = None
+    dual_anchored: bool = False
 
     def is_valid(self) -> bool:
         return self.status == "VALIDATED_SUCCESS"
@@ -44,14 +51,15 @@ def verify_anchor(
     stage: str,
     runs_root: Optional[Union[str, Path]] = None,
     client: Optional[JsonRpcClient] = None,
+    evm_client: Optional[EVMClient] = None,
 ) -> VerificationResult:
     """
-    Verify the cryptographic integrity and XRPL ledger finality for a run stage:
+    Verify cryptographic integrity and ledger finality for a run stage:
     1. Rebuild local canonical anchor payload and compute current local SHA-256.
-    2. Open saved XRPL receipt.
-    3. Query XRPL Testnet using tx_hash.
-    4. Confirm validated == true and TransactionResult == tesSUCCESS.
-    5. Decode XRPL memo and compare ledger hash with local hash.
+    2. Open saved XRPL & dual-ledger receipts.
+    3. Query XRPL Testnet using tx_hash; confirm validated == true and TransactionResult == tesSUCCESS.
+    4. Decode XRPL memo and compare ledger hash with local hash.
+    5. Query XRPL EVM Sidechain (ResearchNotary) and verify smart contract state.
     6. Verify previous transaction link in the research chain.
     """
     root = Path(runs_root) if runs_root else Path("runs")
@@ -66,6 +74,7 @@ def verify_anchor(
         "local_hash_matches_ledger": False,
         "previous_anchor_verified": False,
         "run_integrity_verified": False,
+        "evm_stage_verified": False,
     }
     errors: List[str] = []
 
@@ -95,6 +104,10 @@ def verify_anchor(
             errors=errors,
         )
     checks["receipt_found"] = True
+
+    # Check for dual-ledger receipt data
+    dual_data = get_dual_receipt(run_id, stage=stage, runs_root=root)
+    evm_info = (receipt.xrpl_evm or (dual_data.get("xrpl_evm") if dual_data else None)) or {}
 
     # 3. Rebuild local canonical payload
     try:
@@ -233,6 +246,30 @@ def verify_anchor(
             f"Previous transaction link mismatch! Expected: '{expected_prev}', Memo has: '{memo_prev}'"
         )
 
+    # 7. Verify XRPL EVM Sidechain Contract state
+    evm_c = evm_client or get_evm_client()
+    evm_verified = False
+    evm_tx_hash = evm_info.get("tx_hash")
+    evm_block_num = evm_info.get("block_number")
+    evm_contract = evm_info.get("contract_address")
+    dual_anchored = False
+
+    if evm_tx_hash:
+        dual_anchored = True
+        is_evm_match, _ = evm_c.verify_stage(
+            run_id=run_id,
+            stage=stage,
+            expected_hash=local_hash,
+            runs_root=root,
+        )
+        if is_evm_match:
+            checks["evm_stage_verified"] = True
+            evm_verified = True
+        else:
+            checks["evm_stage_verified"] = False
+            evm_verified = False
+            errors.append(f"XRPL EVM Sidechain contract payload hash mismatch or stage unanchored for stage '{stage}'")
+
     # Final integrity determination
     all_critical_passed = (
         checks["local_run_exists"]
@@ -242,6 +279,7 @@ def verify_anchor(
         and checks["transaction_result_success"]
         and checks["local_hash_matches_ledger"]
         and checks["previous_anchor_verified"]
+        and (not dual_anchored or checks.get("evm_stage_verified", False))
     )
     checks["run_integrity_verified"] = all_critical_passed
 
@@ -260,6 +298,11 @@ def verify_anchor(
         previous_tx_hash=expected_prev,
         checks=checks,
         errors=errors,
+        evm_verified=evm_verified if dual_anchored else None,
+        evm_tx_hash=evm_tx_hash,
+        evm_block_number=evm_block_num,
+        evm_contract_address=evm_contract,
+        dual_anchored=dual_anchored,
     )
 
 
@@ -276,6 +319,11 @@ def _build_result(
     previous_tx_hash: Optional[str] = None,
     checks: Optional[Dict[str, bool]] = None,
     errors: Optional[List[str]] = None,
+    evm_verified: Optional[bool] = None,
+    evm_tx_hash: Optional[str] = None,
+    evm_block_number: Optional[int] = None,
+    evm_contract_address: Optional[str] = None,
+    dual_anchored: bool = False,
 ) -> VerificationResult:
     checks = checks or {}
     errors = errors or []
@@ -284,23 +332,30 @@ def _build_result(
     short_local = f"{local_hash[:16]}..." if local_hash else "--"
     short_ledger = f"{ledger_hash[:16]}..." if ledger_hash else "--"
     short_tx = f"{tx_hash[:16]}..." if tx_hash else "--"
+    short_evm = f"{evm_tx_hash[:16]}..." if evm_tx_hash else "--"
 
     report_lines = [
         f"RUN {run_id}",
         f"Stage {stage}",
         f"Local SHA-256 {short_local}",
         f"Ledger SHA-256 {short_ledger}",
-        f"XRPL transaction {short_tx}",
+        f"XRPL L1 transaction {short_tx}",
         f"Ledger index {ledger_index if ledger_index is not None else '--'}",
     ]
 
+    if dual_anchored:
+        report_lines.append(f"XRPL EVM transaction {short_evm}")
+        report_lines.append(f"EVM Block number {evm_block_number or '--'}")
+
     if status == "VALIDATED_SUCCESS":
         report_lines.extend([
-            "✓ TRANSACTION VALIDATED",
+            "✓ TRANSACTION VALIDATED (XRPL Layer 1)",
             "✓ LOCAL HASH MATCHES LEDGER",
             "✓ PREVIOUS ANCHOR VERIFIED",
-            "✓ RUN INTEGRITY VERIFIED",
         ])
+        if dual_anchored and evm_verified:
+            report_lines.append("✓ XRPL EVM CONTRACT VERIFIED (Sidechain 1440002)")
+        report_lines.append("✓ RUN INTEGRITY VERIFIED")
     elif status == "TESTNET_HISTORY_UNAVAILABLE":
         report_lines.extend([
             "? TESTNET_HISTORY_UNAVAILABLE (XRPL Testnet reset/pruning detected)",
@@ -327,6 +382,11 @@ def _build_result(
         checks=checks,
         errors=errors,
         audit_report=audit_report,
+        evm_verified=evm_verified,
+        evm_tx_hash=evm_tx_hash,
+        evm_block_number=evm_block_number,
+        evm_contract_address=evm_contract_address,
+        dual_anchored=dual_anchored,
     )
 
 
@@ -335,10 +395,10 @@ def verify_chain(
     stages: Optional[List[str]] = None,
     runs_root: Optional[Union[str, Path]] = None,
     client: Optional[JsonRpcClient] = None,
+    evm_client: Optional[EVMClient] = None,
 ) -> Dict[str, Any]:
     """
-    Verify an entire chronological research chain for a run.
-    Ensures that each stage is valid and points to the preceding stage's tx_hash.
+    Verify an entire chronological research chain for a run across both XRPL L1 and EVM Sidechain.
     """
     root = Path(runs_root) if runs_root else Path("runs")
     target_stages = stages or STAGE_ORDER
@@ -348,12 +408,11 @@ def verify_chain(
     prior_tx_hash: Optional[str] = None
 
     for stage_name in target_stages:
-        # Check if receipt exists for this stage
         rcpt = get_receipt(run_id, stage=stage_name, runs_root=root)
         if not rcpt:
             continue
 
-        res = verify_anchor(run_id, stage_name, runs_root=root, client=client)
+        res = verify_anchor(run_id, stage_name, runs_root=root, client=client, evm_client=evm_client)
         results.append(res)
 
         if not res.is_valid():

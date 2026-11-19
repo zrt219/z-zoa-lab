@@ -148,11 +148,13 @@ def normalize_dataset(
         canonical_ids = [str(x).strip() for x in raw_df["name"].to_list()]
         ra = raw_df["ra"].cast(pl.Float64, strict=False).to_numpy()
         dec = raw_df["dec"].cast(pl.Float64, strict=False).to_numpy()
-        # wallaby freq to cz: cz = c * (1420.40575 - freq) / freq
+        # wallaby freq to cz: cz = c * (nu_0 - freq) / freq
+        # Note: raw WALLABY freq is in Hz (~1.4e9 Hz) or MHz (~1420 MHz)
         freq = raw_df["freq"].cast(pl.Float64, strict=False).to_numpy()
-        cz = C_KMS * (1420.40575 - freq) / freq
+        freq_hz = np.where(freq < 1e6, freq * 1e6, freq)
+        cz = C_KMS * (1420405751.768 - freq_hz) / freq_hz
         cz_frame = ["BARYCENTRIC"] * n_rows
-        dist_mpc = [None] * n_rows
+        dist_mpc = [float(v / 74.6) if v is not None and not np.isnan(v) else None for v in cz]
         dist_err_mpc = [None] * n_rows
         mu = [None] * n_rows
         mu_err = [None] * n_rows

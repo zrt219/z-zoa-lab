@@ -1,0 +1,19 @@
+run_id: WALLABY-001
+experiment_name: ASKAP WALLABY DR2 External Blind H I Survey Validation
+random_seed: 42
+cosmology:
+  cosmology_name: CF4_Nominal
+  H0: 74.6
+  H0_unit: km / (s Mpc)
+  Om0: 0.3
+  Ode0: 0.7
+  reference: Tully et al. 2023 (ApJ 944, 94)
+datasets:
+- dataset_id: train_clean_combined
+  role: TRAIN_CLEAN
+  sha256: 57f13296510e2c1fc7a2262981dcab7a90b006e5cabfd8100272a4c965d2edf6
+  row_count: 902
+- dataset_id: wallaby_dr2
+  role: COMPARISON_ONLY
+  sha256: b3b6ae9bbaf6d7c3bbc98d6e7c1685ef3f8e4160a358f8040f653d279f6db15c
+  row_count: 3454

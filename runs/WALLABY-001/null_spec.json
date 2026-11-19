@@ -1,0 +1,8 @@
+{
+  "spec_version": "1.0",
+  "survey_footprint": "WALLABY_DR2",
+  "selection_weight_model": "field_matched_survey_volume",
+  "null_realizations": 1000,
+  "seed": 20240915,
+  "condition": "Holdout coordinates and counts matched (N=3454); drawn strictly from WALLABY DR2 fields and radial envelope."
+}

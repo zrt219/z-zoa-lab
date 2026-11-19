@@ -303,10 +303,10 @@ def list_reconstruction_runs() -> Dict[str, Any]:
                 with open(validation_report_path, "r", encoding="utf-8") as f:
                     vdata = json.load(f)
                     validation_summary = {
-                        "z_score": vdata.get("z_score"),
-                        "p_value": vdata.get("p_value"),
-                        "test_status": vdata.get("test_status"),
-                        "observed_score": vdata.get("observed_score"),
+                        "z_score": vdata.get("effect_size_cohens_d", vdata.get("z_score")),
+                        "p_value": vdata.get("empirical_p_value", vdata.get("p_value")),
+                        "test_status": vdata.get("status", vdata.get("test_status")),
+                        "observed_score": vdata.get("observed_mean_delta", vdata.get("observed_score")),
                     }
             except Exception:
                 pass
@@ -431,5 +431,166 @@ def get_reconstruction_differential(
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to load differential fields: {str(e)}")
+
+
+@router.get("/runs/{run_id}/vweb")
+def get_vweb_classification(
+    run_id: str,
+    threshold: float = 0.1,
+) -> Dict[str, Any]:
+    """
+    Computes or retrieves V-Web velocity shear tensor classification for a run,
+    categorizing cosmic voxels into Clusters (3), Filaments (2), Sheets (1), and Voids (0).
+    """
+    from research.reconstruction.vweb import analyze_vweb_for_run
+
+    try:
+        return analyze_vweb_for_run(
+            repo_root=REPO_ROOT,
+            run_id=run_id,
+            threshold=threshold,
+        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to compute V-Web classification: {str(e)}")
+
+
+@router.get("/discovery/peaks")
+def get_blind_topological_peaks(
+    run_id: str = "VELA-001",
+    max_b_deg: float = 5.0,
+    min_delta: float = 5.0,
+    min_prob: float = 0.95,
+    force_recompute: bool = False,
+) -> Dict[str, Any]:
+    """
+    Route A: Retrieve or compute blind 3D topological density peaks in the Zone of Avoidance (|b| <= max_b_deg).
+    Cross-matched against CF4, 2MRS, and Parkes HIZOA-S.
+    """
+    cached_file = REPO_ROOT / "runs" / run_id / "blind_topological_peaks.json"
+    if cached_file.exists() and not force_recompute:
+        try:
+            with open(cached_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                p = data.get("search_parameters", {})
+                if (
+                    p.get("max_galactic_b_deg") == max_b_deg
+                    and p.get("min_delta_threshold") == min_delta
+                    and p.get("min_exceedance_probability") == min_prob
+                ):
+                    return data
+        except Exception:
+            pass
+
+    from research.reconstruction.peak_finding import find_topological_peaks
+
+    try:
+        return find_topological_peaks(
+            repo_root=REPO_ROOT,
+            run_id=run_id,
+            max_b_deg=max_b_deg,
+            min_delta=min_delta,
+            min_prob=min_prob,
+        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to compute topological peaks: {str(e)}")
+
+
+@router.get("/discovery/bayesian-confirmation")
+def get_bayesian_confirmation(
+    run_id: str = "VELA-001",
+    force_recompute: bool = False,
+) -> Dict[str, Any]:
+    """
+    Route B: Full Bayesian confirmation scoring of the 197 unconfirmed 'Possible detections'
+    from the MeerKAT Vela-SMGPS Galaxy Atlas (v2, pages 38-48).
+    """
+    cached_file = REPO_ROOT / "runs" / run_id / "bayesian_197_confirmation.json"
+    if cached_file.exists() and not force_recompute:
+        try:
+            with open(cached_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+
+    from research.reconstruction.bayesian_confirmation import score_bayesian_candidates
+
+    try:
+        return score_bayesian_candidates(
+            repo_root=REPO_ROOT,
+            run_id=run_id,
+        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to score Bayesian candidates: {str(e)}")
+
+
+@router.get("/discovery/filament-spine")
+def get_filament_spine_bridge(
+    run_id: str = "VELA-001",
+    n_steps: int = 50,
+    force_recompute: bool = False,
+) -> Dict[str, Any]:
+    """
+    Route C: Cosmic web filament spine trajectory bridging across the Zone of Avoidance
+    between the Great Attractor and the Vela Supercluster.
+    """
+    cached_file = REPO_ROOT / "runs" / run_id / "filament_spine_bridge.json"
+    if cached_file.exists() and not force_recompute:
+        try:
+            with open(cached_file, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                if len(data.get("vertices", [])) == n_steps:
+                    return data
+        except Exception:
+            pass
+
+    from research.reconstruction.filament_spine import trace_cosmic_filament_spine
+
+    try:
+        return trace_cosmic_filament_spine(
+            repo_root=REPO_ROOT,
+            run_id=run_id,
+            n_spine_steps=n_steps,
+        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to trace filament spine: {str(e)}")
+
+
+@router.get("/discovery/pointing-dossier")
+def get_radio_pointing_dossier(
+    run_id: str = "VELA-001",
+    force_recompute: bool = False,
+) -> Dict[str, Any]:
+    """
+    Route D: Actionable radio follow-up telescope pointing dossiers for MeerKAT, ASKAP, FAST, and SKA-Mid.
+    """
+    cached_file = REPO_ROOT / "runs" / run_id / "radio_pointing_dossier.json"
+    if cached_file.exists() and not force_recompute:
+        try:
+            with open(cached_file, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception:
+            pass
+
+    from research.reconstruction.pointing_dossier import generate_radio_pointing_dossier
+
+    try:
+        return generate_radio_pointing_dossier(
+            repo_root=REPO_ROOT,
+            run_id=run_id,
+        )
+    except FileNotFoundError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to generate pointing dossier: {str(e)}")
+
+
 
 

@@ -6,6 +6,14 @@ import astropy.units as u
 from astropy.cosmology import FlatLambdaCDM, LambdaCDM, FLRW
 
 
+class UnphysicalCosmologyError(ValueError):
+    """
+    Exception raised when cosmological or astronomical parameters violate physical bounds
+    (e.g., peculiar velocities exceeding cosmic infall limits v > 0.01c).
+    """
+    pass
+
+
 class CosmologyConfig(BaseModel):
     """
     Explicit cosmological model configuration.

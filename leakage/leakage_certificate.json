@@ -246,7 +246,7 @@
     "16_side_channel_scan": {
       "test_id": "16_SIDE_CHANNEL_LEAKAGE_SCAN",
       "status": "PASS",
-      "env_vars_scanned": 63,
+      "env_vars_scanned": 73,
       "env_leaks_found": 0,
       "cache_files_inspected_dirty": 0,
       "dry_run_deterministic": true
@@ -264,8 +264,8 @@
       "test_id": "17_DOUBLE_BLIND_REVEAL_GATE",
       "status": "PASS",
       "unblinding_receipt_path": "runs/VELA-001/UNBLINDING_RECEIPT.json",
-      "unblinded_at_utc": "2026-09-15T22:14:22.407293+00:00",
-      "manifest_seal": "2514714ce4522b3e4d817f72610a63ad2a8334d109dfbfb5ef4ddc85fa94b9a2",
+      "unblinded_at_utc": "2026-11-13T06:58:33.915484+00:00",
+      "manifest_seal": "8a8df631daddbbfacffcae0cbc8b4f484622a13731ed9cde8aa2cde5afd626be",
       "preregistration_hash": "1388f35cd063fc05ad96056e331e42c5dca398c152496e5a104b89f0433bfc76",
       "receipt_verified": true
     },
@@ -276,5 +276,5 @@
       "final_report_path": "leakage/FINAL_LEAKAGE_REPORT.md"
     }
   },
-  "certificate_sha256": "2f54572a74ad45db308a48a77b3e0afcd29c87e001cea63387542d0d207ab37f"
+  "certificate_sha256": "9bf8a1840235cfd9232e51ab8c35d7c26a1f71522de42cb54c5f3e13a54c3982"
 }

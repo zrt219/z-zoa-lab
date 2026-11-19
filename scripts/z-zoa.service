@@ -1,0 +1,16 @@
+[Unit]
+Description=Z-ZOA Calculation Room Scientific Gateway
+After=network.target
+
+[Service]
+Type=simple
+# Set to your cloud VM or server user (e.g., ubuntu, debian, ec2-user)
+User=ubuntu
+WorkingDirectory=/data/home/workspace/Z-zoa-lab
+Environment=PYTHONPATH=/data/home/workspace/Z-zoa-lab
+ExecStart=/data/home/workspace/Z-zoa-lab/.venv/bin/python -m uvicorn backend.main:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

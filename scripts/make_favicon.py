@@ -9,9 +9,9 @@ from PIL import Image, ImageDraw
 
 src_path = Path("docs/favicon_source_white.jpg")
 if not src_path.exists():
-    src_path = Path(r"C:\Users\Zhane\.gemini\antigravity\brain\37f6f95f-e727-446f-8df3-ca806ec5ad9e\z_zoa_white_favicon_1789526543758.jpg")
+    src_path = Path("frontend/public/favicon.svg")
 if not src_path.exists():
-    raise FileNotFoundError(f"Source asset not found at {src_path}")
+    raise FileNotFoundError("Source asset docs/favicon_source_white.jpg not found.")
 
 img = Image.open(src_path).convert("RGB")
 w, h = img.size

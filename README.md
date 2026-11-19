@@ -2,7 +2,7 @@
 
 [![Python 3.12+](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/downloads/)
 [![Astropy](https://img.shields.io/badge/astropy-units%20enforced-orange.svg)](https://www.astropy.org/)
-[![Tests](https://img.shields.io/badge/tests-84%20passed-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-129%20passed-brightgreen.svg)](tests/)
 [![Leakage Audit](https://img.shields.io/badge/leakage%20audit-18%2F18%20certified-success.svg)](leakage/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -58,7 +58,7 @@ The workbench implements an integrated 10-sheet research workflow across its Pyt
 | **Phase 5** | **Leakage Guard** | Armed Holdout Guard, DataGateway RBAC, 39 quarantined HIZOA overlap galaxies, and 18-stage cryptographic audit suite. |
 | **Phase 6** | **Baseline Science** | Astropy unit enforcement, IAU coordinate transforms (ICRS, Galactic, Supergalactic SGX/SGY/SGZ), and mock universe validation ($r = 0.936$). |
 | **Phase 7** | **Reconstruction Engine** | Wiener filter with 200 constrained realizations, mean density field $\langle\delta(\mathbf{x})\rangle$, uncertainty field $\sigma_\delta(\mathbf{x})$, and exceedance probability $P(\delta > 1.0)$. |
-| **Phase 8** | **Freeze → Reveal → Score** | Cryptographic freeze manifest seal, 1,000 empirical Monte Carlo null realizations, empirical $Z$-score ($z = 4.82$), and $p$-value ($p = 0.0200$). |
+| **Phase 8** | **Freeze → Reveal → Score** | Cryptographic freeze manifest seal, 1,000 empirical Monte Carlo null realizations, empirical $Z$-score ($Z = 1.96\sigma$), and empirical $p$-value ($p = 0.0270$). |
 | **Phase 9** | **Hybrid & XRPL Integrity** | Post-unblinding differential analysis ($\Delta\delta$, $\Delta\mathbf{v}$, and $\sim 30\%$ uncertainty reduction $\Delta\sigma$), notarized to the XRPL Testnet ledger. |
 | **Phase 10** | **Paper Factory** | In-browser LaTeX/Markdown manuscript viewer, 300 DPI publication figures (Figures 1–4), LaTeX tables (Tables 1–6), pre-submission audit, and 1-click reproducibility bundle (.ZIP). |
 
@@ -128,7 +128,7 @@ z-zoa-lab/
 │   ├── ALL_PROMPTS.md                    # Canonical prompt workflow catalog
 │   └── README.md                         # Prompt pack usage guide
 ├── docs/                                 # Manuscript draft, pre-submission audit, preregistration
-└── tests/                                # Full pytest test suite (84 automated tests)
+└── tests/                                # Full pytest test suite (129 automated tests)
 ```
 
 ---
@@ -159,11 +159,11 @@ cd ..
 
 ### 3. Run Verification Tests
 
-Run the complete 84-test scientific suite:
+Run the complete 129-test scientific suite:
 ```powershell
 .venv\Scripts\pytest -q
 ```
-*Expected: `84 passed in ~9.8s`*
+*Expected: `129 passed`*
 
 Verify the 18-stage cryptographic leakage audit:
 ```powershell

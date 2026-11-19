@@ -128,3 +128,13 @@ Z-zoa-lab/
 3. **Zero Mock Fallback Policy in Production**:
    - API routes, White Calculation Room inspectors, and publication tables must report live array values directly from verified run artifacts without hardcoded overrides or mock formula fallbacks.
 
+4. **Astronomical Discovery vs. Cross-Match Invariant**:
+   - Never claim an existing published survey detection (such as the 843 sources published in the Vela-SMGPS catalog by Kraan-Korteweg et al. 2024, *MNRAS* 531, 3486) is a "novel discovery", "original candidate", or "previously uncatalogued galaxy".
+   - A non-detection when cross-matching against comparison catalogs (e.g., 2MRS, CF4, or Parkes HIZOA) only establishes *catalog-specific non-detection or multi-wavelength obscuration*, NOT that the object was unknown to astronomical literature.
+   - Any script, documentation, or report that evaluates catalog overlap must explicitly title and describe the analysis as a *reproducible catalog cross-match and obscuration characterization*, attributing published detections to their originating survey with exact literature citations.
+
+5. **Zero Discrepancy Verification Handoff Invariant**:
+   - Never report a test, service, or health check as "VERIFIED", "PASSED", or "100% OPERATIONAL" if the underlying command, tool, or script exited with a non-zero code or reported failing endpoints.
+   - Summaries and handoff reports must quote the exact, raw exit codes, list failing endpoints, and analyze the root cause transparently. Under no circumstances may an agent cite older passing log snippets to mask or overwrite a subsequent command failure.
+
+

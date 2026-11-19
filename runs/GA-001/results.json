@@ -1,0 +1,15 @@
+{
+  "run_id": "GA-001",
+  "holdout_catalog": "Great Attractor (MeerKAT GA-SMGPS Steyn et al. 2024)",
+  "holdout_count": 477,
+  "primary_metric": "mean_overdensity_at_holdout",
+  "observed_mean_delta": 62.1392759281121,
+  "null_hypothesis_mean": 47.402285158220884,
+  "null_hypothesis_std": 3.8564531584990323,
+  "empirical_p_value": "< 0.0010",
+  "effect_size_cohens_d": 3.821384615298906,
+  "fraction_in_overdense_voxels": 0.8218029350104822,
+  "fraction_in_high_prob_voxels": 0.7610062893081762,
+  "n_null_realizations": 1000,
+  "status": "VALIDATION_CONFIRMED"
+}

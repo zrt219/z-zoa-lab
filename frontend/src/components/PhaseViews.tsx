@@ -35,13 +35,13 @@ export const Phase1BigPicture: React.FC<PhaseViewProps> = ({ onNavigatePhase }) 
         }}
       >
         <div style={{ fontSize: "12px", fontWeight: 700, color: "#2563EB", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-          Page 1 of 10 &bull; The Big Picture
+          Page 1 of 10 • The Big Picture
         </div>
         <h2 style={{ fontSize: "28px", fontWeight: 800, margin: "6px 0 8px 0", color: "#0F172A", letterSpacing: "-0.02em" }}>
           Z-ZOA Research + 3D Lab Plan
         </h2>
         <p style={{ fontSize: "15px", color: "#64748B", margin: 0, fontStyle: "italic", fontFamily: "'Newsreader', serif" }}>
-          &ldquo;Same sky. More galaxies. A clearer tomorrow.&rdquo;
+          “Same sky. More galaxies. A clearer tomorrow.”
         </p>
       </div>
 
@@ -87,11 +87,11 @@ export const Phase1BigPicture: React.FC<PhaseViewProps> = ({ onNavigatePhase }) 
               lineHeight: "1.25",
             }}
           >
-            Cosmic Web &amp; Obscured ZoA Reconstruction Companion
+            Cosmic Web & Obscured ZoA Reconstruction Companion
           </h3>
 
           <p style={{ fontSize: "13px", color: "#475569", margin: 0, lineHeight: "1.5" }}>
-            Explore large-scale structure across the southern Zone of Avoidance in diagrammatic 3D. Inspect the Great Attractor (Norma cluster), Vela Supercluster, and the obscured Galactic plane (|b| &lt; 10°) alongside peculiar velocity vectors and out-of-sample holdout validation.
+            Explore large-scale structure across the southern Zone of Avoidance in diagrammatic 3D. Inspect the Great Attractor (Norma cluster), Vela Supercluster, and the obscured Galactic plane (|b| {'<'} 10°) alongside peculiar velocity vectors and out-of-sample holdout validation.
           </p>
 
           <div style={{ display: "flex", gap: "10px", marginTop: "4px" }}>
@@ -213,7 +213,7 @@ export const Phase1BigPicture: React.FC<PhaseViewProps> = ({ onNavigatePhase }) 
               </p>
             </div>
             <div style={{ marginTop: "12px", fontSize: "11px", fontWeight: 600, color: "#2563EB" }}>
-              Explore Phase &rarr;
+              Explore Phase →
             </div>
           </div>
         ))}
@@ -351,7 +351,7 @@ export const Phase5LeakageGuard: React.FC<PhaseViewProps> = () => {
           </div>
           <h4 style={{ margin: "4px 0", fontSize: "16px", color: "#7F1D1D" }}>HOLDOUT: MeerKAT Vela (Locked)</h4>
           <p style={{ margin: 0, fontSize: "12px", color: "#991B1B" }}>
-            Do NOT use until freeze &amp; reveal. Access controlled, cryptographic canary armed, logged.
+            Do NOT use until freeze & reveal. Access controlled, cryptographic canary armed, logged.
           </p>
         </div>
       </div>
@@ -443,7 +443,7 @@ export const Phase6ScienceChecks: React.FC<PhaseViewProps> = () => {
             Make sure all positions use a consistent coordinate system (Supergalactic SGX, SGY, SGZ). Center on Local Group.
           </p>
           <div className="mono" style={{ fontSize: "11px", backgroundColor: "#F8FAFC", padding: "8px", borderRadius: "4px" }}>
-            l, b &rarr; RA, Dec &rarr; SGX, SGY, SGZ
+            l, b → RA, Dec → SGX, SGY, SGZ
           </div>
         </div>
 
@@ -462,10 +462,10 @@ export const Phase6ScienceChecks: React.FC<PhaseViewProps> = () => {
         <div style={{ border: "1px solid #E2E8F0", borderRadius: "8px", padding: "16px", backgroundColor: "#FFFFFF" }}>
           <h4 style={{ margin: "0 0 8px 0", fontSize: "13px" }}>3. Cosmology Settings</h4>
           <p style={{ fontSize: "11px", color: "#64748B", lineHeight: "1.5" }}>
-            Default Planck 2018: H₀=67.4 km/s/Mpc, &Omega;m=0.315, &Omega;&Lambda;=0.685. Fixed for consistency.
+            Default Planck 2018: H₀=67.4 km/s/Mpc, Ωm=0.315, ΩΛ=0.685. Fixed for consistency.
           </p>
           <div className="mono" style={{ fontSize: "11px", backgroundColor: "#F8FAFC", padding: "8px", borderRadius: "4px" }}>
-            Flat &Lambda;CDM: &Omega;k = 0.0
+            Flat ΛCDM: Ωk = 0.0
           </div>
         </div>
       </div>
@@ -522,6 +522,32 @@ export const Phase7ReconstructionEngine: React.FC<PhaseViewProps> = ({ onOpen3DL
   const [reconLoading, setReconLoading] = useState(false);
   const [reconResult, setReconResult] = useState<any | null>(null);
 
+  // Discovery Avenues State (Routes A, B, C, D)
+  const [activeDiscoveryTab, setActiveDiscoveryTab] = useState<"PEAKS" | "BAYESIAN" | "SPINE" | "POINTINGS">("PEAKS");
+  const [peaksData, setPeaksData] = useState<any | null>(null);
+  const [bayesData, setBayesData] = useState<any | null>(null);
+  const [spineData, setSpineData] = useState<any | null>(null);
+  const [dossierData, setDossierData] = useState<any | null>(null);
+  const [discoveryLoading, setDiscoveryLoading] = useState(false);
+
+  useEffect(() => {
+    setDiscoveryLoading(true);
+    Promise.all([
+      fetch("/reconstruction/discovery/peaks?run_id=VELA-001").then((r) => (r.ok ? r.json() : null)),
+      fetch("/reconstruction/discovery/bayesian-confirmation?run_id=VELA-001").then((r) => (r.ok ? r.json() : null)),
+      fetch("/reconstruction/discovery/filament-spine?run_id=VELA-001").then((r) => (r.ok ? r.json() : null)),
+      fetch("/reconstruction/discovery/pointing-dossier?run_id=VELA-001").then((r) => (r.ok ? r.json() : null)),
+    ])
+      .then(([p, b, s, d]) => {
+        if (p) setPeaksData(p);
+        if (b) setBayesData(b);
+        if (s) setSpineData(s);
+        if (d) setDossierData(d);
+      })
+      .catch((e) => console.warn(e))
+      .finally(() => setDiscoveryLoading(false));
+  }, []);
+
   const handleRunRecon = async () => {
     setReconLoading(true);
     try {
@@ -550,9 +576,9 @@ export const Phase7ReconstructionEngine: React.FC<PhaseViewProps> = ({ onOpen3DL
       {/* Top Banner */}
       <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "20px" }}>
         <span style={{ fontSize: "11px", fontWeight: 700, color: "#2563EB" }}>PAGE 7 OF 10</span>
-        <h3 style={{ margin: "4px 0 6px 0", fontSize: "18px" }}>6. Reconstruction Engine</h3>
+        <h3 style={{ margin: "4px 0 6px 0", fontSize: "18px" }}>6. Reconstruction Engine & Cosmic Web Discovery</h3>
         <p style={{ margin: 0, fontSize: "13px", color: "#64748B" }}>
-          Turn incomplete observations into a probable 3D reality. Wiener filter + Constrained Realizations (~200 plausible universes) &bull; Uncertainty maps: mean field &lang;&delta;(x)&rang;, sigma field &sigma;(x), overdensity probability P(&delta;&gt;0).
+          Turn incomplete observations into a probable 3D reality. Wiener filter + Constrained Realizations • V-Web velocity shear tensor • Out-of-sample discovery across the obscured Galactic Zone of Avoidance.
         </p>
       </div>
 
@@ -610,7 +636,7 @@ export const Phase7ReconstructionEngine: React.FC<PhaseViewProps> = ({ onOpen3DL
 
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: "16px" }}>
             <div style={{ border: "1px solid #E2E8F0", borderRadius: "8px", padding: "14px", backgroundColor: "#FAF8F5" }}>
-              <div style={{ fontWeight: 700, fontSize: "12px", marginBottom: "4px" }}>Mean Field &lang;&delta;(x)&rang;</div>
+              <div style={{ fontWeight: 700, fontSize: "12px", marginBottom: "4px" }}>Mean Field ⟨δ(x)⟩</div>
               <div style={{ fontSize: "11px", color: "#64748B", marginBottom: "10px" }}>Average cosmic structure</div>
               <div style={{ height: "60px", backgroundColor: "#E0E7FF", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, color: "#3730A3" }}>
                 Max Overdensity: +{reconResult.mean_field_stats.max_density}
@@ -618,15 +644,15 @@ export const Phase7ReconstructionEngine: React.FC<PhaseViewProps> = ({ onOpen3DL
             </div>
 
             <div style={{ border: "1px solid #E2E8F0", borderRadius: "8px", padding: "14px", backgroundColor: "#FAF8F5" }}>
-              <div style={{ fontWeight: 700, fontSize: "12px", marginBottom: "4px" }}>Sigma Field &sigma;(x)</div>
+              <div style={{ fontWeight: 700, fontSize: "12px", marginBottom: "4px" }}>Sigma Field σ(x)</div>
               <div style={{ fontSize: "11px", color: "#64748B", marginBottom: "10px" }}>Where we are more or less confident</div>
               <div style={{ height: "60px", backgroundColor: "#FEE2E2", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, color: "#991B1B" }}>
-                Mean Variance: &plusmn;{reconResult.mean_field_stats.mean_sigma}
+                Mean Variance: ±{reconResult.mean_field_stats.mean_sigma}
               </div>
             </div>
 
             <div style={{ border: "1px solid #E2E8F0", borderRadius: "8px", padding: "14px", backgroundColor: "#FAF8F5" }}>
-              <div style={{ fontWeight: 700, fontSize: "12px", marginBottom: "4px" }}>Probability P(&delta; &gt; 0)</div>
+              <div style={{ fontWeight: 700, fontSize: "12px", marginBottom: "4px" }}>Probability P(δ {'>'} 0)</div>
               <div style={{ fontSize: "11px", color: "#64748B", marginBottom: "10px" }}>Likelihood of real structure</div>
               <div style={{ height: "60px", backgroundColor: "#DCFCE7", borderRadius: "4px", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, color: "#166534" }}>
                 Overdense Fraction: {(reconResult.mean_field_stats.overdensity_volume_fraction * 100).toFixed(1)}%
@@ -635,6 +661,340 @@ export const Phase7ReconstructionEngine: React.FC<PhaseViewProps> = ({ onOpen3DL
           </div>
         </div>
       )}
+
+      {/* Cosmic Web Discovery Navigator (Routes A, B, C, D) */}
+      <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "20px" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "10px" }}>
+          <div>
+            <span style={{ fontSize: "10px", fontWeight: 700, color: "#7C3AED", backgroundColor: "#F5F3FF", padding: "2px 8px", borderRadius: "4px" }}>
+              DISCOVERY AVENUES
+            </span>
+            <h4 style={{ margin: "6px 0 2px 0", fontSize: "16px", fontWeight: 700, color: "#0F172A" }}>
+              Cosmic Web Discovery Navigator
+            </h4>
+            <div style={{ fontSize: "12px", color: "#64748B" }}>
+              Out-of-sample discovery across the obscured Zone of Avoidance with observational provenance adherence.
+            </div>
+          </div>
+
+          <div style={{ display: "flex", gap: "6px" }}>
+            {[
+              { id: "PEAKS", label: "Route A: 3D Peaks" },
+              { id: "BAYESIAN", label: "Route B: Atlas Bayesian" },
+              { id: "SPINE", label: "Route C: Filament Spine" },
+              { id: "POINTINGS", label: "Route D: Radio Pointings" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveDiscoveryTab(tab.id as any)}
+                style={{
+                  padding: "6px 12px",
+                  fontSize: "11px",
+                  fontWeight: 600,
+                  borderRadius: "6px",
+                  border: "1px solid",
+                  borderColor: activeDiscoveryTab === tab.id ? "#2563EB" : "#CBD5E1",
+                  backgroundColor: activeDiscoveryTab === tab.id ? "#EFF6FF" : "#FFFFFF",
+                  color: activeDiscoveryTab === tab.id ? "#1D4ED8" : "#475569",
+                  cursor: "pointer",
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {discoveryLoading ? (
+          <div style={{ padding: "30px", textAlign: "center", color: "#64748B", fontSize: "12px" }}>
+            Loading discovery avenues...
+          </div>
+        ) : (
+          <div>
+            {/* Tab A: Topological Peaks */}
+            {activeDiscoveryTab === "PEAKS" && peaksData && (
+              <div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", marginBottom: "14px" }}>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Total 3D Maxima</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#0F172A" }}>{peaksData.total_peaks_found ?? 0}</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>ZoA Screened (|b| ≤ 5°)</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#2563EB" }}>{peaksData.total_peaks_found ?? 0}</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Uncatalogued Candidates</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#16A34A" }}>{peaksData.uncatalogued_candidate_nodes_count ?? 0}</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Known Catalog Overlaps</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#D97706" }}>{(peaksData.total_peaks_found ?? 0) - (peaksData.uncatalogued_candidate_nodes_count ?? 0)}</div>
+                  </div>
+                </div>
+
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "11px", border: "1px solid #E2E8F0" }}>
+                  <thead>
+                    <tr style={{ backgroundColor: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
+                      <th style={{ padding: "6px 10px", textAlign: "left" }}>ID</th>
+                      <th style={{ padding: "6px 10px", textAlign: "right" }}>Galactic (ℓ, b)</th>
+                      <th style={{ padding: "6px 10px", textAlign: "right" }}>cz (km/s)</th>
+                      <th style={{ padding: "6px 10px", textAlign: "right" }}>δ</th>
+                      <th style={{ padding: "6px 10px", textAlign: "right" }}>P(δ {'>'} 1.0)</th>
+                      <th style={{ padding: "6px 10px", textAlign: "left" }}>Provenance Status</th>
+                      <th style={{ padding: "6px 10px", textAlign: "left" }}>Catalog Attribution</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {peaksData.peaks?.map((pk: any) => {
+                      const status = pk.crossmatch?.status ?? "UNKNOWN";
+                      return (
+                        <tr key={pk.node_id} style={{ borderBottom: "1px solid #F1F5F9" }}>
+                          <td className="mono" style={{ padding: "6px 10px", fontWeight: 700 }}>{pk.node_id}</td>
+                          <td className="mono" style={{ padding: "6px 10px", textAlign: "right" }}>
+                            {(pk.coordinates?.galactic_l_deg ?? 0).toFixed(2)}°, {(pk.coordinates?.galactic_b_deg ?? 0).toFixed(2)}°
+                          </td>
+                          <td className="mono" style={{ padding: "6px 10px", textAlign: "right" }}>{(pk.coordinates?.reconstructed_cz_kms ?? 0).toFixed(0)}</td>
+                          <td className="mono" style={{ padding: "6px 10px", textAlign: "right", fontWeight: 700, color: "#2563EB" }}>+{(pk.reconstructed_delta ?? 0).toFixed(2)}</td>
+                          <td className="mono" style={{ padding: "6px 10px", textAlign: "right" }}>{(pk.exceedance_probability_gt_1 ?? 0).toFixed(3)}</td>
+                          <td style={{ padding: "6px 10px" }}>
+                            <span style={{
+                              padding: "2px 6px",
+                              borderRadius: "3px",
+                              fontSize: "10px",
+                              fontWeight: 700,
+                              backgroundColor: status === "UNCATALOGUED_CANDIDATE_NODE" ? "#DCFCE7" : "#FEF3C7",
+                              color: status === "UNCATALOGUED_CANDIDATE_NODE" ? "#166534" : "#92400E",
+                            }}>
+                              {status}
+                            </span>
+                          </td>
+                          <td style={{ padding: "6px 10px", color: "#475569" }}>{pk.scientific_significance}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
+
+            {/* Tab B: Bayesian Confirmation */}
+            {activeDiscoveryTab === "BAYESIAN" && bayesData && (
+              <div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", marginBottom: "14px" }}>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Total Atlas Evaluated</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#0F172A" }}>{bayesData.total_possible_detections_evaluated ?? 0}</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Tier 1 High Conf.</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#16A34A" }}>{bayesData.tier_breakdown?.tier_1_high_confidence ?? 0}</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Tier 2 Moderate Conf.</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#2563EB" }}>{bayesData.tier_breakdown?.tier_2_moderate_confidence ?? 0}</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Combined Confirm Rate</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#7C3AED" }}>{bayesData.confirmation_rate_percent ?? 0}%</div>
+                  </div>
+                </div>
+
+                <div style={{ maxHeight: "280px", overflowY: "auto", border: "1px solid #E2E8F0", borderRadius: "6px" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "11px" }}>
+                    <thead>
+                      <tr style={{ backgroundColor: "#F8FAFC", borderBottom: "1px solid #E2E8F0", position: "sticky", top: 0 }}>
+                        <th style={{ padding: "6px 10px", textAlign: "left" }}>MeerKAT Atlas Name</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>Galactic (ℓ, b)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>cz (km/s)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>δ</th>
+                        <th style={{ padding: "6px 10px", textAlign: "center" }}>V-Web</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>ln K</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>P(Bayes)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "left" }}>Confidence Tier</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {bayesData.candidates?.slice(0, 50).map((c: any) => {
+                        const pBayes = c.bayesian_scoring?.posterior_confirmation_probability ?? 0;
+                        const tier = c.bayesian_scoring?.confirmation_tier ?? "Tier 3";
+                        return (
+                          <tr key={c.source_id} style={{ borderBottom: "1px solid #F1F5F9" }}>
+                            <td className="mono" style={{ padding: "5px 10px", fontWeight: 600 }}>{c.source_id}</td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>
+                              {(c.coordinates?.galactic_l_deg ?? 0).toFixed(2)}°, {(c.coordinates?.galactic_b_deg ?? 0).toFixed(2)}°
+                            </td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>{(c.kinematics?.heliocentric_cz_kms ?? 0).toFixed(0)}</td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>{(c.reconstruction_context?.reconstructed_delta ?? 0).toFixed(2)}</td>
+                            <td style={{ padding: "5px 10px", textAlign: "center" }}>{c.reconstruction_context?.vweb_morphology ?? "N/A"}</td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>{(c.bayesian_scoring?.bayes_factor_ln ?? 0).toFixed(2)}</td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right", fontWeight: 700, color: pBayes >= 0.8 ? "#16A34A" : "#2563EB" }}>
+                              {(pBayes * 100).toFixed(1)}%
+                            </td>
+                            <td style={{ padding: "5px 10px" }}>
+                              <span style={{
+                                padding: "2px 6px",
+                                borderRadius: "3px",
+                                fontSize: "10px",
+                                fontWeight: 600,
+                                backgroundColor: tier.includes("Tier 1") ? "#DCFCE7" : tier.includes("Tier 2") ? "#EFF6FF" : "#F1F5F9",
+                                color: tier.includes("Tier 1") ? "#166534" : tier.includes("Tier 2") ? "#1E40AF" : "#64748B",
+                              }}>
+                                {tier}
+                              </span>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Tab C: Filament Spine */}
+            {activeDiscoveryTab === "SPINE" && spineData && (
+              <div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", marginBottom: "14px" }}>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Total Ridge Length</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#0F172A" }}>{spineData.metrics?.total_spine_length_mpc ?? 0} Mpc</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Deep ZoA Path (|b| ≤ 5°)</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#2563EB" }}>{spineData.metrics?.deep_zoa_obscured_length_mpc ?? 0} Mpc</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Mean Filament Density</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#16A34A" }}>δ = +{spineData.metrics?.mean_reconstructed_delta ?? 0}</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Bridge Continuity</div>
+                    <div style={{ fontSize: "14px", fontWeight: 700, color: "#7C3AED", marginTop: "4px" }}>{spineData.metrics?.filament_continuity_status ?? "N/A"}</div>
+                  </div>
+                </div>
+
+                <div style={{ maxHeight: "250px", overflowY: "auto", border: "1px solid #E2E8F0", borderRadius: "6px" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "11px" }}>
+                    <thead>
+                      <tr style={{ backgroundColor: "#F8FAFC", borderBottom: "1px solid #E2E8F0", position: "sticky", top: 0 }}>
+                        <th style={{ padding: "6px 10px", textAlign: "left" }}>Node</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>s (Mpc)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>Galactic (ℓ, b)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>cz (km/s)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>δ</th>
+                        <th style={{ padding: "6px 10px", textAlign: "center" }}>V-Web</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>v_|| (km/s)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {spineData.vertices?.map((pt: any) => {
+                        const vwebType = pt.field_properties?.vweb_morphology ?? "Filament";
+                        return (
+                          <tr key={pt.vertex_id} style={{ borderBottom: "1px solid #F1F5F9" }}>
+                            <td className="mono" style={{ padding: "5px 10px", fontWeight: 600 }}>{pt.vertex_id}</td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>{(pt.distance_along_spine_mpc ?? 0).toFixed(1)}</td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>
+                              {(pt.coordinates?.galactic_l_deg ?? 0).toFixed(1)}°, {(pt.coordinates?.galactic_b_deg ?? 0).toFixed(1)}°
+                            </td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>{(pt.coordinates?.reconstructed_cz_kms ?? 0).toFixed(0)}</td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right", fontWeight: 700 }}>{(pt.field_properties?.reconstructed_delta ?? 0).toFixed(2)}</td>
+                            <td style={{ padding: "5px 10px", textAlign: "center" }}>
+                              <span style={{
+                                padding: "2px 6px",
+                                borderRadius: "3px",
+                                fontSize: "10px",
+                                fontWeight: 600,
+                                backgroundColor: vwebType === "Cluster" ? "#FEE2E2" : "#E0E7FF",
+                                color: vwebType === "Cluster" ? "#991B1B" : "#3730A3",
+                              }}>
+                                {vwebType}
+                              </span>
+                            </td>
+                            <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>{Math.abs(pt.field_properties?.v_parallel_inflow_kms ?? 0).toFixed(0)}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+
+            {/* Tab D: Radio Pointings */}
+            {activeDiscoveryTab === "POINTINGS" && dossierData && (
+              <div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px", marginBottom: "14px" }}>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>Total Pointing Targets</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#0F172A" }}>{dossierData.total_pointing_targets ?? 0}</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>High Priority Targets</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#DC2626" }}>{dossierData.summary?.high_priority_targets ?? 0}</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>MeerKAT Req. Hours</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#2563EB" }}>38.0h</div>
+                  </div>
+                  <div style={{ backgroundColor: "#FAF8F5", border: "1px solid #E2E8F0", padding: "10px", borderRadius: "6px" }}>
+                    <div style={{ fontSize: "11px", color: "#64748B" }}>ASKAP Req. Hours</div>
+                    <div style={{ fontSize: "18px", fontWeight: 700, color: "#16A34A" }}>112.0h</div>
+                  </div>
+                </div>
+
+                <div style={{ maxHeight: "250px", overflowY: "auto", border: "1px solid #E2E8F0", borderRadius: "6px" }}>
+                  <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "11px" }}>
+                    <thead>
+                      <tr style={{ backgroundColor: "#F8FAFC", borderBottom: "1px solid #E2E8F0", position: "sticky", top: 0 }}>
+                        <th style={{ padding: "6px 10px", textAlign: "left" }}>Target ID</th>
+                        <th style={{ padding: "6px 10px", textAlign: "left" }}>Category</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>Galactic (ℓ, b)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>ν_obs (MHz)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>log(M_HI)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "right" }}>A_V (mag)</th>
+                        <th style={{ padding: "6px 10px", textAlign: "center" }}>Priority</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {dossierData.targets?.map((p: any) => (
+                        <tr key={p.target_id} style={{ borderBottom: "1px solid #F1F5F9" }}>
+                          <td className="mono" style={{ padding: "5px 10px", fontWeight: 600 }}>{p.target_id}</td>
+                          <td style={{ padding: "5px 10px", color: "#64748B" }}>{p.discovery_route}</td>
+                          <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>
+                            {(p.coordinates?.galactic_l_deg ?? 0).toFixed(2)}°, {(p.coordinates?.galactic_b_deg ?? 0).toFixed(2)}°
+                          </td>
+                          <td className="mono" style={{ padding: "5px 10px", textAlign: "right", fontWeight: 700, color: "#2563EB" }}>
+                            {(p.radio_spectroscopy?.tuning_frequency_21cm_mhz ?? 0).toFixed(2)}
+                          </td>
+                          <td className="mono" style={{ padding: "5px 10px", textAlign: "right" }}>
+                            {(p.radio_spectroscopy?.inferred_log10_mhi_msun ?? 0).toFixed(2)}
+                          </td>
+                          <td className="mono" style={{ padding: "5px 10px", textAlign: "right", color: (p.coordinates?.extinction_av_mag ?? 0) >= 3 ? "#DC2626" : "#475569" }}>
+                            {(p.coordinates?.extinction_av_mag ?? 0).toFixed(2)}
+                          </td>
+                          <td style={{ padding: "5px 10px", textAlign: "center" }}>
+                            <span style={{
+                              padding: "2px 6px",
+                              borderRadius: "3px",
+                              fontSize: "10px",
+                              fontWeight: 700,
+                              backgroundColor: p.priority === "HIGH" ? "#FEE2E2" : "#EFF6FF",
+                              color: p.priority === "HIGH" ? "#991B1B" : "#1E40AF",
+                            }}>
+                              {p.priority}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -669,7 +1029,7 @@ export const Phase8FreezeScore: React.FC<PhaseViewProps> = () => {
       {/* Top Banner */}
       <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "20px" }}>
         <span style={{ fontSize: "11px", fontWeight: 700, color: "#2563EB" }}>PAGE 8 OF 10</span>
-        <h3 style={{ margin: "4px 0 6px 0", fontSize: "18px" }}>7. Freeze &rarr; Reveal &rarr; Score</h3>
+        <h3 style={{ margin: "4px 0 6px 0", fontSize: "18px" }}>7. Freeze → Reveal → Score</h3>
         <p style={{ margin: 0, fontSize: "13px", color: "#64748B" }}>
           A fair test. A real prediction. Real galaxies. Real science. We evaluate the locked prediction against withheld MeerKAT Vela galaxies and 1,000 survey-matched null realizations.
         </p>
@@ -721,13 +1081,13 @@ export const Phase8FreezeScore: React.FC<PhaseViewProps> = () => {
             {/* Left: Significance Metrics */}
             <div>
               <h4 style={{ margin: "0 0 12px 0", fontSize: "15px", color: "#1E293B" }}>
-                Statistical Scoring &amp; Significance
+                Statistical Scoring & Significance
               </h4>
               <div style={{ display: "flex", gap: "16px", marginBottom: "16px" }}>
                 <div style={{ padding: "14px 18px", backgroundColor: "#F0FDF4", borderRadius: "8px", border: "1px solid #86EFAC" }}>
                   <div style={{ fontSize: "11px", color: "#166534" }}>EMPIRICAL Z-SCORE</div>
                   <div style={{ fontSize: "28px", fontWeight: 800, color: "#14532D" }}>
-                    +{scoreData.statistical_significance?.z_score || "4.77"} &sigma;
+                    +{scoreData.statistical_significance?.z_score || "4.77"} σ
                   </div>
                 </div>
 
@@ -794,7 +1154,7 @@ export const Phase8FreezeScore: React.FC<PhaseViewProps> = () => {
                   }}
                 >
                   <span style={{ position: "absolute", top: 0, right: "4px", fontSize: "10px", fontWeight: 700, color: "#DC2626", whiteSpace: "nowrap" }}>
-                    Our Result &rarr;
+                    Our Result →
                   </span>
                 </div>
               </div>
@@ -851,7 +1211,7 @@ export const Phase9HybridIntegrity: React.FC<PhaseViewProps> = ({ onOpen3DLab })
         {/* Part A: Hybrid Reconstruction */}
         <div style={{ backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "20px" }}>
           <h4 style={{ margin: "0 0 10px 0", fontSize: "15px", color: "#1E293B" }}>
-            A. Add MeerKAT &rarr; Hybrid Reconstruction &rarr; Compare
+            A. Add MeerKAT → Hybrid Reconstruction → Compare
           </h4>
           <p style={{ fontSize: "12px", color: "#64748B", lineHeight: "1.5" }}>
             Combine MeerKAT radio observations with existing CMB + galaxy survey data to sharpen cosmic web structures.
@@ -859,13 +1219,13 @@ export const Phase9HybridIntegrity: React.FC<PhaseViewProps> = ({ onOpen3DLab })
 
           <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "14px" }}>
             <div style={{ padding: "10px", backgroundColor: "#FAF8F5", borderRadius: "6px", border: "1px solid #E2E8F0" }}>
-              <strong>&Delta; Density:</strong> Filaments across Zone of Avoidance become 32% more continuous
+              <strong>Δ Density:</strong> Filaments across Zone of Avoidance become 32% more continuous
             </div>
             <div style={{ padding: "10px", backgroundColor: "#FAF8F5", borderRadius: "6px", border: "1px solid #E2E8F0" }}>
-              <strong>&Delta; Velocity:</strong> Velocity divergence field sharpens, reducing local flow noise
+              <strong>Δ Velocity:</strong> Velocity divergence field sharpens, reducing local flow noise
             </div>
             <div style={{ padding: "10px", backgroundColor: "#FAF8F5", borderRadius: "6px", border: "1px solid #E2E8F0" }}>
-              <strong>Reduced Uncertainty:</strong> Voxel variance &sigma;(x) drops by 41% in Vela sector
+              <strong>Reduced Uncertainty:</strong> Voxel variance σ(x) drops by 41% in Vela sector
             </div>
           </div>
 
@@ -917,7 +1277,7 @@ export const Phase9HybridIntegrity: React.FC<PhaseViewProps> = ({ onOpen3DLab })
           </h4>
           <p style={{ fontSize: "12px", color: "#64748B", lineHeight: "1.5" }}>
             Record key runs on the XRPL Testnet to create a tamper-evident record of when it happened and what was run.
-            <em> &ldquo;Proof of chronology, not proof of truth.&rdquo;</em>
+            <em> “Proof of chronology, not proof of truth.”</em>
           </p>
 
           <button
@@ -979,12 +1339,32 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
       })
       .catch((e) => console.warn(e));
 
-    fetch("/reconstruction/runs")
-      .then((r) => (r.ok ? r.json() : Promise.reject(r)))
-      .then((d) => {
-        if (d.runs && d.runs.length > 0) setAvailableRuns(d.runs);
-      })
-      .catch((e) => console.warn(e));
+    const loadRuns = async () => {
+      try {
+        const res = await fetch("/experiments/runs");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setAvailableRuns(data);
+            return;
+          }
+        }
+      } catch (e) {
+        console.warn("Failed to fetch /experiments/runs:", e);
+      }
+      try {
+        const r2 = await fetch("/reconstruction/runs");
+        if (r2.ok) {
+          const d2 = await r2.json();
+          if (d2.runs && d2.runs.length > 0) {
+            setAvailableRuns(d2.runs);
+          }
+        }
+      } catch (e) {
+        console.warn("Failed to fetch /reconstruction/runs:", e);
+      }
+    };
+    loadRuns();
   }, []);
 
   useEffect(() => {
@@ -1012,7 +1392,7 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
       {/* Top Banner */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#FFFFFF", border: "1px solid #E2E8F0", borderRadius: "10px", padding: "20px", flexWrap: "wrap", gap: "16px" }}>
         <div>
-          <span style={{ fontSize: "11px", fontWeight: 700, color: "#2563EB" }}>PAGE 10 OF 10 &bull; FINISH LINE</span>
+          <span style={{ fontSize: "11px", fontWeight: 700, color: "#2563EB" }}>PAGE 10 OF 10 • FINISH LINE</span>
           <h3 style={{ margin: "4px 0 6px 0", fontSize: "20px", fontWeight: 800 }}>9. From Results to Paper</h3>
           <p style={{ margin: 0, fontSize: "13px", color: "#64748B" }}>
             Same data. Deeper understanding. Real impact. Export the complete reproducibility bundle, inspect manuscript drafts, and review publication figures.
@@ -1041,7 +1421,7 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", flexWrap: "wrap", gap: "12px" }}>
           <div>
             <h4 style={{ margin: 0, fontSize: "15px", fontWeight: 700, color: "#0F172A" }}>
-              Publication Figures (300 DPI) &amp; Tables
+              Publication Figures (300 DPI) & Tables
             </h4>
             <span style={{ fontSize: "12px", color: "#64748B" }}>
               Self-contained figure suites generated directly from live field arrays and sealed in <code>figures_manifest.json</code>.
@@ -1066,15 +1446,29 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
                 cursor: "pointer",
               }}
             >
-              {availableRuns.length > 0 ? (
-                availableRuns.map((r) => (
-                  <option key={r.run_id} value={r.run_id}>
-                    {r.run_id} {r.run_id === "VELA-001" ? "(Primary Confirmatory)" : r.has_figures ? `(${r.figures_count} figs)` : ""}
+              {Array.from(new Set([
+                "VELA-001",
+                "GA-001",
+                "WALLABY-001",
+                ...availableRuns.map((r) => r.run_id).filter(Boolean)
+              ])).map((rid) => {
+                const rObj = availableRuns.find((r) => r.run_id === rid);
+                const label =
+                  rid === "VELA-001"
+                    ? `${rid} (Primary Confirmatory)`
+                    : rid === "GA-001"
+                    ? `${rid} (Great Attractor Blind H I)`
+                    : rid === "WALLABY-001"
+                    ? `${rid} (WALLABY DR2 Blind H I)`
+                    : rObj?.has_figures
+                    ? `${rid} (${rObj.figures_count} figs)`
+                    : rid;
+                return (
+                  <option key={rid} value={rid}>
+                    {label}
                   </option>
-                ))
-              ) : (
-                <option value="VELA-001">VELA-001 (Primary Confirmatory)</option>
-              )}
+                );
+              })}
             </select>
           </div>
         </div>
@@ -1114,6 +1508,34 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
                 desc: "Post-unblinding differential delta (Δδ) and posterior uncertainty reduction.",
                 pngFile: "figure4_hybrid_differential.png",
                 svgFile: "figure4_hybrid_differential.svg",
+              },
+              {
+                id: "fig5",
+                title: "Figure 5: Blind ZoA Topological Peaks",
+                desc: "26-neighbor 3D local maxima discovery across the deep Zone of Avoidance (|b| ≤ 5°).",
+                pngFile: "figure5_blind_topological_peaks.png",
+                svgFile: "figure5_blind_topological_peaks.svg",
+              },
+              {
+                id: "fig6",
+                title: "Figure 6: Bayesian Confirmation",
+                desc: "Full Bayesian cosmic web confirmation of 197 MeerKAT Vela-SMGPS Atlas candidates.",
+                pngFile: "figure6_bayesian_197_confirmation.png",
+                svgFile: "figure6_bayesian_197_confirmation.svg",
+              },
+              {
+                id: "fig7",
+                title: "Figure 7: Filament Spine Bridge",
+                desc: "Continuous cosmic web filament trajectory bridging Norma Cluster to Vela Supercluster.",
+                pngFile: "figure7_filament_spine_bridge.png",
+                svgFile: "figure7_filament_spine_bridge.svg",
+              },
+              {
+                id: "fig8",
+                title: "Figure 8: Radio Follow-up Sky Dossier",
+                desc: "Multi-wavelength radio follow-up telescope pointing sky dossier across Routes A-C.",
+                pngFile: "figure8_radio_pointing_sky_dossier.png",
+                svgFile: "figure8_radio_pointing_sky_dossier.svg",
               },
             ].map((fig) => {
               const pngObj = runFiguresData?.figures?.find((f: any) => f.filename === fig.pngFile);
@@ -1327,10 +1749,10 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
           <thead>
             <tr style={{ backgroundColor: "#F8FAFC", borderBottom: "1px solid #E2E8F0" }}>
               <th style={{ padding: "8px 12px", textAlign: "left" }}>Method</th>
-              <th style={{ padding: "8px 12px", textAlign: "right" }}>HV &uarr;</th>
-              <th style={{ padding: "8px 12px", textAlign: "right" }}>IGD &darr;</th>
+              <th style={{ padding: "8px 12px", textAlign: "right" }}>HV ↑</th>
+              <th style={{ padding: "8px 12px", textAlign: "right" }}>IGD ↓</th>
               <th style={{ padding: "8px 12px", textAlign: "right" }}>Time (s)</th>
-              <th style={{ padding: "8px 12px", textAlign: "right" }}>Z-Score &sigma;</th>
+              <th style={{ padding: "8px 12px", textAlign: "right" }}>Z-Score σ</th>
             </tr>
           </thead>
           <tbody>
@@ -1345,6 +1767,146 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
             ))}
           </tbody>
         </table>
+
+        {/* Publication Discovery & Pipeline Tables */}
+        <div style={{ marginTop: "24px" }}>
+          <h5 style={{ margin: "0 0 10px 0", fontSize: "14px", fontWeight: 700, color: "#0F172A" }}>
+            Publication Tables & Catalogs
+          </h5>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "12px" }}>
+            {[
+              {
+                id: "tab-a",
+                title: "Table Route A: Blind ZoA Topological Peaks",
+                desc: "26-neighbor local maxima with multi-survey cross-matching against CF4, 2MRS, and HIZOA-S.",
+                csv: "/paper/tables/table_route_a_topological_peaks.csv",
+                tex: "/paper/tables/table_route_a_topological_peaks.tex",
+                badge: "Route A • 4 Candidates",
+              },
+              {
+                id: "tab-b",
+                title: "Table Route B: Confirmed Atlas Candidates",
+                desc: "197 MeerKAT Atlas possible detections with Bayesian log-odds and environmental overdensity.",
+                csv: "/paper/tables/table_route_b_confirmed_candidates.csv",
+                tex: "/paper/tables/table_route_b_confirmed_candidates.tex",
+                badge: "Route B • 197 Evaluated",
+              },
+              {
+                id: "tab-c",
+                title: "Table Route C: Filament Spine Trajectory",
+                desc: "Continuous 166 Mpc 3D path from Great Attractor/Norma to Vela across the deep ZoA.",
+                csv: "/paper/tables/table_route_c_filament_spines.csv",
+                tex: "/paper/tables/table_route_c_filament_spines.tex",
+                badge: "Route C • 25 Nodes",
+              },
+              {
+                id: "tab-d",
+                title: "Table Route D: Actionable Radio Pointings",
+                desc: "Prioritized telescope pointings with 21cm ν_obs, inferred log(M_HI), and integration times.",
+                csv: "/paper/tables/table_route_d_radio_pointings.csv",
+                tex: "/paper/tables/table_route_d_radio_pointings.tex",
+                badge: "Route D • 28 Pointings",
+              },
+              {
+                id: "tab-1",
+                title: "Table 1: Data Footprints & Tracers",
+                desc: "Survey coverage, sky footprints, and tracer counts across 2MRS, CF4, and HIZOA-S.",
+                csv: "/paper/tables/table1_data_footprints.csv",
+                tex: "/paper/tables/table1_data_footprints.tex",
+                badge: "Core Pipeline",
+              },
+              {
+                id: "tab-2",
+                title: "Table 2: Leakage & Decontamination",
+                desc: "39 HIZOA overlap isolation, boundary quarantine, and cryptographic audit summary.",
+                csv: "/paper/tables/table2_leakage_decontamination.csv",
+                tex: "/paper/tables/table2_leakage_decontamination.tex",
+                badge: "Core Pipeline",
+              },
+              {
+                id: "tab-3",
+                title: "Table 3: Reconstruction Hyperparameters",
+                desc: "Wiener filter prior, grid resolution (12.5 h⁻¹ Mpc), cosmology, and mock benchmarks.",
+                csv: "/paper/tables/table3_reconstruction_config.csv",
+                tex: "/paper/tables/table3_reconstruction_config.tex",
+                badge: "Core Pipeline",
+              },
+              {
+                id: "tab-4",
+                title: "Table 4: Confirmatory Holdout Metrics",
+                desc: "Sealed holdout scoring against MeerKAT Vela-SMGPS with empirical p-value and effect size.",
+                csv: "/paper/tables/table4_validation_metrics.csv",
+                tex: "/paper/tables/table4_validation_metrics.tex",
+                badge: "Core Pipeline",
+              },
+            ].map((tbl) => (
+              <div
+                key={tbl.id}
+                style={{
+                  border: "1px solid #E2E8F0",
+                  borderRadius: "6px",
+                  padding: "12px",
+                  backgroundColor: "#FAF8F5",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                }}
+              >
+                <div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                    <span style={{ fontSize: "10px", fontWeight: 700, color: "#2563EB", backgroundColor: "#EFF6FF", padding: "2px 6px", borderRadius: "3px" }}>
+                      {tbl.badge}
+                    </span>
+                  </div>
+                  <div style={{ fontWeight: 700, fontSize: "12px", color: "#0F172A", marginBottom: "4px" }}>
+                    {tbl.title}
+                  </div>
+                  <div style={{ fontSize: "11px", color: "#64748B", lineHeight: "1.4", marginBottom: "10px" }}>
+                    {tbl.desc}
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: "8px" }}>
+                  <a
+                    href={tbl.csv}
+                    download
+                    style={{
+                      flex: 1,
+                      textAlign: "center",
+                      padding: "4px 0",
+                      fontSize: "11px",
+                      fontWeight: 600,
+                      backgroundColor: "#FFFFFF",
+                      border: "1px solid #CBD5E1",
+                      borderRadius: "4px",
+                      color: "#1E293B",
+                      textDecoration: "none",
+                    }}
+                  >
+                    CSV
+                  </a>
+                  <a
+                    href={tbl.tex}
+                    download
+                    style={{
+                      flex: 1,
+                      textAlign: "center",
+                      padding: "4px 0",
+                      fontSize: "11px",
+                      fontWeight: 600,
+                      backgroundColor: "#FFFFFF",
+                      border: "1px solid #CBD5E1",
+                      borderRadius: "4px",
+                      color: "#1E293B",
+                      textDecoration: "none",
+                    }}
+                  >
+                    LaTeX (.tex)
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       {/* Lightbox Modal for Phase 10 */}
@@ -1528,11 +2090,11 @@ export const Phase10PaperFactory: React.FC<PhaseViewProps> = () => {
             PRE-SUBMISSION AUDIT CHECKLIST
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: "4px", fontSize: "11px", color: "#334155" }}>
-            <div>&#10003; Methods and results mathematically consistent</div>
-            <div>&#10003; Figures and tables clear with units</div>
-            <div>&#10003; Reproducibility bundle complete and verified</div>
-            <div>&#10003; Citations and data ethics checked</div>
-            <div>&#10003; Ready for submission!</div>
+            <div>✓ Methods and results mathematically consistent</div>
+            <div>✓ Figures and tables clear with units</div>
+            <div>✓ Reproducibility bundle complete and verified</div>
+            <div>✓ Citations and data ethics checked</div>
+            <div>✓ Ready for submission!</div>
           </div>
         </div>
       </div>

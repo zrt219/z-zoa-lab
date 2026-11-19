@@ -1,4 +1,4 @@
-"""Z-ZOA Research Run Anchoring and Notarization Layer for XRPL Testnet."""
+"""Z-ZOA Research Run Anchoring and Notarization Layer for XRPL Testnet & XRPL EVM Sidechain."""
 
 from research.ledger.anchor import (
     ResearchStage,
@@ -8,8 +8,10 @@ from research.ledger.anchor import (
 )
 from research.ledger.receipt import (
     AnchorReceipt,
+    DualAnchorReceipt,
     save_receipt,
     get_receipt,
+    get_dual_receipt,
     TESTNET_DISCLAIMER,
 )
 from research.ledger.verify import (
@@ -31,15 +33,28 @@ from research.ledger.canonicalize import (
     build_canonical_anchor_manifest,
     compute_anchor_payload_hash,
 )
+from research.ledger.evm_client import (
+    get_evm_client,
+    check_evm_connectivity,
+    load_evm_credentials,
+    EVMClient,
+    XRPL_EVM_CHAIN_ID,
+    XRPL_EVM_CHAIN_ID_HEX,
+    DEFAULT_XRPL_EVM_RPC,
+    XRPL_EVM_EXPLORER_URL,
+    DEFAULT_CONTRACT_ADDRESS,
+)
 
 __all__ = [
     "anchor_run",
     "verify_anchor",
     "verify_chain",
     "get_receipt",
+    "get_dual_receipt",
     "ResearchStage",
     "AnchorStatus",
     "AnchorReceipt",
+    "DualAnchorReceipt",
     "VerificationResult",
     "XRPLAnchorError",
     "save_receipt",
@@ -54,4 +69,13 @@ __all__ = [
     "compute_sha256",
     "build_canonical_anchor_manifest",
     "compute_anchor_payload_hash",
+    "get_evm_client",
+    "check_evm_connectivity",
+    "load_evm_credentials",
+    "EVMClient",
+    "XRPL_EVM_CHAIN_ID",
+    "XRPL_EVM_CHAIN_ID_HEX",
+    "DEFAULT_XRPL_EVM_RPC",
+    "XRPL_EVM_EXPLORER_URL",
+    "DEFAULT_CONTRACT_ADDRESS",
 ]

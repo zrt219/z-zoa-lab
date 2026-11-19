@@ -10,6 +10,6 @@
 - Dec range: [-62.7267, 8.5731] deg
 - Galactic l range: [262.2087, 332.9156] deg
 - Galactic b range: [-13.7589, 71.3481] deg
-- Velocity range (cz): [-299792.2, -299792.1] km/s
+- Velocity range (cz): [526.5, 26347.1] km/s
 - Coordinate system: Astropy ICRS -> Galactic (l,b) -> Supergalactic (SGL, SGB)
 - Frame tags preserved: {'BARYCENTRIC'}
